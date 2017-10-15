@@ -73,24 +73,26 @@
                 <button type="submit" class="btn btn-success btn-sm"><i class="md-search"></i>&nbsp; Cari</button>
               </div>
             </form>
-            <!-- Print report by filter -->
-            <form target="_blank" action="{{ url('/dashboard/reports/legalisir/filter') }}" method="GET" style="position: relative; bottom: 32.5px; margin-left: 70px;">
-              {{ csrf_field() }}
+            @if ( Auth::user()->isAdmin() != 0 )
+              <!-- Print report by filter -->
+              <form target="_blank" action="{{ url('/dashboard/reports/legalisir/filter') }}" method="GET" style="position: relative; bottom: 32.5px; margin-left: 70px;">
+                {{ csrf_field() }}
 
-              <input type="hidden" id="report-filter-nik" name="nik">
-              <input type="hidden" id="report-filter-nama" name="nama">
-              <input type="hidden" id="report-filter-rt" name="rt">
-              <input type="hidden" id="report-filter-rw" name="rw">
-              <input type="hidden" id="report-filter-kelurahan" name="kelurahan">
-              <input type="hidden" id="report-filter-jenis-berkas" name="jenis_berkas">
+                <input type="hidden" id="report-filter-nik" name="nik">
+                <input type="hidden" id="report-filter-nama" name="nama">
+                <input type="hidden" id="report-filter-rt" name="rt">
+                <input type="hidden" id="report-filter-rw" name="rw">
+                <input type="hidden" id="report-filter-kelurahan" name="kelurahan">
+                <input type="hidden" id="report-filter-jenis-berkas" name="jenis_berkas">
 
-              <input type="hidden" id="report-filter-status" name="status">
+                <input type="hidden" id="report-filter-status" name="status">
 
-              <input type="hidden" id="report-filter-tanggal-dari" name="tanggal_dari">
-              <input type="hidden" id="report-filter-tanggal-sampai" name="tanggal_sampai">
+                <input type="hidden" id="report-filter-tanggal-dari" name="tanggal_dari">
+                <input type="hidden" id="report-filter-tanggal-sampai" name="tanggal_sampai">
 
-              <button type="submit" class="btn btn-primary btn-sm"><i class="md-print"></i>&nbsp; Print Report</button>
-            </form>
+                <button type="submit" class="btn btn-primary btn-sm"><i class="md-print"></i>&nbsp; Print Report</button>
+              </form>
+            @endif
           </div>
         </div>
       </div>

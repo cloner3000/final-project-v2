@@ -111,35 +111,37 @@
                 <button type="submit" class="btn btn-success btn-sm"><i class="md-search"></i>&nbsp; Cari</button>
               </div>
             </form>
-            <!-- Print report by filter -->
-            <form target="_blank" action="{{ url('/dashboard/reports/pindahdatang/filter') }}" method="GET" style="position: relative; bottom: 32.5px; margin-left: 70px;">
-              {{ csrf_field() }}
-              
-              <input type="hidden" id="report-filter-nik" name="nik">
-              <input type="hidden" id="report-filter-nama" name="nama">
-              <input type="hidden" id="report-filter-jenis-kelamin" name="jenis_kelamin">
-              <input type="hidden" id="report-filter-tempat-lahir" name="tempat-lahir">
-              <input type="hidden" id="report-filter-tanggal-lahir" name="tanggal_lahir">
-              <input type="hidden" id="report-filter-kewarganegaraan" name="kewarganegaraan">
+            @if ( Auth::user()->isAdmin() != 0 )
+              <!-- Print report by filter -->
+              <form target="_blank" action="{{ url('/dashboard/reports/pindahdatang/filter') }}" method="GET" style="position: relative; bottom: 32.5px; margin-left: 70px;">
+                {{ csrf_field() }}
+                
+                <input type="hidden" id="report-filter-nik" name="nik">
+                <input type="hidden" id="report-filter-nama" name="nama">
+                <input type="hidden" id="report-filter-jenis-kelamin" name="jenis_kelamin">
+                <input type="hidden" id="report-filter-tempat-lahir" name="tempat-lahir">
+                <input type="hidden" id="report-filter-tanggal-lahir" name="tanggal_lahir">
+                <input type="hidden" id="report-filter-kewarganegaraan" name="kewarganegaraan">
 
-              <input type="hidden" id="report-filter-golongan-darah" name="gol_darah">
-              <input type="hidden" id="report-filter-agama" name="agama">
-              <input type="hidden" id="report-filter-status-perkawinan" name="status_perkawinan">
-              <input type="hidden" id="report-filter-shdk" name="shdk">
-              <input type="hidden" id="report-filter-pendidikan" name="pendidikan">
-              <input type="hidden" id="report-filter-pekerjaan" name="pekerjaan">
+                <input type="hidden" id="report-filter-golongan-darah" name="gol_darah">
+                <input type="hidden" id="report-filter-agama" name="agama">
+                <input type="hidden" id="report-filter-status-perkawinan" name="status_perkawinan">
+                <input type="hidden" id="report-filter-shdk" name="shdk">
+                <input type="hidden" id="report-filter-pendidikan" name="pendidikan">
+                <input type="hidden" id="report-filter-pekerjaan" name="pekerjaan">
 
-              <input type="hidden" id="report-filter-rt" name="rt">
-              <input type="hidden" id="report-filter-rw" name="rw">
-              <input type="hidden" id="report-filter-kelurahan" name="kelurahan">
+                <input type="hidden" id="report-filter-rt" name="rt">
+                <input type="hidden" id="report-filter-rw" name="rw">
+                <input type="hidden" id="report-filter-kelurahan" name="kelurahan">
 
-              <input type="hidden" id="report-filter-status" name="status">
+                <input type="hidden" id="report-filter-status" name="status">
 
-              <input type="hidden" id="report-filter-tanggal-dari" name="tanggal_dari">
-              <input type="hidden" id="report-filter-tanggal-sampai" name="tanggal_sampai">
+                <input type="hidden" id="report-filter-tanggal-dari" name="tanggal_dari">
+                <input type="hidden" id="report-filter-tanggal-sampai" name="tanggal_sampai">
 
-              <button type="submit" class="btn btn-primary btn-sm"><i class="md-print"></i>&nbsp; Print Report</button>
-            </form>
+                <button type="submit" class="btn btn-primary btn-sm"><i class="md-print"></i>&nbsp; Print Report</button>
+              </form>
+            @endif
           </div>
         </div>
       </div>
