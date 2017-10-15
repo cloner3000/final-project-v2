@@ -43,12 +43,6 @@
                     @elseif (isset($pindahkeluar))
                         <h4 class="text-center">Laporan Pemohon Pindah Keluar</h4>
                     @endif
-
-                    @if (isset($formattedStarts) && isset($formattedEnds))
-                        <p>Per Tanggal : {{ $formattedStarts }} - {{ $formattedEnds }}</p>
-                    @else
-                        <p>Kelurahan : {{ $kelurahan }}</p>
-                    @endif
                     
                     <p>Jumlah Data : {{ $count }}</p>
             	</div>

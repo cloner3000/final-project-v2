@@ -10,10 +10,12 @@ function initLegalisir() {
         $('#filter-legalisir-card').slideToggle();
         
         $('#filter-legalisir-tanggal-dari').datepicker({
-            format: 'yyyy-mm-dd'
+            format: 'yyyy-mm-dd',
+            autoclose: true
         });
         $('#filter-legalisir-tanggal-sampai').datepicker({
-            format: 'yyyy-mm-dd'
+            format: 'yyyy-mm-dd',
+            autoclose: true
         });
     });
 }

@@ -15,7 +15,7 @@ class CreateKtpsTable extends Migration
     {
         Schema::create('ktp', function (Blueprint $table) {
             $table->increments('id');
-            $table->bigInteger('nik')->unique();
+            $table->bigInteger('nik');
             $table->string('nama');
             $table->char('jenis_kelamin', 1);
             $table->string('tempat_lahir');
@@ -38,7 +38,7 @@ class CreateKtpsTable extends Migration
         });
 
         Schema::table('ktp', function($table) {
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

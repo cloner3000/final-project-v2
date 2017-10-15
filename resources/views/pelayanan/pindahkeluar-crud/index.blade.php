@@ -110,7 +110,36 @@
               <div class="form-group">
                 <button type="submit" class="btn btn-success btn-sm"><i class="md-search"></i>&nbsp; Cari</button>
               </div>
-            </form><br>
+            </form>
+            <!-- Print report by filter -->
+            <form target="_blank" action="{{ url('/dashboard/reports/pindahkeluar/filter') }}" method="GET" style="position: relative; bottom: 32.5px; margin-left: 70px;">
+              {{ csrf_field() }}
+              
+              <input type="hidden" id="report-filter-nik" name="nik">
+              <input type="hidden" id="report-filter-nama" name="nama">
+              <input type="hidden" id="report-filter-jenis-kelamin" name="jenis_kelamin">
+              <input type="hidden" id="report-filter-tempat-lahir" name="tempat-lahir">
+              <input type="hidden" id="report-filter-tanggal-lahir" name="tanggal_lahir">
+              <input type="hidden" id="report-filter-kewarganegaraan" name="kewarganegaraan">
+
+              <input type="hidden" id="report-filter-golongan-darah" name="gol_darah">
+              <input type="hidden" id="report-filter-agama" name="agama">
+              <input type="hidden" id="report-filter-status-perkawinan" name="status_perkawinan">
+              <input type="hidden" id="report-filter-shdk" name="shdk">
+              <input type="hidden" id="report-filter-pendidikan" name="pendidikan">
+              <input type="hidden" id="report-filter-pekerjaan" name="pekerjaan">
+
+              <input type="hidden" id="report-filter-rt" name="rt">
+              <input type="hidden" id="report-filter-rw" name="rw">
+              <input type="hidden" id="report-filter-kelurahan" name="kelurahan">
+
+              <input type="hidden" id="report-filter-status" name="status">
+
+              <input type="hidden" id="report-filter-tanggal-dari" name="tanggal_dari">
+              <input type="hidden" id="report-filter-tanggal-sampai" name="tanggal_sampai">
+
+              <button type="submit" class="btn btn-primary btn-sm"><i class="md-print"></i>&nbsp; Print Report</button>
+            </form>
           </div>
         </div>
       </div>
@@ -129,9 +158,8 @@
             <div style="top: 10px">
               <button id="filter-pindahkeluar" class="btn btn-default btn-sm" style="float: right; top: 105px"><i class="md-filter-list"></i>&nbsp; Filter Data</button>
               @if (Auth::user()->isAdmin() == 0)
-                <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#pindahkeluar-create-modal" style="float: right; top: 105px; right: 10px"><i class="md-collection-plus"></i>&nbsp; Entri Data</button>
-              @else
-                <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#reports-pindahkeluar-modal" style="float: right; top: 105px; right: 20px"><i class="md-print"></i>&nbsp; Print Report</button>
+                <button class="btn btn-primary btn-sm btn-new" data-toggle="modal" data-target="#pindahkeluar-create-modal" style="float: right; top: 105px; right: 10px"><i class="md-collection-plus"></i>&nbsp; Entri Data</button>
+                {{-- <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#reports-pindahkeluar-modal" style="float: right; top: 105px; right: 20px"><i class="md-print"></i>&nbsp; Print Report</button> --}}
               @endif
             </div>
           </div>
@@ -182,6 +210,8 @@
           d.jenis_kelamin = $('#filter-pindahkeluar-jenis-kelamin').val(),
           d.tempat_lahir = $('#filter-pindahkeluar-tempat-lahir').val(),
           d.tanggal_lahir = $('#filter-pindahkeluar-tanggal-lahir').val(),
+          d.kewarganegaraan = $('#filter-pindahkeluar-kewarganegaraan').val(),
+          d.gol_darah = $('#filter-pindahkeluar-golongan-darah').val(),
           d.agama = $('#filter-pindahkeluar-agama').val(),
           d.status_perkawinan = $('#filter-pindahkeluar-status-perkawinan').val(),
           d.shdk = $('#filter-pindahkeluar-shdk').val(),
@@ -190,7 +220,9 @@
           d.rt = $('#filter-pindahkeluar-rt').val(),
           d.rw = $('#filter-pindahkeluar-rw').val(),
           d.kelurahan = $('#filter-pindahkeluar-kelurahan').val(),
+
           d.status = $('#filter-pindahkeluar-status').val(),
+          
           d.tanggal_dari = $('#filter-pindahkeluar-tanggal-dari').val(),
           d.tanggal_sampai = $('#filter-pindahkeluar-tanggal-sampai').val()
         }
@@ -207,6 +239,12 @@
 
      // Core : draw datatables!
      $('#pindahkeluar-table').on('draw.dt', function() {
+
+      // New Pindah Keluar
+      $('.btn-new').click(function() {
+        clearErrorCreateField();
+        clearCreateField();
+      });
 
       // Show Pindah Keluar
       $('.pindahkeluar-show').click(function() {
@@ -239,6 +277,8 @@
 
       // Edit Pindah Keluar
       $('.pindahkeluar-edit').click(function() {
+        
+        $('#check-status').prop('checked', false);
         /* Get the value and store to temporary variable */
         let id = $(this).data('id');
         let no_kk = $(this).data('no_kk');
@@ -278,6 +318,30 @@
       // Submit Filter
       $('#filter-pindahkeluar-form').submit(function(e) {
           e.preventDefault();
+
+          $('#report-filter-nik').val($('#filter-pindahkeluar-nik').val());
+          $('#report-filter-nama').val($('#filter-pindahkeluar-nama').val());
+          $('#report-filter-jenis-kelamin').val($('#filter-pindahkeluar-jenis-kelamin').val());
+          $('#report-filter-tempat-lahir').val($('#filter-pindahkeluar-tempat-lahir').val());
+          $('#report-filter-tanggal-lahir').val($('#filter-pindahkeluar-tanggal-lahir').val());
+          $('#report-filter-kewarganegaraan').val($('#filter-pindahkeluar-kewarganegaraan').val());
+
+          $('#report-filter-golongan-darah').val($('#filter-pindahkeluar-golongan-darah').val());
+          $('#report-filter-agama').val($('#filter-pindahkeluar-agama').val());
+          $('#report-filter-status-perkawinan').val($('#filter-pindahkeluar-status-perkawinan').val());
+          $('#report-filter-shdk').val($('#filter-pindahkeluar-shdk').val());
+          $('#report-filter-pendidikan').val($('#filter-pindahkeluar-pendidikan').val());
+          $('#report-filter-pekerjaan').val($('#filter-pindahkeluar-pekerjaan').val());
+
+          $('#report-filter-rt').val($('#filter-pindahkeluar-rt').val());
+          $('#report-filter-rw').val($('#filter-pindahkeluar-rw').val());
+          $('#report-filter-kelurahan').val($('#filter-pindahkeluar-kelurahan').val());
+
+          $('#report-filter-status').val($('#filter-pindahkeluar-status').val());
+
+          $('#report-filter-tanggal-dari').val($('#filter-pindahkeluar-tanggal-dari').val());
+          $('#report-filter-tanggal-sampai').val($('#filter-pindahkeluar-tanggal-sampai').val());
+
           pindahkeluar_table.draw();
       });
 

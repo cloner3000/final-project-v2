@@ -56,7 +56,7 @@
   </div>
 </div>
 
-<!-- User Create Modal -->
+<!-- User Show Modal -->
 <div class="modal fade" id="user-show-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">

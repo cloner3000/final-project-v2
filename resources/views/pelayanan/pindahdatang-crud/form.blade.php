@@ -687,7 +687,7 @@
                       <input type="hidden" id="status" name="status" value="0">
                       @if (Auth::user()->isAdmin() != 0)
                         <div class="checkbox-custom checkbox-primary">
-                          <input type="checkbox" id="status" name="status" value="1" />
+                          <input type="checkbox" id="check-status" name="status" value="1" />
                           <label for="status">Sudah Dicek</label>
                         </div>
                       @endif

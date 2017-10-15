@@ -99,17 +99,6 @@
   <script src="{{ asset('vendor/asscrollbar/jquery-asScrollbar.js') }}"></script>
   <script src="{{ asset('vendor/asscrollable/jquery-asScrollable.js') }}"></script>
   <script src="{{ asset('vendor/waves/waves.js') }}"></script>
-  <!-- Plugins -->
-  <script src="{{ asset('vendor/switchery/switchery.min.js') }}"></script>
-  <script src="{{ asset('vendor/intro-js/intro.js') }}"></script>
-  <script src="{{ asset('vendor/screenfull/screenfull.js') }}"></script>
-  <script src="{{ asset('vendor/slidepanel/jquery-slidePanel.js') }}"></script>
-  <script src="{{ asset('vendor/chartist-plugin-tooltip/chartist-plugin-tooltip.min.js') }}"></script>
-  <script src="{{ asset('vendor/jvectormap/jquery-jvectormap.min.js') }}"></script>
-  <script src="{{ asset('vendor/jvectormap/maps/jquery-jvectormap-world-mill-en.js') }}"></script>
-  <script src="{{ asset('vendor/matchheight/jquery.matchHeight-min.js') }}"></script>
-  <script src="{{ asset('vendor/peity/jquery.peity.min.js') }}"></script>
-  <script src="{{ asset('vendor/jquery-placeholder/jquery.placeholder.js') }}"></script>
   <!-- Scripts -->
   <script src="{{ asset('js/State.js') }}"></script>
   <script src="{{ asset('js/Component.js') }}"></script>
@@ -139,6 +128,7 @@
       $('.message').hide();
       
       $('#login-form').submit(function(e) {
+        $('.btn-login').addClass('disabled');
         $('.btn-login').html('Please wait...');
         e.preventDefault();
         /* Act on the event */
@@ -153,8 +143,10 @@
             if (data.status == 'login failed') {
               $('.message').show();
               $('.notification').html('Username atau password salah!');
+              $('.btn-login').removeClass('disabled');
               $('.btn-login').html('Sign in');
             } else {
+              $('.btn-login').removeClass('disabled');
               $('.btn-login').html('Sign in');
               location.reload();
             }

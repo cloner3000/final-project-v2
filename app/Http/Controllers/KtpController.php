@@ -12,6 +12,8 @@ use PDF;
 
 class KtpController extends Controller
 {
+    protected $user;
+
     /**
      * Create a new controller instance.
      *
@@ -19,7 +21,11 @@ class KtpController extends Controller
      */
     public function __construct()
     {
-        
+        $this->middleware(function ($request, $next) {
+            $this->user = Auth::check() && Auth::user()->isAdmin();
+
+            return $next($request);
+        });
     }
 
     /**
@@ -205,44 +211,50 @@ class KtpController extends Controller
 
         return DataTables::of($ktps)
                 ->filter( function ($query) use ($request) {
-                    if ($request->has('nik')) {
+                    if ($request->input('nik')) {
                         $query->where('nik', 'like', "%{$request->nik}%");
                     }
-                    if ($request->has('nama')) {
+                    if ($request->input('nama')) {
                         $query->where('nama', 'like', "%{$request->nama}%");
                     }
-                    if ($request->has('jenis_kelamin')) {
-                        $query->where('jenis_kelamin', 'like', "%{$request->jenis_kelamin}%");
+                    if ($request->input('jenis_kelamin')) {
+                        $query->where('jenis_kelamin', '=', $request->jenis_kelamin);
                     }
-                    if ($request->has('tempat_lahir')) {
+                    if ($request->input('tempat_lahir')) {
                         $query->where('tempat_lahir', 'like', "%{$request->tempat_lahir}%");
                     }
-                    if ($request->has('tanggal_lahir')) {
+                    if ($request->input('tanggal_lahir')) {
                         $query->where('tanggal_lahir', 'like', "%{$request->tanggal_lahir}%");
                     }
-                    if ($request->has('agama')) {
-                        $query->where('agama', 'like', "%{$request->agama}%");
+                    if ($request->input('kewarganegaraan')) {
+                        $query->where('kewarganegaraan', '=', $request->kewarganegaraan);
                     }
-                    if ($request->has('status_perkawinan')) {
-                        $query->where('status_perkawinan', 'like', "%{$request->status_perkawinan}%");
+                    if ($request->input('gol_darah')) {
+                        $query->where('gol_darah', '=', $request->gol_darah);
                     }
-                    if ($request->has('pendidikan')) {
-                        $query->where('pendidikan', 'like', "%{$request->pendidikan}%");
+                    if ($request->input('agama')) {
+                        $query->where('agama', '=', $request->agama);
                     }
-                    if ($request->has('pekerjaan')) {
-                        $query->where('pekerjaan', 'like', "%{$request->pekerjaan}%");
+                    if ($request->input('status_perkawinan')) {
+                        $query->where('status_perkawinan', '=', $request->status_perkawinan);
                     }
-                    if ($request->has('rt')) {
-                        $query->where('rt', 'like', "%{$request->rt}%");
+                    if ($request->input('pendidikan')) {
+                        $query->where('pendidikan', '=', $request->pendidikan);
                     }
-                    if ($request->has('rw')) {
-                        $query->where('rw', 'like', "%{$request->rw}%");
+                    if ($request->input('pekerjaan')) {
+                        $query->where('pekerjaan', '=', $request->pekerjaan);
+                    }
+                    if ($request->input('rt')) {
+                        $query->where('rt', '=', $request->rt);
+                    }
+                    if ($request->input('rw')) {
+                        $query->where('rw', '=', $request->rw);
                     }
                     if ($request->has('status')) {
                         $query->where('status', '=', $request->status);
                     }
-                    if ($request->has('kelurahan')) {
-                        $query->where('kelurahan', 'like', "%{$request->kelurahan}%");
+                    if ($request->input('kelurahan')) {
+                        $query->where('kelurahan', '=', $request->kelurahan);
                     }
                     if ($request->input('tanggal_dari') && $request->input('tanggal_sampai')) {
                         $query->whereBetween('created_at', [$request->tanggal_dari, $request->tanggal_sampai]);
@@ -306,8 +318,89 @@ class KtpController extends Controller
                     class="btn btn-danger btn-xs ktp-delete"
                     data-id="'. $ktp->id .'"
                     data-nik="'. $ktp->nik .'"
-                    ><i class="md-delete"></i></button>';
-                })->make(true);
+                    ><i class="md-delete"></i></button>';                  
+                })
+                ->make(true);
+    }
+
+    /**
+    * Generate E-KTP invoice.
+    *
+    * @return \Illuminate\Http\Response
+    */
+    public function cetakResiKtp(Request $request) {
+        
+        $query = DB::table('ktp')->where('nik', '=', $request->nik)->first();
+
+        $pdf = PDF::loadView('admin.reports.resi.resiktp', [
+            'ktp' => $query
+        ]);
+
+        return $pdf->setPaper('A4', 'portrait')->stream();
+    }
+
+    /**
+    * Generate dynamic reports
+    *
+    * @return \Illuminate\Http\Response
+    */
+    public function generateKtpReports(Request $request) {
+        
+        $query = DB::table('ktp')->select(['nik', 'nama', 'jenis_kelamin', 'alamat', 'rt', 'rw', 'kelurahan']);
+
+        if ($request->input('nik')) {
+            $query->where('nik', 'like', "%{$request->nik}%");
+        }
+        if ($request->input('nama')) {
+            $query->where('nama', 'like', "%{$request->nama}%");
+        }
+        if ($request->input('jenis_kelamin')) {
+            $query->where('jenis_kelamin', '=', $request->jenis_kelamin);
+        }
+        if ($request->input('tempat_lahir')) {
+            $query->where('tempat_lahir', 'like', "%{$request->tempat_lahir}%");
+        }
+        if ($request->input('tanggal_lahir')) {
+            $query->where('tanggal_lahir', 'like', "%{$request->tanggal_lahir}%");
+        }
+        if ($request->input('kewarganegaraan')) {
+            $query->where('kewarganegaraan', '=', $request->kewarganegaraan);
+        }
+        if ($request->input('gol_darah')) {
+            $query->where('gol_darah', '=', $request->gol_darah);
+        }
+        if ($request->input('agama')) {
+            $query->where('agama', '=', $request->agama);
+        }
+        if ($request->input('status_perkawinan')) {
+            $query->where('status_perkawinan', '=', $request->status_perkawinan);
+        }
+        if ($request->input('pendidikan')) {
+            $query->where('pendidikan', '=', $request->pendidikan);
+        }
+        if ($request->input('pekerjaan')) {
+            $query->where('pekerjaan', '=', $request->pekerjaan);
+        }
+        if ($request->input('rt')) {
+            $query->where('rt', '=', $request->rt);
+        }
+        if ($request->input('rw')) {
+            $query->where('rw', '=', $request->rw);
+        }
+        if ($request->input('status')) {
+            $query->where('status', '=', $request->status);
+        }
+        if ($request->input('kelurahan')) {
+            $query->where('kelurahan', '=', $request->kelurahan);
+        }
+        if ($request->input('tanggal_dari') && $request->input('tanggal_sampai')) {
+            $query->whereBetween('created_at', [$request->tanggal_dari, $request->tanggal_sampai]);
+        }
+
+        return view('admin.reports.a4.dynamic', [
+            'ktp' => $query->get(),
+            'count' => $query->count()
+        ]);
     }
 
     /**
@@ -325,14 +418,12 @@ class KtpController extends Controller
         $query = DB::table('ktp')->select(['nik', 'nama', 'jenis_kelamin', 'alamat', 'rt', 'rw', 'kelurahan'])->whereBetween('created_at', [$startsAt, $endsAt])->get();
         $count = DB::table('ktp')->whereBetween('created_at', [$startsAt, $endsAt])->count();
 
-        $pdf = PDF::loadView('admin.reports.a4.reports', [
+        return view('admin.reports.a4.reports', [
             'ktp' => $query,
             'count' => $count,
             'formattedStarts' => $formattedStarts,
             'formattedEnds' => $formattedEnds
         ]);
-
-        return $pdf->stream();
     }
 
     /**
@@ -346,28 +437,10 @@ class KtpController extends Controller
         $query = DB::table('ktp')->select(['nik', 'nama', 'jenis_kelamin', 'alamat', 'rt', 'rw', 'kelurahan'])->where('kelurahan', '=', $kelurahan)->get();
         $count = DB::table('ktp')->where('kelurahan', '=', $kelurahan)->count();
 
-        $pdf = PDF::loadView('admin.reports.a4.reports', [
+        return view('admin.reports.a4.reports', [
             'kelurahan' => $kelurahan,
             'ktp' => $query,
             'count' => $count,
         ]);
-
-        return $pdf->stream();
-    }
-
-    /**
-    * Generate reports filter by kelurahan.
-    *
-    * @return \Illuminate\Http\Response
-    */
-    public function cetakResiKtp(Request $request) {
-        
-        $query = DB::table('ktp')->where('nik', '=', $request->nik)->first();
-
-        $pdf = PDF::loadView('admin.reports.resi.resiktp', [
-            'ktp' => $query
-        ]);
-
-        return $pdf->setPaper('A4', 'portrait')->stream();
     }
 }

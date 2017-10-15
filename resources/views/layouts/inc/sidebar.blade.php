@@ -6,7 +6,7 @@
       <div class="overlay-panel vertical-align overlay-background">
         <div class="vertical-align-middle">
           <a class="avatar avatar-lg" href="javascript:void(0)">
-            <img src="http://www.gravatar.com/avatar/3b3be63a4c2a439b013787725dfce802?d=identicon" alt="">
+            <img src="{{ asset('images/avatar.png') }}" alt="...">
           </a>
           <div class="site-menubar-info">
             <h5 class="site-menubar-user">{{ Auth::user()->name }}</h5>

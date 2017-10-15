@@ -47,9 +47,9 @@ class UserController extends Controller
         if ($validator->fails()) {
             return response()->json(['status' => 'login failed']);
         } else {
-            if (Auth::attempt(['username' => $request->username, 'password' => $request->password], $request->remember))
-            
-            return response()->json(['status' => 'login success']);
+            if (Auth::attempt(['username' => $request->username, 'password' => $request->password], $request->remember)) {
+                return response()->json(['status' => 'login success']);
+            }
         }
     }
 

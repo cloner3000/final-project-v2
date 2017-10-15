@@ -215,7 +215,10 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button type="submit" class="btn btn-success">Cetak Resi</button>
+          @if ( Auth::user()->isAdmin() == 0 ) {
+            <button type="submit" class="btn btn-success">Cetak Resi</button>
+          }
+          @endif
           <button type="button" class="btn btn-primary" data-dismiss="modal">Keluar</button>
         </div>
       </form>
@@ -325,14 +328,14 @@
                         <option value="Sadang Serang">Sadang Serang</option>
                       </select>
                       <small class="edit-kk-error-kelurahan text-danger"></small>
-                    </div><br>
-                    <input type="hidden" id="status" name="status" value="0">
-                    @if (Auth::user()->isAdmin() != 0)
-                      <div class="checkbox-custom checkbox-primary">
-                        <input type="checkbox" id="status" name="status" value="1" />
-                        <label for="status">Sudah Dicek</label>
-                      </div>
-                    @endif
+                      <input type="hidden" id="status" name="status" value="0">
+                      @if (Auth::user()->isAdmin() != 0)
+                        <div class="checkbox-custom checkbox-primary">
+                          <input type="checkbox" id="check-status" name="status" value="1" />
+                          <label for="status">Sudah Dicek</label>
+                        </div>
+                      @endif
+                    </div>
                   </div>
                 </div>
               </div>

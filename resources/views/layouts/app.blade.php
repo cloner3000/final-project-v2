@@ -120,11 +120,13 @@
   <script type="text/javascript">
     $(document).ready(function() {
       $('.reports-dari').datepicker({
-        format: 'yyyy-mm-dd'
+        format: 'yyyy-mm-dd',
+        autoclose: true
       });
       
       $('.reports-sampai').datepicker({
-        format: 'yyyy-mm-dd'
+        format: 'yyyy-mm-dd',
+        autoclose: true
       });
 
       $('#form-change-password').submit(function(e) {
@@ -172,6 +174,8 @@
             }
           }
         });
+
+        
 
       });
     });

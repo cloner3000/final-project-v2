@@ -44,14 +44,17 @@
           <a class="nav-link navbar-avatar" data-toggle="dropdown" href="#" aria-expanded="false"
           data-animation="scale-up" role="button">
             <span class="avatar avatar-online">
-              <img src="http://www.gravatar.com/avatar/3b3be63a4c2a439b013787725dfce802?d=identicon" alt="...">
+              <img src="{{ asset('images/avatar.png') }}" alt="...">
               <i></i>
             </span>
           </a>
           <div class="dropdown-menu" role="menu">
-            <a class="dropdown-item" href="javascript:void(0)" role="menuitem" data-toggle="modal" data-target="#change-password-modal"><i class="icon md-lock" aria-hidden="true"></i> Change Password</a>
+            @if ( Auth::user()->isAdmin() != 0 )
+              <a class="dropdown-item" href="javascript:void(0)" role="menuitem" data-toggle="modal" data-target="#print-summary-modal"><i class="icon md-print" aria-hidden="true"></i> Cetak Rekapitulasi</a>
+            @endif
+            <a class="dropdown-item" href="javascript:void(0)" role="menuitem" data-toggle="modal" data-target="#change-password-modal"><i class="icon md-lock" aria-hidden="true"></i> Ganti Password</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="{{ url('/dashboard/logout') }}" role="menuitem"><i class="icon md-power" aria-hidden="true"></i> Logout</a>
+            <a class="dropdown-item" href="{{ url('/dashboard/logout') }}" role="menuitem"><i class="icon md-power" aria-hidden="true"></i> Log Keluar</a>
           </div>
         </li>
       </ul>

@@ -12,6 +12,22 @@ use PDF;
 
 class PindahDatangController extends Controller
 {
+    protected $user;
+
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+            $this->user = Auth::check() && Auth::user()->isAdmin();
+
+            return $next($request);
+        });
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -198,44 +214,50 @@ class PindahDatangController extends Controller
 
         return DataTables::of($pindahdatangs)
                             ->filter( function ($query) use ($request) {
-                                if ($request->has('nik')) {
+                                if ($request->input('nik')) {
                                     $query->where('nik', 'like', "%{$request->nik}%");
                                 }
-                                if ($request->has('nama')) {
+                                if ($request->input('nama')) {
                                     $query->where('nama', 'like', "%{$request->nama}%");
                                 }
-                                if ($request->has('jenis_kelamin')) {
-                                    $query->where('jenis_kelamin', 'like', "%{$request->jenis_kelamin}%");
+                                if ($request->input('jenis_kelamin')) {
+                                    $query->where('jenis_kelamin', '=', $request->jenis_kelamin);
                                 }
-                                if ($request->has('tempat_lahir')) {
+                                if ($request->input('tempat_lahir')) {
                                     $query->where('tempat_lahir', 'like', "%{$request->tempat_lahir}%");
                                 }
-                                if ($request->has('tanggal_lahir')) {
+                                if ($request->input('tanggal_lahir')) {
                                     $query->where('tanggal_lahir', 'like', "%{$request->tanggal_lahir}%");
                                 }
-                                if ($request->has('agama')) {
-                                    $query->where('agama', 'like', "%{$request->agama}%");
+                                if ($request->input('kewarganegaraan')) {
+                                    $query->where('kewarganegaraan', '=', $request->kewarganegaraan);
                                 }
-                                if ($request->has('status_perkawinan')) {
-                                    $query->where('status_perkawinan', 'like', "%{$request->status_perkawinan}%");
+                                if ($request->input('gol_darah')) {
+                                    $query->where('gol_darah', '=', $request->gol_darah);
                                 }
-                                if ($request->has('shdk')) {
-                                    $query->where('shdk', 'like', "%{$request->shdk}%");
+                                if ($request->input('agama')) {
+                                    $query->where('agama', '=', $request->agama);
                                 }
-                                if ($request->has('pendidikan')) {
-                                    $query->where('pendidikan', 'like', "%{$request->pendidikan}%");
+                                if ($request->input('status_perkawinan')) {
+                                    $query->where('status_perkawinan', '=', $request->status_perkawinan);
                                 }
-                                if ($request->has('pekerjaan')) {
-                                    $query->where('pekerjaan', 'like', "%{$request->pekerjaan}%");
+                                if ($request->input('shdk')) {
+                                    $query->where('shdk', '=', $request->shdk);
                                 }
-                                if ($request->has('rt')) {
-                                    $query->where('rt', 'like', "%{$request->rt}%");
+                                if ($request->input('pendidikan')) {
+                                    $query->where('pendidikan', '=', $request->pendidikan);
                                 }
-                                if ($request->has('rw')) {
-                                    $query->where('rw', 'like', "%{$request->rw}%");
+                                if ($request->input('pekerjaan')) {
+                                    $query->where('pekerjaan', '=', $request->pekerjaan);
                                 }
-                                if ($request->has('kelurahan')) {
-                                    $query->where('kelurahan', 'like', "%{$request->kelurahan}%");
+                                if ($request->input('rt')) {
+                                    $query->where('rt', '=', $request->rt);
+                                }
+                                if ($request->input('rw')) {
+                                    $query->where('rw', '=', $request->rw);
+                                }
+                                if ($request->input('kelurahan')) {
+                                    $query->where('kelurahan', '=', $request->kelurahan);
                                 }
                                 if ($request->has('status')) {
                                     $query->where('status', '=', $request->status);
@@ -310,6 +332,73 @@ class PindahDatangController extends Controller
     }
 
     /**
+    * Generate dynamic reports
+    *
+    * @return \Illuminate\Http\Response
+    */
+    public function generatePindahDatangReports(Request $request) {
+        
+        $query = DB::table('pindah_datang')->select(['nik', 'nama', 'alamat_lama', 'alamat_sekarang', 'rt', 'rw', 'kelurahan']);
+
+        if ($request->input('nik')) {
+            $query->where('nik', 'like', "%{$request->nik}%");
+        }
+        if ($request->input('nama')) {
+            $query->where('nama', 'like', "%{$request->nama}%");
+        }
+        if ($request->input('jenis_kelamin')) {
+            $query->where('jenis_kelamin', '=', $request->jenis_kelamin);
+        }
+        if ($request->input('tempat_lahir')) {
+            $query->where('tempat_lahir', 'like', $request->tempat_lahir);
+        }
+        if ($request->input('tanggal_lahir')) {
+            $query->where('tanggal_lahir', 'like', $request->tanggal_lahir);
+        }
+        if ($request->input('kewarganegaraan')) {
+            $query->where('kewarganegaraan', '=', $request->kewarganegaraan);
+        }
+        if ($request->input('gol_darah')) {
+            $query->where('gol_darah', '=', $request->gol_darah);
+        }
+        if ($request->input('agama')) {
+            $query->where('agama', '=', $request->agama);
+        }
+        if ($request->input('status_perkawinan')) {
+            $query->where('status_perkawinan', '=', $request->status_perkawinan);
+        }
+        if ($request->input('shdk')) {
+            $query->where('shdk', '=', $request->shdk);
+        }
+        if ($request->input('pendidikan')) {
+            $query->where('pendidikan', '=', $request->pendidikan);
+        }
+        if ($request->input('pekerjaan')) {
+            $query->where('pekerjaan', '=', $request->pekerjaan);
+        }
+        if ($request->input('rt')) {
+            $query->where('rt', '=', $request->rt);
+        }
+        if ($request->input('rw')) {
+            $query->where('rw', '=', $request->rw);
+        }
+        if ($request->input('kelurahan')) {
+            $query->where('kelurahan', '=', $request->kelurahan);
+        }
+        if ($request->input('status')) {
+            $query->where('status', '=', $request->status);
+        }
+        if ($request->input('tanggal_dari') && $request->input('tanggal_sampai')) {
+            $query->whereBetween('created_at', [$request->tanggal_dari, $request->tanggal_sampai]);
+        }
+
+        return view('admin.reports.a4.dynamic', [
+            'pindahdatang' => $query->get(),
+            'count' => $query->count()
+        ]);
+    }
+
+    /**
     * Generate reports filter by date.
     *
     * @return \Illuminate\Http\Response
@@ -324,14 +413,12 @@ class PindahDatangController extends Controller
         $query = DB::table('pindah_datang')->select(['nik', 'nama', 'alamat_lama', 'alamat_sekarang', 'rt', 'rw', 'kelurahan'])->whereBetween('created_at', [$startsAt, $endsAt])->get();
         $count = DB::table('pindah_datang')->whereBetween('created_at', [$startsAt, $endsAt])->count();
 
-        $pdf = PDF::loadView('admin.reports.a4.reports', [
+        return view('admin.reports.a4.reports', [
             'pindahdatang' => $query,
             'count' => $count,
             'formattedStarts' => $formattedStarts,
             'formattedEnds' => $formattedEnds
         ]);
-
-        return $pdf->stream();
     }
 
     /**
@@ -345,12 +432,10 @@ class PindahDatangController extends Controller
         $query = DB::table('pindah_datang')->select(['nik', 'nama', 'alamat_lama', 'alamat_sekarang', 'rt', 'rw', 'kelurahan'])->where('kelurahan', '=', $kelurahan)->get();
         $count = DB::table('pindah_datang')->where('kelurahan', '=', $kelurahan)->count();
 
-        $pdf = PDF::loadView('admin.reports.a4.reports', [
+        return view('admin.reports.a4.reports', [
             'kelurahan' => $kelurahan,
             'pindahdatang' => $query,
             'count' => $count,
         ]);
-
-        return $pdf->stream();
     }
 }

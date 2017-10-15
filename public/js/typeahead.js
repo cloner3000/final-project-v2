@@ -48,7 +48,6 @@ let typeahead_kelurahan = ['Cipaganti', 'Dago', 'Lebak Gede', 'Lebak Siliwangi',
 let typeahead_jenis_berkas = ['E-KTP', 'KK'];
 let typeahead_shdk = [
   'Kepala Keluarga',
-  'Suami',
   'Istri',
   'Anak',
   'Menantu',

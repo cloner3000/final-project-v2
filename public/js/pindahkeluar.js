@@ -10,22 +10,27 @@ function initPindahKeluar() {
       $('#filter-pindahkeluar-card').slideToggle();
       
       $('#filter-pindahkeluar-tanggal-lahir').datepicker({
-        format: 'yyyy-mm-dd'
+        format: 'yyyy-mm-dd',
+        autoclose: true
       });
       $('#filter-pindahkeluar-tanggal-dari').datepicker({
-        format: 'yyyy-mm-dd'
+        format: 'yyyy-mm-dd',
+        autoclose: true
       });
       $('#filter-pindahkeluar-tanggal-sampai').datepicker({
-        format: 'yyyy-mm-dd'
+        format: 'yyyy-mm-dd',
+        autoclose: true
       });
     });
 
     // Create Pindah Datang DatePicker
     $('#create-tanggal-lahir').datepicker({
-      format: 'yyyy-mm-dd'
+      format: 'yyyy-mm-dd',
+      autoclose: true
     });
     $('#edit-tanggal-lahir').datepicker({
-      format: 'yyyy-mm-dd'
+      format: 'yyyy-mm-dd',
+      autoclose: true
     });
 }
 

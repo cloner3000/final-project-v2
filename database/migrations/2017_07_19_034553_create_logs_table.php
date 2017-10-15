@@ -22,7 +22,7 @@ class CreateLogsTable extends Migration
         });
 
         Schema::table('logs', function($table) {
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

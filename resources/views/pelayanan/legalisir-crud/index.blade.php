@@ -72,7 +72,25 @@
               <div class="form-group">
                 <button type="submit" class="btn btn-success btn-sm"><i class="md-search"></i>&nbsp; Cari</button>
               </div>
-            </form><br>
+            </form>
+            <!-- Print report by filter -->
+            <form target="_blank" action="{{ url('/dashboard/reports/legalisir/filter') }}" method="GET" style="position: relative; bottom: 32.5px; margin-left: 70px;">
+              {{ csrf_field() }}
+
+              <input type="hidden" id="report-filter-nik" name="nik">
+              <input type="hidden" id="report-filter-nama" name="nama">
+              <input type="hidden" id="report-filter-rt" name="rt">
+              <input type="hidden" id="report-filter-rw" name="rw">
+              <input type="hidden" id="report-filter-kelurahan" name="kelurahan">
+              <input type="hidden" id="report-filter-jenis-berkas" name="jenis_berkas">
+
+              <input type="hidden" id="report-filter-status" name="status">
+
+              <input type="hidden" id="report-filter-tanggal-dari" name="tanggal_dari">
+              <input type="hidden" id="report-filter-tanggal-sampai" name="tanggal_sampai">
+
+              <button type="submit" class="btn btn-primary btn-sm"><i class="md-print"></i>&nbsp; Print Report</button>
+            </form>
           </div>
         </div>
       </div>
@@ -91,9 +109,8 @@
             <div style="top: 10px">
               <button id="filter-legalisir" class="btn btn-default btn-sm" style="float: right; top: 105px"><i class="md-filter-list"></i>&nbsp; Filter Data</button>
               @if (Auth::user()->isAdmin() == 0)
-                <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#legalisir-create-modal" style="float: right; top: 105px; right: 10px"><i class="md-collection-plus"></i>&nbsp; Entri Data</button>
-              @else
-                <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#reports-legalisir-modal" style="float: right; top: 105px; right: 20px"><i class="md-print"></i>&nbsp; Print Report</button>
+                <button class="btn btn-primary btn-sm btn-new" data-toggle="modal" data-target="#legalisir-create-modal" style="float: right; top: 105px; right: 10px"><i class="md-collection-plus"></i>&nbsp; Entri Data</button>
+                {{-- <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#reports-legalisir-modal" style="float: right; top: 105px; right: 20px"><i class="md-print"></i>&nbsp; Print Report</button> --}}
               @endif
             </div>
           </div>
@@ -163,6 +180,12 @@
      // Core : draw datatables!
      $('#legalisir-table').on('draw.dt', function() {
 
+      // New Legalisir
+      $('.btn-new').click(function() {
+        clearErrorCreateField();
+        clearCreateField();
+      });
+
       // Show Legalisir
       $('.legalisir-show').click(function() {
 
@@ -181,7 +204,8 @@
 
       // Edit legalisir
       $('.legalisir-edit').click(function() {
-
+        
+        $('#check-status').prop('checked', false);
         /* Get the value and store to temporary variable */
         let id = $(this).data('id');
         let nik = $(this).data('nik');
@@ -208,6 +232,19 @@
       // Submit Filter
       $('#filter-legalisir-form').submit(function(e) {
           e.preventDefault();
+
+          $('#report-filter-nik').val($('#filter-legalisir-nik').val());
+          $('#report-filter-nama').val($('#filter-legalisir-nama').val());
+          $('#report-filter-rt').val($('#filter-legalisir-rt').val());
+          $('#report-filter-rw').val($('#filter-legalisir-rw').val());
+          $('#report-filter-kelurahan').val($('#filter-legalisir-kelurahan').val());
+          $('#report-filter-jenis-berkas').val($('#filter-legalisir-jenis-berkas').val());
+
+          $('#report-filter-status').val($('#filter-legalisir-status').val());
+
+          $('#report-filter-tanggal-dari').val($('#filter-legalisir-tanggal-dari').val());
+          $('#report-filter-tanggal-sampai').val($('#filter-legalisir-tanggal-sampai').val());
+
           legalisir_table.draw();
       });
 

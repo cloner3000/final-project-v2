@@ -1,4 +1,4 @@
-<link href="css/app.css" rel="stylesheet" type="text/css">
+<link href="{{ asset('css/app.css') }}" rel="stylesheet" type="text/css">
 <style type="text/css">
     body {
 	   background-color: white;

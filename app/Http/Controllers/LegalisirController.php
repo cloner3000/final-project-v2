@@ -12,6 +12,22 @@ use PDF;
 
 class LegalisirController extends Controller
 {
+    protected $user;
+
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+            $this->user = Auth::check() && Auth::user()->isAdmin();
+
+            return $next($request);
+        });
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -149,23 +165,23 @@ class LegalisirController extends Controller
         
         return DataTables::of($legalisirs)
                             ->filter(function($query) use ($request) {
-                                if ($request->has('nik')) {
+                                if ($request->input('nik')) {
                                     $query->where('nik', 'like', "%{$request->nik}%");
                                 }
-                                if ($request->has('nama')) {
+                                if ($request->input('nama')) {
                                     $query->where('nama', 'like', "%{$request->nama}%");
                                 }
-                                if ($request->has('rt')) {
-                                    $query->where('rt', 'like', "%{$request->rt}%");
+                                if ($request->input('rt')) {
+                                    $query->where('rt', '=', $request->rt);
                                 }
-                                if ($request->has('rw')) {
-                                    $query->where('rw', 'like', "%{$request->rw}%");
+                                if ($request->input('rw')) {
+                                    $query->where('rw', '=', $request->rw);
                                 }
-                                if ($request->has('kelurahan')) {
-                                    $query->where('kelurahan', 'like', "%{$request->kelurahan}%");
+                                if ($request->input('kelurahan')) {
+                                    $query->where('kelurahan', '=', $request->kelurahan);
                                 }
-                                if ($request->has('jenis_berkas')) {
-                                    $query->where('jenis_berkas', 'like', "%{$request->jenis_berkas}%");
+                                if ($request->input('jenis_berkas')) {
+                                    $query->where('jenis_berkas', '=', $request->jenis_berkas);
                                 }
                                 if ($request->has('status')) {
                                     $query->where('status', '=', $request->status);
@@ -219,6 +235,46 @@ class LegalisirController extends Controller
     }
 
     /**
+    * Generate dynamic reports
+    *
+    * @return \Illuminate\Http\Response
+    */
+    public function generateLegalisirReports(Request $request) {
+        
+        $query = DB::table('legalisir')->select(['nik', 'nama', 'alamat', 'rt', 'rw', 'kelurahan', 'jenis_berkas']);
+
+        if ($request->input('nik')) {
+            $query->where('nik', 'like', "%{$request->nik}%");
+        }
+        if ($request->input('nama')) {
+            $query->where('nama', 'like', "%{$request->nama}%");
+        }
+        if ($request->input('rt')) {
+            $query->where('rt', '=', $request->rt);
+        }
+        if ($request->input('rw')) {
+            $query->where('rw', '=', $request->rw);
+        }
+        if ($request->input('kelurahan')) {
+            $query->where('kelurahan', '=', $request->kelurahan);
+        }
+        if ($request->input('jenis_berkas')) {
+            $query->where('jenis_berkas', '=', $request->jenis_berkas);
+        }
+        if ($request->input('status')) {
+            $query->where('status', '=', $request->status);
+        }
+        if ($request->input('tanggal_dari') && $request->input('tanggal_sampai')) {
+            $query->whereBetween('created_at', [$request->tanggal_dari, $request->tanggal_sampai]);
+        }
+
+        return view('admin.reports.a4.dynamic', [
+            'legalisir' => $query->get(),
+            'count' => $query->count()
+        ]);
+    }
+
+    /**
     * Generate reports filter by date.
     *
     * @return \Illuminate\Http\Response
@@ -233,14 +289,12 @@ class LegalisirController extends Controller
         $query = DB::table('legalisir')->select(['nik', 'nama', 'alamat', 'rt', 'rw', 'kelurahan', 'jenis_berkas'])->whereBetween('created_at', [$startsAt, $endsAt])->get();
         $count = DB::table('legalisir')->whereBetween('created_at', [$startsAt, $endsAt])->count();
 
-        $pdf = PDF::loadView('admin.reports.a4.reports', [
+        return view('admin.reports.a4.reports', [
             'legalisir' => $query,
             'count' => $count,
             'formattedStarts' => $formattedStarts,
             'formattedEnds' => $formattedEnds
         ]);
-
-        return $pdf->stream();
     }
 
     /**
@@ -254,12 +308,10 @@ class LegalisirController extends Controller
         $query = DB::table('legalisir')->select(['nik', 'nama', 'alamat', 'rt', 'rw', 'kelurahan', 'jenis_berkas'])->where('kelurahan', '=', $kelurahan)->get();
         $count = DB::table('legalisir')->where('kelurahan', '=', $kelurahan)->count();
 
-        $pdf = PDF::loadView('admin.reports.a4.reports', [
+        return view('admin.reports.a4.reports', [
             'kelurahan' => $kelurahan,
             'legalisir' => $query,
             'count' => $count,
         ]);
-
-        return $pdf->stream();
     }
 }

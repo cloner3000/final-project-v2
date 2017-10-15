@@ -12,6 +12,22 @@ use PDF;
 
 class KartuKeluargaController extends Controller
 {
+    protected $user;
+
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+            $this->user = Auth::check() && Auth::user()->isAdmin();
+
+            return $next($request);
+        });
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -161,29 +177,29 @@ class KartuKeluargaController extends Controller
 
         return DataTables::of($kartu_keluargas)
                             ->filter( function($query) use ($request) {
-                                if ($request->has('no_kk')) {
+                                if ($request->input('no_kk')) {
                                     $query->where('no_kk', 'like', "%{$request->no_kk}%");
                                 }
-                                if ($request->has('nik')) {
+                                if ($request->input('nik')) {
                                     $query->where('nik', 'like', "%{$request->nik}%");
                                 }
-                                if ($request->has('nama')) {
+                                if ($request->input('nama')) {
                                     $query->where('nama', 'like', "%{$request->nama}%");
                                 }
-                                if ($request->has('jenis_kelamin')) {
-                                    $query->where('jenis_kelamin', 'like', "%{$request->jenis_kelamin}%");
+                                if ($request->input('jenis_kelamin')) {
+                                    $query->where('jenis_kelamin', '=', $request->jenis_kelamin);
                                 }
-                                if ($request->has('rt')) {
-                                    $query->where('rt', 'like', "%{$request->rt}%");
+                                if ($request->input('rt')) {
+                                    $query->where('rt', '=', $request->rt);
                                 }
-                                if ($request->has('rw')) {
-                                    $query->where('rw', 'like', "%{$request->rw}%");
+                                if ($request->input('rw')) {
+                                    $query->where('rw', '=', $request->rw);
                                 }
-                                if ($request->has('kelurahan')) {
-                                    $query->where('kelurahan', 'like', "%{$request->kelurahan}%");
+                                if ($request->input('kelurahan')) {
+                                    $query->where('kelurahan', '=', $request->kelurahan);
                                 }
-                                if ($request->has('jumlah_pengikut')) {
-                                    $query->where('jumlah_pengikut', 'like', "%{$request->jumlah_pengikut}%");
+                                if ($request->input('jumlah_pengikut')) {
+                                    $query->where('jumlah_pengikut', '=', $request->jumlah_pengikut);
                                 }
                                 if ($request->has('status')) {
                                     $query->where('status', '=', $request->status);
@@ -240,6 +256,68 @@ class KartuKeluargaController extends Controller
     }
 
     /**
+    * Generate Kartu Keluarga invoice.
+    *
+    * @return \Illuminate\Http\Response
+    */
+    public function cetakResiKartuKeluarga(Request $request) {
+        
+        $query = DB::table('kartu_keluarga')->where('nik', '=', $request->nik)->first();
+
+        $pdf = PDF::loadView('admin.reports.resi.resikk', [
+            'kk' => $query
+        ]);
+
+        return $pdf->setPaper('A4', 'portrait')->stream();
+    }
+
+    /**
+    * Generate dynamic reports
+    *
+    * @return \Illuminate\Http\Response
+    */
+    public function generateKartuKeluargaReports(Request $request) {
+        
+        $query = DB::table('kartu_keluarga')->select(['no_kk', 'nik', 'nama', 'jenis_kelamin', 'alamat', 'rt', 'rw', 'kelurahan']);
+
+        if ($request->input('no_kk')) {
+            $query->where('no_kk', 'like', "%{$request->no_kk}%");
+        }
+        if ($request->input('nik')) {
+            $query->where('nik', 'like', "%{$request->nik}%");
+        }
+        if ($request->input('nama')) {
+            $query->where('nama', 'like', "%{$request->nama}%");
+        }
+        if ($request->input('jenis_kelamin')) {
+            $query->where('jenis_kelamin', '=', $request->jenis_kelamin);
+        }
+        if ($request->input('rt')) {
+            $query->where('rt', '=', $request->rt);
+        }
+        if ($request->input('rw')) {
+            $query->where('rw', '=', $request->rw);
+        }
+        if ($request->input('kelurahan')) {
+            $query->where('kelurahan', '=', $request->kelurahan);
+        }
+        if ($request->input('jumlah_pengikut')) {
+            $query->where('jumlah_pengikut', '=', $request->jumlah_pengikut);
+        }
+        if ($request->input('status')) {
+            $query->where('status', '=', $request->status);
+        }
+        if ($request->input('tanggal_dari') && $request->input('tanggal_sampai')) {
+            $query->whereBetween('created_at', [$request->tanggal_dari, $request->tanggal_sampai]);
+        }
+
+        return view('admin.reports.a4.dynamic', [
+            'kk' => $query->get(),
+            'count' => $query->count()
+        ]);
+    }
+
+    /**
     * Generate reports filter by date.
     *
     * @return \Illuminate\Http\Response
@@ -254,14 +332,12 @@ class KartuKeluargaController extends Controller
         $query = DB::table('kartu_keluarga')->select(['no_kk', 'nik', 'nama', 'jenis_kelamin', 'alamat', 'rt', 'rw', 'kelurahan'])->whereBetween('created_at', [$startsAt, $endsAt])->get();
         $count = DB::table('kartu_keluarga')->whereBetween('created_at', [$startsAt, $endsAt])->count();
 
-        $pdf = PDF::loadView('admin.reports.a4.reports', [
+        return view('admin.reports.a4.reports', [
             'kk' => $query,
             'count' => $count,
             'formattedStarts' => $formattedStarts,
             'formattedEnds' => $formattedEnds
         ]);
-
-        return $pdf->stream();
     }
 
     /**
@@ -275,28 +351,10 @@ class KartuKeluargaController extends Controller
         $query = DB::table('kartu_keluarga')->select(['no_kk', 'nik', 'nama', 'jenis_kelamin', 'alamat', 'rt', 'rw', 'kelurahan'])->where('kelurahan', '=', $kelurahan)->get();
         $count = DB::table('kartu_keluarga')->where('kelurahan', '=', $kelurahan)->count();
 
-        $pdf = PDF::loadView('admin.reports.a4.reports', [
+        return view('admin.reports.a4.reports', [
             'kelurahan' => $kelurahan,
             'kk' => $query,
             'count' => $count,
         ]);
-
-        return $pdf->stream();
-    }
-
-    /**
-    * Generate reports filter by kelurahan.
-    *
-    * @return \Illuminate\Http\Response
-    */
-    public function cetakResiKartuKeluarga(Request $request) {
-        
-        $query = DB::table('kartu_keluarga')->where('nik', '=', $request->nik)->first();
-
-        $pdf = PDF::loadView('admin.reports.resi.resikk', [
-            'kk' => $query
-        ]);
-
-        return $pdf->setPaper('A4', 'portrait')->stream();
     }
 }

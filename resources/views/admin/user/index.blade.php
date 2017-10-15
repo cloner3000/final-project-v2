@@ -12,7 +12,7 @@
             <h1 style="float: left">Daftar User</h1>
           </div>
           <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#user-create-modal"><i class="md-collection-plus"></i>&nbsp; Tambah User</button>
+            <button class="btn btn-primary btn-sm btn-new" data-toggle="modal" data-target="#user-create-modal"><i class="md-collection-plus"></i>&nbsp; Tambah User</button>
           </div>
         </div><br>
         <div class="row">
@@ -59,6 +59,12 @@
 
      // Core : draw datatables!
      $('#user-table').on('draw.dt', function() {
+
+      // New Users
+      $('.btn-new').click(function() {
+        clearErrorCreateField();
+        clearCreateField();
+      });
 
       // Show Users
       $('.user-show').click(function() {

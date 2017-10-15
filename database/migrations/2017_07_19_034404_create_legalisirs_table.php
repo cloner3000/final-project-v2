@@ -15,7 +15,7 @@ class CreateLegalisirsTable extends Migration
     {
         Schema::create('legalisir', function (Blueprint $table) {
             $table->increments('id');
-            $table->bigInteger('nik')->unique();
+            $table->bigInteger('nik');
             $table->string('nama');
             $table->string('alamat');
             $table->char('rt', 2);
@@ -28,7 +28,7 @@ class CreateLegalisirsTable extends Migration
         });
 
         Schema::table('legalisir', function($table) {
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

@@ -15,8 +15,8 @@ class CreatePindahKeluarsTable extends Migration
     {
         Schema::create('pindah_keluar', function (Blueprint $table) {
             $table->increments('id');
-            $table->bigInteger('no_kk')->unique();
-            $table->bigInteger('nik')->unique();
+            $table->bigInteger('no_kk');
+            $table->bigInteger('nik');
             $table->string('nama');
             $table->char('jenis_kelamin', 1);
             $table->string('tempat_lahir');
@@ -39,7 +39,7 @@ class CreatePindahKeluarsTable extends Migration
         });
 
         Schema::table('pindah_keluar', function($table) {
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

@@ -30,21 +30,29 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'is.logged.in'], function
 
 	Route::post('/truncatelog', 'LogController@destroyAll');
 
-	Route::post('/reports/ktp/date', 'KtpController@displayReportsByDate');
-	Route::post('/reports/ktp/kelurahan', 'KtpController@displayReportsByKelurahan');
-
-	Route::post('/reports/kk/date', 'KartuKeluargaController@displayReportsByDate');
-	Route::post('/reports/kk/kelurahan', 'KartuKeluargaController@displayReportsByKelurahan');
-
-	Route::post('/reports/legalisir/date', 'LegalisirController@displayReportsByDate');
-	Route::post('/reports/legalisir/kelurahan', 'LegalisirController@displayReportsByKelurahan');
-
-	Route::post('/reports/pindahdatang/date', 'PindahDatangController@displayReportsByDate');
-	Route::post('/reports/pindahdatang/kelurahan', 'PindahDatangController@displayReportsByKelurahan');
-
-	Route::post('/reports/pindahkeluar/date', 'PindahKeluarController@displayReportsByDate');
-	Route::post('/reports/pindahkeluar/kelurahan', 'PindahKeluarController@displayReportsByKelurahan');
+	Route::get('/reports/ktp/filter', 'KtpController@generateKtpReports');
+	Route::get('/reports/kk/filter', 'KartuKeluargaController@generateKartuKeluargaReports');
+	Route::get('/reports/legalisir/filter', 'LegalisirController@generateLegalisirReports');
+	Route::get('/reports/pindahdatang/filter', 'PindahDatangController@generatePindahDatangReports');
+	Route::get('/reports/pindahkeluar/filter', 'PindahKeluarController@generatePindahKeluarReports');
 
 	Route::post('/resi/ktp', 'KtpController@cetakResiKtp');
 	Route::post('/resi/kk', 'KartuKeluargaController@cetakResiKartuKeluarga');
+
+	Route::post('/rekap', 'DashboardController@cetakRekap');
+	
+	// Route::post('/reports/ktp/date', 'KtpController@displayReportsByDate');
+	// Route::post('/reports/ktp/kelurahan', 'KtpController@displayReportsByKelurahan');
+	
+	// Route::post('/reports/kk/date', 'KartuKeluargaController@displayReportsByDate');
+	// Route::post('/reports/kk/kelurahan', 'KartuKeluargaController@displayReportsByKelurahan');
+	
+	// Route::post('/reports/legalisir/date', 'LegalisirController@displayReportsByDate');
+	// Route::post('/reports/legalisir/kelurahan', 'LegalisirController@displayReportsByKelurahan');
+
+	// Route::post('/reports/pindahdatang/date', 'PindahDatangController@displayReportsByDate');
+	// Route::post('/reports/pindahdatang/kelurahan', 'PindahDatangController@displayReportsByKelurahan');
+
+	// Route::post('/reports/pindahkeluar/date', 'PindahKeluarController@displayReportsByDate');
+	// Route::post('/reports/pindahkeluar/kelurahan', 'PindahKeluarController@displayReportsByKelurahan');
 });

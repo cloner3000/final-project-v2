@@ -10,25 +10,31 @@ function initKtp() {
         $('#filter-ktp-card').slideToggle();
         
         $('#filter-ktp-tanggal-lahir').datepicker({
-            format: 'yyyy-mm-dd'
+            format: 'yyyy-mm-dd',
+            autoclose: true
         });
         $('#filter-ktp-tanggal-dari').datepicker({
-            format: 'yyyy-mm-dd'
+            format: 'yyyy-mm-dd',
+            autoclose: true
         });
         $('#filter-ktp-tanggal-sampai').datepicker({
-            format: 'yyyy-mm-dd'
+            format: 'yyyy-mm-dd',
+            autoclose: true
         });
     });
 
     // KTP create datepicker
     $('#create-tanggal-lahir').datepicker({
-      format: 'yyyy-mm-dd'
+      format: 'yyyy-mm-dd',
+      autoclose: true
     });
     $('#show-tanggal-lahir').datepicker({
-      format: 'yyyy-mm-dd'
+      format: 'yyyy-mm-dd',
+      autoclose: true
     });
     $('#edit-tanggal-lahir').datepicker({
-      format: 'yyyy-mm-dd'
+      format: 'yyyy-mm-dd',
+      autoclose: true
     });
 }
 

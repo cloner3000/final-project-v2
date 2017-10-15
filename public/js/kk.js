@@ -10,10 +10,12 @@ function initKartuKeluarga() {
         $('#filter-kk-card').slideToggle();
         
         $('#filter-kk-tanggal-dari').datepicker({
-            format: 'yyyy-mm-dd'
+            format: 'yyyy-mm-dd',
+            autoclose: true
         });
         $('#filter-kk-tanggal-sampai').datepicker({
-            format: 'yyyy-mm-dd'
+            format: 'yyyy-mm-dd',
+            autoclose: true
         });
     });
 }

@@ -15,8 +15,8 @@ class CreateKartuKeluargasTable extends Migration
     {
         Schema::create('kartu_keluarga', function (Blueprint $table) {
             $table->increments('id');
-            $table->bigInteger('no_kk')->unique();
-            $table->bigInteger('nik')->unique();
+            $table->bigInteger('no_kk');
+            $table->bigInteger('nik');
             $table->string('nama');
             $table->char('jenis_kelamin', 1);
             $table->string('alamat');
@@ -30,7 +30,7 @@ class CreateKartuKeluargasTable extends Migration
         });
 
         Schema::table('kartu_keluarga', function($table) {
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 
