@@ -122,16 +122,16 @@
       $('.reports-dari').datepicker({
         format: 'yyyy-mm-dd',
         autoclose: true
-      });
+      })
       
       $('.reports-sampai').datepicker({
         format: 'yyyy-mm-dd',
         autoclose: true
-      });
+      })
 
       $('#form-change-password').submit(function(e) {
-        e.preventDefault();
-        let id = "{{ Auth::id() }}";
+        e.preventDefault()
+        let id = "{{ Auth::id() }}"
         /* Act on the event */
 
         $.ajax({
@@ -143,42 +143,40 @@
           data: $(this).serialize(),
           success: function(data) {
             if (data.hasOwnProperty('errors')) {
-              let old_password = data.errors.old_password;
-              let new_password = data.errors.new_password;
-              let new_password_confirmation = data.errors.new_password_confirmation;
+              let old_password = data.errors.old_password
+              let new_password = data.errors.new_password
+              let new_password_confirmation = data.errors.new_password_confirmation
 
-              $('.password-error-old').html('');
-              $('.password-error-new').html('');
-              $('.password-error-confirm').html('');
+              $('.password-error-old').html('')
+              $('.password-error-new').html('')
+              $('.password-error-confirm').html('')
 
-              $('.password-error-old').html(old_password);
-              $('.password-error-new').html(new_password);
-              $('.password-error-confirm').html(new_password_confirmation);
+              $('.password-error-old').html(old_password)
+              $('.password-error-new').html(new_password)
+              $('.password-error-confirm').html(new_password_confirmation)
             } else {
-              $('#change-password-modal').modal('hide');
-                swal({
-                  title: 'Ganti password?',
-                  text: "Tips : Jangan lupakan password anda untuk saat ini",
-                  type: 'warning',
-                  showCancelButton: true,
-                  confirmButtonColor: '#3085d6',
-                  cancelButtonColor: '#d33',
-                  confirmButtonText: 'Ganti password'
-                }).then(function () {
-                    if (data.message == 'success') 
-                    {
-                      swal('Sukses!', 'Password berhasil diganti!', 'success');
-                    }
-              });
+              $('#change-password-modal').modal('hide')
 
+              swal({
+                title: 'Ganti password?',
+                text: "Tips : Jangan lupakan password anda untuk saat ini",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ganti password'
+              })
+              .then(function () {
+                if (data.message == 'success') 
+                {
+                  swal('Sukses!', 'Password berhasil diganti!', 'success')
+                }
+              })
             }
           }
-        });
-
-        
-
-      });
-    });
+        })
+      })
+    })
   </script>
 </body>
 </html>

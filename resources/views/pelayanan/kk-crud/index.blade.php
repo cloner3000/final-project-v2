@@ -85,7 +85,7 @@
             </form>
             @if ( Auth::user()->isAdmin() != 0 )
               <!-- Print report by filter -->
-              <form target="_blank" action="{{ url('/dashboard/reports/kk/filter') }}" method="GET" style="position: relative; bottom: 32.5px; margin-left: 70px;">
+              <form target="_blank" action="{{ url('/dashboard/reports/kk/filter') }}" method="GET" style="position: relative; bottom: 32.5px; margin-left: 70px">
                 {{ csrf_field() }}
 
                 <input type="hidden" id="report-filter-no-kk" name="no_kk">
@@ -124,7 +124,7 @@
               <button id="filter-kk" class="btn btn-default btn-sm" style="float: right; top: 105px"><i class="md-filter-list"></i>&nbsp; Filter Data</button>
               @if (Auth::user()->isAdmin() == 0)
                 <button class="btn btn-primary btn-sm btn-new" data-toggle="modal" data-target="#kk-create-modal" style="float: right; top: 105px; right: 10px"><i class="md-collection-plus"></i>&nbsp; Entri Data</button>
-                {{-- <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#reports-kk-modal" style="float: right; top: 105px; right: 20px"><i class="md-print"></i>&nbsp; Print Report</button> --}}
+                {{-- <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#reports-kk-modal" style="float: right top: 105px right: 20px"><i class="md-print"></i>&nbsp Print Report</button> --}}
               @endif
             </div>
           </div>
@@ -159,7 +159,7 @@
   $(document).ready(function() {
 
     // Initialize Kartu Keluarga
-    initKartuKeluarga();
+    initKartuKeluarga()
 
     // Initialize DataTables
     var kk_table = $('#kk-table').DataTable({
@@ -191,101 +191,101 @@
         { data: 'created_at' },
         { data: 'action', searchable: false, orderable: false }
       ]
-     });
+     })
 
      // Core : draw datatables!
      $('#kk-table').on('draw.dt', function() {
 
       // New Kartu Keluarga
       $('.btn-new').click(function() {
-        clearErrorCreateField();
-        clearCreateField();
-      });
+        clearErrorCreateField()
+        clearCreateField()
+      })
 
       // Show Kartu Keluarga
       $('.kk-show').click(function(e) {
         /* Get the value and store to temporary variable */
-        let no_kk = $(this).data('no_kk');
-        let nik = $(this).data('nik');
-        let nama = $(this).data('nama');
-        let jenis_kelamin = $(this).data('jenis_kelamin');
-        let alamat = $(this).data('alamat');
-        let rt = $(this).data('rt');
-        let rw = $(this).data('rw');
-        let kelurahan = $(this).data('kelurahan');
-        let jumlah_pengikut = $(this).data('jumlah_pengikut');
-        let status = $(this).data('status');
+        let no_kk = $(this).data('no_kk')
+        let nik = $(this).data('nik')
+        let nama = $(this).data('nama')
+        let jenis_kelamin = $(this).data('jenis_kelamin')
+        let alamat = $(this).data('alamat')
+        let rt = $(this).data('rt')
+        let rw = $(this).data('rw')
+        let kelurahan = $(this).data('kelurahan')
+        let jumlah_pengikut = $(this).data('jumlah_pengikut')
+        let status = $(this).data('status')
 
         /* Act on the event */
-        fillShowForm(no_kk, nik, nama, jenis_kelamin, alamat, rt, rw, kelurahan, jumlah_pengikut);
-      });
+        fillShowForm(no_kk, nik, nama, jenis_kelamin, alamat, rt, rw, kelurahan, jumlah_pengikut)
+      })
 
       // Edit Kartu Keluarga
       $('.kk-edit').click(function(e) {
         
-        $('#check-status').prop('checked', false);
+        $('#check-status').prop('checked', false)
         /* Get the value and store to temporary variable */
-        let id = $(this).data('id');
-        let no_kk = $(this).data('no_kk');
-        let nik = $(this).data('nik');
-        let nama = $(this).data('nama');
-        let jenis_kelamin = $(this).data('jenis_kelamin');
-        let alamat = $(this).data('alamat');
-        let rt = $(this).data('rt');
-        let rw = $(this).data('rw');
-        let kelurahan = $(this).data('kelurahan');
-        let jumlah_pengikut = $(this).data('jumlah_pengikut');
-        let status = $(this).data('status');
+        let id = $(this).data('id')
+        let no_kk = $(this).data('no_kk')
+        let nik = $(this).data('nik')
+        let nama = $(this).data('nama')
+        let jenis_kelamin = $(this).data('jenis_kelamin')
+        let alamat = $(this).data('alamat')
+        let rt = $(this).data('rt')
+        let rw = $(this).data('rw')
+        let kelurahan = $(this).data('kelurahan')
+        let jumlah_pengikut = $(this).data('jumlah_pengikut')
+        let status = $(this).data('status')
 
         /* Act on the event */
-        fillEditForm(id, no_kk, nik, nama, jenis_kelamin, alamat, rt, rw, kelurahan, jumlah_pengikut);
-      });
+        fillEditForm(id, no_kk, nik, nama, jenis_kelamin, alamat, rt, rw, kelurahan, jumlah_pengikut)
+      })
 
       // Delete Kartu Keluarga
       $('.kk-delete').click(function() {
-        let id = $(this).data('id');
-        let nik = $(this).data('nik');
+        let id = $(this).data('id')
+        let nik = $(this).data('nik')
         /* Act on the event */
-        doAjaxDelete(`/dashboard/kk/${id}`, 'DELETE', {'id' : id, 'nik' : nik});
-      });
+        doAjaxDelete(`/dashboard/kk/${id}`, 'DELETE', {'id' : id, 'nik' : nik})
+      })
 
       // Submit Filter
       $('#filter-kk-form').submit(function(e) {
-          e.preventDefault();
+          e.preventDefault()
 
-          $('#report-filter-no-kk').val($('#filter-kk-no-kk').val());
-          $('#report-filter-nik').val($('#filter-kk-nik').val());
-          $('#report-filter-nama').val($('#filter-kk-nama').val());
-          $('#report-filter-jenis-kelamin').val($('#filter-kk-jenis-kelamin').val());
-          $('#report-filter-rt').val($('#filter-kk-rt').val());
-          $('#report-filter-rw').val($('#filter-kk-rw').val());
-          $('#report-filter-kelurahan').val($('#filter-kk-kelurahan').val());
-          $('#report-filter-jumlah-pengikut').val($('#filter-kk-jumlah-pengikut').val());
+          $('#report-filter-no-kk').val($('#filter-kk-no-kk').val())
+          $('#report-filter-nik').val($('#filter-kk-nik').val())
+          $('#report-filter-nama').val($('#filter-kk-nama').val())
+          $('#report-filter-jenis-kelamin').val($('#filter-kk-jenis-kelamin').val())
+          $('#report-filter-rt').val($('#filter-kk-rt').val())
+          $('#report-filter-rw').val($('#filter-kk-rw').val())
+          $('#report-filter-kelurahan').val($('#filter-kk-kelurahan').val())
+          $('#report-filter-jumlah-pengikut').val($('#filter-kk-jumlah-pengikut').val())
 
-          $('#report-filter-status').val($('#filter-kk-status').val());
+          $('#report-filter-status').val($('#filter-kk-status').val())
 
-          $('#report-filter-tanggal-dari').val($('#filter-kk-tanggal-dari').val());
-          $('#report-filter-tanggal-sampai').val($('#filter-kk-tanggal-sampai').val());
+          $('#report-filter-tanggal-dari').val($('#filter-kk-tanggal-dari').val())
+          $('#report-filter-tanggal-sampai').val($('#filter-kk-tanggal-sampai').val())
 
-          kk_table.draw();
-      });
+          kk_table.draw()
+      })
 
       // Submit Create
       $('#kk-create-form').submit(function(e) {
-        e.preventDefault();
+        e.preventDefault()
         /* Act on the event */
-        doAjaxCreate(`/dashboard/kk`, 'POST', $(this).serialize());
-      });
+        doAjaxCreate(`/dashboard/kk`, 'POST', $(this).serialize())
+      })
 
       // Submit update
       $('#kk-edit-form').submit(function(e) {
-        e.preventDefault();
-        let id = $('#kk-edit-id').val();
+        e.preventDefault()
+        let id = $('#kk-edit-id').val()
         /* Act on the event */
-        doAjaxUpdate(`/dashboard/kk/${id}`, 'PUT', $(this).serialize());
-      });
+        doAjaxUpdate(`/dashboard/kk/${id}`, 'PUT', $(this).serialize())
+      })
 
-    });
-  });
+    })
+  })
 </script>
 @endpush

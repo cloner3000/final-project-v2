@@ -68,7 +68,7 @@ class PindahKeluarController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['errors' => $validator->messages()]);
+            return response()->json(['errors' => $validator->messages()], 400);
         } else {
             DB::table('pindah_keluar')->insertGetId([
                 'no_kk' => $request->no_kk,
@@ -138,7 +138,7 @@ class PindahKeluarController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['errors' => $validator->messages()]);
+            return response()->json(['errors' => $validator->messages()], 400);
         } else {
             DB::table('pindah_keluar')
                 ->where('id', '=', $request->id)

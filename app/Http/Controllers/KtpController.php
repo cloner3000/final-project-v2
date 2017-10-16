@@ -67,7 +67,7 @@ class KtpController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['errors' => $validator->messages()]);
+            return response()->json(['errors' => $validator->messages()], 400);
         } else {
             DB::table('ktp')->insertGetId([
                 'nik' => $request->nik,
@@ -135,7 +135,7 @@ class KtpController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['errors' => $validator->messages()]);
+            return response()->json(['errors' => $validator->messages()], 400);
         } else {
             DB::table('ktp')
                 ->where('id', '=', $request->id)

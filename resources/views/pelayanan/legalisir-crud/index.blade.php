@@ -147,7 +147,7 @@
   $(document).ready(function() {
 
     // Initialize Legalisir
-    initLegalisir();
+    initLegalisir()
 
     // Initialize DataTables
     var legalisir_table = $('#legalisir-table').DataTable({
@@ -177,95 +177,95 @@
         { data: 'created_at' },
         { data: 'action', searchable: false, orderable: false }
       ]
-     });
+     })
 
      // Core : draw datatables!
      $('#legalisir-table').on('draw.dt', function() {
 
       // New Legalisir
       $('.btn-new').click(function() {
-        clearErrorCreateField();
-        clearCreateField();
-      });
+        clearErrorCreateField()
+        clearCreateField()
+      })
 
       // Show Legalisir
       $('.legalisir-show').click(function() {
 
         /* Get the value and store to temporary variable */
-        let nik = $(this).data('nik');
-        let nama = $(this).data('nama');
-        let alamat = $(this).data('alamat');
-        let rt = $(this).data('rt');
-        let rw = $(this).data('rw');
-        let kelurahan = $(this).data('kelurahan');
-        let jenis_berkas = $(this).data('jenis_berkas');
+        let nik = $(this).data('nik')
+        let nama = $(this).data('nama')
+        let alamat = $(this).data('alamat')
+        let rt = $(this).data('rt')
+        let rw = $(this).data('rw')
+        let kelurahan = $(this).data('kelurahan')
+        let jenis_berkas = $(this).data('jenis_berkas')
 
         /* Act on the event */
-        fillShowForm(nik, nama, alamat, rt, rw, kelurahan, jenis_berkas);
-      });
+        fillShowForm(nik, nama, alamat, rt, rw, kelurahan, jenis_berkas)
+      })
 
       // Edit legalisir
       $('.legalisir-edit').click(function() {
         
-        $('#check-status').prop('checked', false);
+        $('#check-status').prop('checked', false)
         /* Get the value and store to temporary variable */
-        let id = $(this).data('id');
-        let nik = $(this).data('nik');
-        let nama = $(this).data('nama');
-        let alamat = $(this).data('alamat');
-        let rt = $(this).data('rt');
-        let rw = $(this).data('rw');
-        let kelurahan = $(this).data('kelurahan');
-        let jenis_berkas = $(this).data('jenis_berkas');
+        let id = $(this).data('id')
+        let nik = $(this).data('nik')
+        let nama = $(this).data('nama')
+        let alamat = $(this).data('alamat')
+        let rt = $(this).data('rt')
+        let rw = $(this).data('rw')
+        let kelurahan = $(this).data('kelurahan')
+        let jenis_berkas = $(this).data('jenis_berkas')
 
         /* Act on the event */
-        clearErrorEditField();
-        fillEditForm(id, nik, nama, alamat, rt, rw, kelurahan, jenis_berkas);
-      });
+        clearErrorEditField()
+        fillEditForm(id, nik, nama, alamat, rt, rw, kelurahan, jenis_berkas)
+      })
 
       // Delete data
       $('.legalisir-delete').click(function() {
-        let id = $(this).data('id');
-        let nik = $(this).data('nik');
+        let id = $(this).data('id')
+        let nik = $(this).data('nik')
         /* Act on the event */
-        doAjaxDelete(`/dashboard/legalisir/${id}`, 'DELETE', {'id' : id, 'nik' : nik});
-      });
+        doAjaxDelete(`/dashboard/legalisir/${id}`, 'DELETE', {'id' : id, 'nik' : nik})
+      })
 
       // Submit Filter
       $('#filter-legalisir-form').submit(function(e) {
-          e.preventDefault();
+          e.preventDefault()
 
-          $('#report-filter-nik').val($('#filter-legalisir-nik').val());
-          $('#report-filter-nama').val($('#filter-legalisir-nama').val());
-          $('#report-filter-rt').val($('#filter-legalisir-rt').val());
-          $('#report-filter-rw').val($('#filter-legalisir-rw').val());
-          $('#report-filter-kelurahan').val($('#filter-legalisir-kelurahan').val());
-          $('#report-filter-jenis-berkas').val($('#filter-legalisir-jenis-berkas').val());
+          $('#report-filter-nik').val($('#filter-legalisir-nik').val())
+          $('#report-filter-nama').val($('#filter-legalisir-nama').val())
+          $('#report-filter-rt').val($('#filter-legalisir-rt').val())
+          $('#report-filter-rw').val($('#filter-legalisir-rw').val())
+          $('#report-filter-kelurahan').val($('#filter-legalisir-kelurahan').val())
+          $('#report-filter-jenis-berkas').val($('#filter-legalisir-jenis-berkas').val())
 
-          $('#report-filter-status').val($('#filter-legalisir-status').val());
+          $('#report-filter-status').val($('#filter-legalisir-status').val())
 
-          $('#report-filter-tanggal-dari').val($('#filter-legalisir-tanggal-dari').val());
-          $('#report-filter-tanggal-sampai').val($('#filter-legalisir-tanggal-sampai').val());
+          $('#report-filter-tanggal-dari').val($('#filter-legalisir-tanggal-dari').val())
+          $('#report-filter-tanggal-sampai').val($('#filter-legalisir-tanggal-sampai').val())
 
-          legalisir_table.draw();
-      });
+          legalisir_table.draw()
+      })
 
       // Submit create
       $('#legalisir-create-form').submit(function(e) {
-        e.preventDefault();
+        e.preventDefault()
         /* Act on the event */
-        doAjaxCreate(`/dashboard/legalisir`, 'POST', $(this).serialize());
-      });
+        doAjaxCreate(`/dashboard/legalisir`, 'POST', $(this).serialize())
+      })
 
       // Submit update
       $('#legalisir-edit-form').submit(function(e) {
-        e.preventDefault();
-        let id = $('#legalisir-edit-id').val();
+        e.preventDefault()
+        let id = $('#legalisir-edit-id').val()
         /* Act on the event */
-        doAjaxUpdate(`/dashboard/legalisir/${id}`, 'PUT', $(this).serialize());
-      });
+        doAjaxUpdate(`/dashboard/legalisir/${id}`, 'PUT', $(this).serialize())
+      })
 
-    });
-  });
+    })
+  })
 </script>
 @endpush

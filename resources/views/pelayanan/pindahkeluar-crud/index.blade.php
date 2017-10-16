@@ -196,7 +196,7 @@
   $(document).ready(function() {
 
     // Initialize Pindah Keluar
-    initPindahKeluar();
+    initPindahKeluar()
 
     // Initialize DataTables
     var pindahkeluar_table = $('#pindahkeluar-table').DataTable({
@@ -237,132 +237,132 @@
         { data: 'created_at' },
         { data: 'action', searchable: false, orderable: false }
       ]
-     });
+     })
 
      // Core : draw datatables!
      $('#pindahkeluar-table').on('draw.dt', function() {
 
       // New Pindah Keluar
       $('.btn-new').click(function() {
-        clearErrorCreateField();
-        clearCreateField();
-      });
+        clearErrorCreateField()
+        clearCreateField()
+      })
 
       // Show Pindah Keluar
       $('.pindahkeluar-show').click(function() {
         /* Get the value and store to temporary variable */
-        let no_kk = $(this).data('no_kk');
-        let nik = $(this).data('nik');
-        let nama = $(this).data('nama');
-        let jenis_kelamin = $(this).data('jenis_kelamin');
-        let tempat_lahir = $(this).data('tempat_lahir');
-        let tanggal_lahir = $(this).data('tanggal_lahir');
-        let kewarganegaraan = $(this).data('kewarganegaraan');
-        let gol_darah = $(this).data('gol_darah');
+        let no_kk = $(this).data('no_kk')
+        let nik = $(this).data('nik')
+        let nama = $(this).data('nama')
+        let jenis_kelamin = $(this).data('jenis_kelamin')
+        let tempat_lahir = $(this).data('tempat_lahir')
+        let tanggal_lahir = $(this).data('tanggal_lahir')
+        let kewarganegaraan = $(this).data('kewarganegaraan')
+        let gol_darah = $(this).data('gol_darah')
 
-        let agama = $(this).data('agama');
-        let status_perkawinan = $(this).data('status_perkawinan');
-        let shdk = $(this).data('shdk');
-        let pendidikan = $(this).data('pendidikan');
-        let pekerjaan = $(this).data('pekerjaan');
+        let agama = $(this).data('agama')
+        let status_perkawinan = $(this).data('status_perkawinan')
+        let shdk = $(this).data('shdk')
+        let pendidikan = $(this).data('pendidikan')
+        let pekerjaan = $(this).data('pekerjaan')
 
-        let alamat_sekarang = $(this).data('alamat_sekarang');
-        let rt = $(this).data('rt');
-        let rw = $(this).data('rw');
-        let kelurahan = $(this).data('kelurahan');
-        let alamat_tujuan = $(this).data('alamat_tujuan');
-        let status = $(this).data('kelurahan');
+        let alamat_sekarang = $(this).data('alamat_sekarang')
+        let rt = $(this).data('rt')
+        let rw = $(this).data('rw')
+        let kelurahan = $(this).data('kelurahan')
+        let alamat_tujuan = $(this).data('alamat_tujuan')
+        let status = $(this).data('kelurahan')
 
         /* Act on the event */
-        fillShowForm(no_kk, nik, nama, jenis_kelamin, tempat_lahir, tanggal_lahir, kewarganegaraan, gol_darah, agama, status_perkawinan, shdk, pendidikan, pekerjaan, alamat_sekarang, rt, rw, kelurahan, alamat_tujuan);
-      });
+        fillShowForm(no_kk, nik, nama, jenis_kelamin, tempat_lahir, tanggal_lahir, kewarganegaraan, gol_darah, agama, status_perkawinan, shdk, pendidikan, pekerjaan, alamat_sekarang, rt, rw, kelurahan, alamat_tujuan)
+      })
 
       // Edit Pindah Keluar
       $('.pindahkeluar-edit').click(function() {
         
-        $('#check-status').prop('checked', false);
+        $('#check-status').prop('checked', false)
         /* Get the value and store to temporary variable */
-        let id = $(this).data('id');
-        let no_kk = $(this).data('no_kk');
-        let nik = $(this).data('nik');
-        let nama = $(this).data('nama');
-        let jenis_kelamin = $(this).data('jenis_kelamin');
-        let tempat_lahir = $(this).data('tempat_lahir');
-        let tanggal_lahir = $(this).data('tanggal_lahir');
-        let kewarganegaraan = $(this).data('kewarganegaraan');
-        let gol_darah = $(this).data('gol_darah');
+        let id = $(this).data('id')
+        let no_kk = $(this).data('no_kk')
+        let nik = $(this).data('nik')
+        let nama = $(this).data('nama')
+        let jenis_kelamin = $(this).data('jenis_kelamin')
+        let tempat_lahir = $(this).data('tempat_lahir')
+        let tanggal_lahir = $(this).data('tanggal_lahir')
+        let kewarganegaraan = $(this).data('kewarganegaraan')
+        let gol_darah = $(this).data('gol_darah')
 
-        let agama = $(this).data('agama');
-        let status_perkawinan = $(this).data('status_perkawinan');
-        let shdk = $(this).data('shdk');
-        let pendidikan = $(this).data('pendidikan');
-        let pekerjaan = $(this).data('pekerjaan');
+        let agama = $(this).data('agama')
+        let status_perkawinan = $(this).data('status_perkawinan')
+        let shdk = $(this).data('shdk')
+        let pendidikan = $(this).data('pendidikan')
+        let pekerjaan = $(this).data('pekerjaan')
 
-        let alamat_sekarang = $(this).data('alamat_sekarang');
-        let rt = $(this).data('rt');
-        let rw = $(this).data('rw');
-        let kelurahan = $(this).data('kelurahan');
-        let alamat_tujuan = $(this).data('alamat_tujuan');
-        let status = $(this).data('kelurahan');
+        let alamat_sekarang = $(this).data('alamat_sekarang')
+        let rt = $(this).data('rt')
+        let rw = $(this).data('rw')
+        let kelurahan = $(this).data('kelurahan')
+        let alamat_tujuan = $(this).data('alamat_tujuan')
+        let status = $(this).data('kelurahan')
 
         /* Act on the event */
-        fillEditForm(id, no_kk, nik, nama, jenis_kelamin, tempat_lahir, tanggal_lahir, kewarganegaraan, gol_darah, agama, status_perkawinan, shdk, pendidikan, pekerjaan, alamat_sekarang, rt, rw, kelurahan, alamat_tujuan);
-      });
+        fillEditForm(id, no_kk, nik, nama, jenis_kelamin, tempat_lahir, tanggal_lahir, kewarganegaraan, gol_darah, agama, status_perkawinan, shdk, pendidikan, pekerjaan, alamat_sekarang, rt, rw, kelurahan, alamat_tujuan)
+      })
 
       // Delete data
       $('.pindahkeluar-delete').click(function() {
-        let id = $(this).data('id');
-        let nik = $(this).data('nik');
+        let id = $(this).data('id')
+        let nik = $(this).data('nik')
         /* Act on the event */
-        doAjaxDelete(`/dashboard/pindahkeluar/${id}`, 'DELETE', {'id' : id, 'nik' : nik});
-      });
+        doAjaxDelete(`/dashboard/pindahkeluar/${id}`, 'DELETE', {'id' : id, 'nik' : nik})
+      })
 
       // Submit Filter
       $('#filter-pindahkeluar-form').submit(function(e) {
-          e.preventDefault();
+          e.preventDefault()
 
-          $('#report-filter-nik').val($('#filter-pindahkeluar-nik').val());
-          $('#report-filter-nama').val($('#filter-pindahkeluar-nama').val());
-          $('#report-filter-jenis-kelamin').val($('#filter-pindahkeluar-jenis-kelamin').val());
-          $('#report-filter-tempat-lahir').val($('#filter-pindahkeluar-tempat-lahir').val());
-          $('#report-filter-tanggal-lahir').val($('#filter-pindahkeluar-tanggal-lahir').val());
-          $('#report-filter-kewarganegaraan').val($('#filter-pindahkeluar-kewarganegaraan').val());
+          $('#report-filter-nik').val($('#filter-pindahkeluar-nik').val())
+          $('#report-filter-nama').val($('#filter-pindahkeluar-nama').val())
+          $('#report-filter-jenis-kelamin').val($('#filter-pindahkeluar-jenis-kelamin').val())
+          $('#report-filter-tempat-lahir').val($('#filter-pindahkeluar-tempat-lahir').val())
+          $('#report-filter-tanggal-lahir').val($('#filter-pindahkeluar-tanggal-lahir').val())
+          $('#report-filter-kewarganegaraan').val($('#filter-pindahkeluar-kewarganegaraan').val())
 
-          $('#report-filter-golongan-darah').val($('#filter-pindahkeluar-golongan-darah').val());
-          $('#report-filter-agama').val($('#filter-pindahkeluar-agama').val());
-          $('#report-filter-status-perkawinan').val($('#filter-pindahkeluar-status-perkawinan').val());
-          $('#report-filter-shdk').val($('#filter-pindahkeluar-shdk').val());
-          $('#report-filter-pendidikan').val($('#filter-pindahkeluar-pendidikan').val());
-          $('#report-filter-pekerjaan').val($('#filter-pindahkeluar-pekerjaan').val());
+          $('#report-filter-golongan-darah').val($('#filter-pindahkeluar-golongan-darah').val())
+          $('#report-filter-agama').val($('#filter-pindahkeluar-agama').val())
+          $('#report-filter-status-perkawinan').val($('#filter-pindahkeluar-status-perkawinan').val())
+          $('#report-filter-shdk').val($('#filter-pindahkeluar-shdk').val())
+          $('#report-filter-pendidikan').val($('#filter-pindahkeluar-pendidikan').val())
+          $('#report-filter-pekerjaan').val($('#filter-pindahkeluar-pekerjaan').val())
 
-          $('#report-filter-rt').val($('#filter-pindahkeluar-rt').val());
-          $('#report-filter-rw').val($('#filter-pindahkeluar-rw').val());
-          $('#report-filter-kelurahan').val($('#filter-pindahkeluar-kelurahan').val());
+          $('#report-filter-rt').val($('#filter-pindahkeluar-rt').val())
+          $('#report-filter-rw').val($('#filter-pindahkeluar-rw').val())
+          $('#report-filter-kelurahan').val($('#filter-pindahkeluar-kelurahan').val())
 
-          $('#report-filter-status').val($('#filter-pindahkeluar-status').val());
+          $('#report-filter-status').val($('#filter-pindahkeluar-status').val())
 
-          $('#report-filter-tanggal-dari').val($('#filter-pindahkeluar-tanggal-dari').val());
-          $('#report-filter-tanggal-sampai').val($('#filter-pindahkeluar-tanggal-sampai').val());
+          $('#report-filter-tanggal-dari').val($('#filter-pindahkeluar-tanggal-dari').val())
+          $('#report-filter-tanggal-sampai').val($('#filter-pindahkeluar-tanggal-sampai').val())
 
-          pindahkeluar_table.draw();
-      });
+          pindahkeluar_table.draw()
+      })
 
       // Submit create
       $('#pindahkeluar-create-form').submit(function(e) {
-        e.preventDefault();
+        e.preventDefault()
         /* Act on the event */
-        doAjaxCreate(`/dashboard/pindahkeluar`, 'POST', $(this).serialize());
-      });
+        doAjaxCreate(`/dashboard/pindahkeluar`, 'POST', $(this).serialize())
+      })
 
       // Submit update
       $('#pindahkeluar-edit-form').submit(function(e) {
-        e.preventDefault();
-        let id = $('#pindahkeluar-edit-id').val();
+        e.preventDefault()
+        let id = $('#pindahkeluar-edit-id').val()
         /* Act on the event */
-        doAjaxUpdate(`/dashboard/pindahkeluar/${id}`, 'PUT', $(this).serialize());
-      });
+        doAjaxUpdate(`/dashboard/pindahkeluar/${id}`, 'PUT', $(this).serialize())
+      })
 
-    });
-  });
+    })
+  })
 </script>
 @endpush

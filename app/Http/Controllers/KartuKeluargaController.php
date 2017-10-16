@@ -59,7 +59,7 @@ class KartuKeluargaController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['errors' => $validator->messages()]);
+            return response()->json(['errors' => $validator->messages()], 400);
         } else {
             DB::table('kartu_keluarga')->insertGetId([
                 'no_kk' => $request->no_kk,
@@ -111,7 +111,7 @@ class KartuKeluargaController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['errors' => $validator->messages()]);
+            return response()->json(['errors' => $validator->messages()], 400);
         } else {
             DB::table('kartu_keluarga')
                 ->where('id', '=', $request->id)

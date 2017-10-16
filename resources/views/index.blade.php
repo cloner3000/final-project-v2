@@ -54,7 +54,7 @@
             <h1 class="brand-text font-size-30" style="font-family: 'Pacifico', cursive; color: steelblue; text-decoration: none">Coblong</h1>
             <h2 class="brand-text font-size-18">Sistem Informasi Pelayanan</h2>
           </div>
-          <div class="alert dark alert-icon alert-info alert-dismissible message" role="alert">
+          <div class="alert dark alert-icon alert-info message" role="alert">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -125,12 +125,12 @@
   <script>
     $(document).ready(function() {
 
-      $('.message').hide();
+      $('.message').hide()
       
       $('#login-form').submit(function(e) {
-        $('.btn-login').addClass('disabled');
-        $('.btn-login').html('Please wait...');
-        e.preventDefault();
+        $('.btn-login').addClass('disabled')
+        $('.btn-login').html('Please wait...')
+        e.preventDefault()
         /* Act on the event */
         $.ajax({
           headers: {
@@ -141,20 +141,25 @@
           data: $(this).serialize(),
           success: function(data) {
             if (data.status == 'login failed') {
-              $('.message').show();
-              $('.notification').html('Username atau password salah!');
-              $('.btn-login').removeClass('disabled');
-              $('.btn-login').html('Sign in');
+              $('.message').show()
+              $('.notification').html('Isi kolom username dan password!')
+              $('.btn-login').removeClass('disabled')
+              $('.btn-login').html('Sign in')
+            } else if (data.status == 'wrong') {
+              $('.message').show()
+              $('.notification').html('Username atau password salah!')
+              $('.btn-login').removeClass('disabled')
+              $('.btn-login').html('Sign in')
             } else {
-              $('.btn-login').removeClass('disabled');
-              $('.btn-login').html('Sign in');
-              location.reload();
+              $('.btn-login').removeClass('disabled')
+              $('.btn-login').html('Sign in')
+              location.reload()
             }
           }
-        });
-      });
+        })
+      })
 
-    });
+    })
   </script>
 </body>
 </html>

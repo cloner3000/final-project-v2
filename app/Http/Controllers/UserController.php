@@ -49,6 +49,8 @@ class UserController extends Controller
         } else {
             if (Auth::attempt(['username' => $request->username, 'password' => $request->password], $request->remember)) {
                 return response()->json(['status' => 'login success']);
+            } else {
+                return response()->json(['status' => 'wrong']);
             }
         }
     }

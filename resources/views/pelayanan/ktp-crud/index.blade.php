@@ -109,7 +109,7 @@
             </form>
             @if ( Auth::user()->isAdmin() != 0 )
               <!-- Print report by filter -->
-              <form target="_blank" action="{{ url('/dashboard/reports/ktp/filter') }}" method="GET" style="position: relative; bottom: 32.5px; margin-left: 70px;">
+              <form target="_blank" action="{{ url('/dashboard/reports/ktp/filter') }}" method="GET" style="position: relative; bottom: 32.5px; margin-left: 70px">
                 {{ csrf_field() }}
                 
                 <input type="hidden" id="report-filter-nik" name="nik">
@@ -155,7 +155,7 @@
               <button id="filter-ktp" class="btn btn-default btn-sm" style="float: right; top: 105px"><i class="md-filter-list"></i>&nbsp; Filter Data</button>
               @if (Auth::user()->isAdmin() == 0)
                 <button class="btn btn-primary btn-sm btn-new" data-toggle="modal" data-target="#ktp-create-modal" style="float: right; top: 105px; right: 10px"><i class="md-collection-plus"></i>&nbsp; Entri Data</button>
-                {{-- <button class="btn btn-info btn-sm" id="ktp-reports" data-toggle="modal" data-target="#reports-ktp-modal" style="float: right; top: 105px; right: 20px"><i class="md-print"></i>&nbsp; Print Report</button> --}}
+                {{-- <button class="btn btn-info btn-sm" id="ktp-reports" data-toggle="modal" data-target="#reports-ktp-modal" style="float: right top: 105px right: 20px"><i class="md-print"></i>&nbsp Print Report</button> --}}
               @endif
             </div>
           </div>
@@ -226,127 +226,127 @@
         { data: 'created_at' },
         { data: 'action', searchable: false, orderable: false }
       ]
-     });
+     })
 
      // Core : draw datatables!
      $('#ktp-table').on('draw.dt', function() {
 
       // New KTP
       $('.btn-new').click(function() {
-        clearErrorCreateField();
-        clearCreateField();
-      });
+        clearErrorCreateField()
+        clearCreateField()
+      })
 
       // Show KTP
       $('.ktp-show').click(function() {
 
         /* Get the value and store to temporary variable */
-        let nik = $(this).data('nik');
-        let nama = $(this).data('nama');
-        let jenis_kelamin = $(this).data('jenis_kelamin');
-        let tempat_lahir = $(this).data('tempat_lahir');
-        let tanggal_lahir = $(this).data('tanggal_lahir');
-        let kewarganegaraan = $(this).data('kewarganegaraan');
-        let gol_darah = $(this).data('gol_darah');
+        let nik = $(this).data('nik')
+        let nama = $(this).data('nama')
+        let jenis_kelamin = $(this).data('jenis_kelamin')
+        let tempat_lahir = $(this).data('tempat_lahir')
+        let tanggal_lahir = $(this).data('tanggal_lahir')
+        let kewarganegaraan = $(this).data('kewarganegaraan')
+        let gol_darah = $(this).data('gol_darah')
 
-        let agama = $(this).data('agama');
-        let status_perkawinan = $(this).data('status_perkawinan');
-        let pendidikan = $(this).data('pendidikan');
-        let pekerjaan = $(this).data('pekerjaan');
-        let nama_ayah = $(this).data('nama_ayah');
-        let nama_ibu = $(this).data('nama_ibu');
+        let agama = $(this).data('agama')
+        let status_perkawinan = $(this).data('status_perkawinan')
+        let pendidikan = $(this).data('pendidikan')
+        let pekerjaan = $(this).data('pekerjaan')
+        let nama_ayah = $(this).data('nama_ayah')
+        let nama_ibu = $(this).data('nama_ibu')
 
-        let alamat = $(this).data('alamat');
-        let rt = $(this).data('rt');
-        let rw = $(this).data('rw');
-        let kelurahan = $(this).data('kelurahan');
+        let alamat = $(this).data('alamat')
+        let rt = $(this).data('rt')
+        let rw = $(this).data('rw')
+        let kelurahan = $(this).data('kelurahan')
 
         /* Act on the event */
-        fillShowForm(nik, nama, jenis_kelamin, tempat_lahir, tanggal_lahir, kewarganegaraan, gol_darah, agama, status_perkawinan, pendidikan, pekerjaan, nama_ayah, nama_ibu, alamat, rt, rw, kelurahan);
-      });
+        fillShowForm(nik, nama, jenis_kelamin, tempat_lahir, tanggal_lahir, kewarganegaraan, gol_darah, agama, status_perkawinan, pendidikan, pekerjaan, nama_ayah, nama_ibu, alamat, rt, rw, kelurahan)
+      })
 
       // Edit KTP
       $('.ktp-edit').click(function(e) {
         
-        $('#check-status').prop('checked', false);
+        $('#check-status').prop('checked', false)
         /* Get the value and store to temporary variable */
-        let id = $(this).data('id');
-        let nik = $(this).data('nik');
-        let nama = $(this).data('nama');
-        let jenis_kelamin = $(this).data('jenis_kelamin');
-        let tempat_lahir = $(this).data('tempat_lahir');
-        let tanggal_lahir = $(this).data('tanggal_lahir');
-        let kewarganegaraan = $(this).data('kewarganegaraan');
-        let gol_darah = $(this).data('gol_darah');
+        let id = $(this).data('id')
+        let nik = $(this).data('nik')
+        let nama = $(this).data('nama')
+        let jenis_kelamin = $(this).data('jenis_kelamin')
+        let tempat_lahir = $(this).data('tempat_lahir')
+        let tanggal_lahir = $(this).data('tanggal_lahir')
+        let kewarganegaraan = $(this).data('kewarganegaraan')
+        let gol_darah = $(this).data('gol_darah')
 
-        let agama = $(this).data('agama');
-        let status_perkawinan = $(this).data('status_perkawinan');
-        let pendidikan = $(this).data('pendidikan');
-        let pekerjaan = $(this).data('pekerjaan');
-        let nama_ayah = $(this).data('nama_ayah');
-        let nama_ibu = $(this).data('nama_ibu');
+        let agama = $(this).data('agama')
+        let status_perkawinan = $(this).data('status_perkawinan')
+        let pendidikan = $(this).data('pendidikan')
+        let pekerjaan = $(this).data('pekerjaan')
+        let nama_ayah = $(this).data('nama_ayah')
+        let nama_ibu = $(this).data('nama_ibu')
 
-        let alamat = $(this).data('alamat');
-        let rt = $(this).data('rt');
-        let rw = $(this).data('rw');
-        let kelurahan = $(this).data('kelurahan');
+        let alamat = $(this).data('alamat')
+        let rt = $(this).data('rt')
+        let rw = $(this).data('rw')
+        let kelurahan = $(this).data('kelurahan')
 
         /* Act on the event */
-        fillEditForm(id, nik, nama, jenis_kelamin, tempat_lahir, tanggal_lahir, kewarganegaraan, gol_darah, agama, status_perkawinan, pendidikan, pekerjaan, nama_ayah, nama_ibu, alamat, rt, rw, kelurahan);
-      });
+        fillEditForm(id, nik, nama, jenis_kelamin, tempat_lahir, tanggal_lahir, kewarganegaraan, gol_darah, agama, status_perkawinan, pendidikan, pekerjaan, nama_ayah, nama_ibu, alamat, rt, rw, kelurahan)
+      })
 
       // Delete data
       $('.ktp-delete').click(function(e) {
-        let id = $(this).data('id');
-        let nik = $(this).data('nik');
+        let id = $(this).data('id')
+        let nik = $(this).data('nik')
         /* Act on the event */
-        doAjaxDelete(`/dashboard/ktp/${id}`, 'DELETE', {'id' : id, 'nik' : nik});
-      });
+        doAjaxDelete(`/dashboard/ktp/${id}`, 'DELETE', {'id' : id, 'nik' : nik})
+      })
 
       // Submit Filter
       $('#filter-ktp-form').submit(function(e) {
-          e.preventDefault();
+          e.preventDefault()
 
-          $('#report-filter-nik').val($('#filter-ktp-nik').val());
-          $('#report-filter-nama').val($('#filter-ktp-nama').val());
-          $('#report-filter-jenis-kelamin').val($('#filter-ktp-jenis-kelamin').val());
-          $('#report-filter-tempat-lahir').val($('#filter-ktp-tempat-lahir').val());
-          $('#report-filter-tanggal-lahir').val($('#filter-ktp-tanggal-lahir').val());
-          $('#report-filter-kewarganegaraan').val($('#filter-ktp-kewarganegaraan').val());
-          $('#report-filter-golongan-darah').val($('#filter-ktp-golongan-darah').val());
-          $('#report-filter-agama').val($('#filter-ktp-agama').val());
-          $('#report-filter-status-perkawinan').val($('#filter-ktp-status-perkawinan').val());
-          $('#report-filter-pendidikan').val($('#filter-ktp-pendidikan').val());
-          $('#report-filter-pekerjaan').val($('#filter-ktp-pekerjaan').val());
-          $('#report-filter-rt').val($('#filter-ktp-rt').val());
-          $('#report-filter-rw').val($('#filter-ktp-rw').val());
-          $('#report-filter-kelurahan').val($('#filter-ktp-kelurahan').val());
+          $('#report-filter-nik').val($('#filter-ktp-nik').val())
+          $('#report-filter-nama').val($('#filter-ktp-nama').val())
+          $('#report-filter-jenis-kelamin').val($('#filter-ktp-jenis-kelamin').val())
+          $('#report-filter-tempat-lahir').val($('#filter-ktp-tempat-lahir').val())
+          $('#report-filter-tanggal-lahir').val($('#filter-ktp-tanggal-lahir').val())
+          $('#report-filter-kewarganegaraan').val($('#filter-ktp-kewarganegaraan').val())
+          $('#report-filter-golongan-darah').val($('#filter-ktp-golongan-darah').val())
+          $('#report-filter-agama').val($('#filter-ktp-agama').val())
+          $('#report-filter-status-perkawinan').val($('#filter-ktp-status-perkawinan').val())
+          $('#report-filter-pendidikan').val($('#filter-ktp-pendidikan').val())
+          $('#report-filter-pekerjaan').val($('#filter-ktp-pekerjaan').val())
+          $('#report-filter-rt').val($('#filter-ktp-rt').val())
+          $('#report-filter-rw').val($('#filter-ktp-rw').val())
+          $('#report-filter-kelurahan').val($('#filter-ktp-kelurahan').val())
 
-          $('#report-filter-status').val($('#filter-ktp-status').val());
+          $('#report-filter-status').val($('#filter-ktp-status').val())
 
-          $('#report-filter-tanggal-dari').val($('#filter-ktp-tanggal-dari').val());
-          $('#report-filter-tanggal-sampai').val($('#filter-ktp-tanggal-sampai').val());
+          $('#report-filter-tanggal-dari').val($('#filter-ktp-tanggal-dari').val())
+          $('#report-filter-tanggal-sampai').val($('#filter-ktp-tanggal-sampai').val())
 
           /* Act on the event */
-          ktp_table.draw();
-      });
+          ktp_table.draw()
+      })
 
       // Submit create
       $('#ktp-create-form').submit(function(e) {
-        e.preventDefault();
+        e.preventDefault()
         /* Act on the event */
-        doAjaxCreate(`/dashboard/ktp`, 'POST', $(this).serialize());
-      });
+        doAjaxCreate(`/dashboard/ktp`, 'POST', $(this).serialize())
+      })
 
       // Submit update
       $('#ktp-edit-form').submit(function(e) {
-        e.preventDefault();
-        let id = $('#ktp-edit-id').val();
+        e.preventDefault()
+        let id = $('#ktp-edit-id').val()
         /* Act on the event */
-        doAjaxUpdate(`/dashboard/ktp/${id}`, 'PUT', $(this).serialize());
-      });
+        doAjaxUpdate(`/dashboard/ktp/${id}`, 'PUT', $(this).serialize())
+      })
 
-    });
-  });
+    })
+  })
 </script>
 @endpush

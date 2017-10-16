@@ -57,7 +57,7 @@ class LegalisirController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['errors' => $validator->messages()]);
+            return response()->json(['errors' => $validator->messages()], 400);
         } else {
             DB::table('legalisir')->insertGetId([
                 'nik' => $request->nik,
@@ -105,7 +105,7 @@ class LegalisirController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['errors' => $validator->messages()]);
+            return response()->json(['errors' => $validator->messages()], 400);
         } else {
             DB::table('legalisir')
                 ->where('id', '=', $request->id)

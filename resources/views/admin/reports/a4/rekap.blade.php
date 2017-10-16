@@ -42,6 +42,7 @@
                 <table class="table table-bordered">
                     <thead>
                         <tr>
+                            <th>Kelurahan</th>
                             <th>Pemohon E-KTP</th>
                             <th>Pemohon Kartu Keluarga</th>
                             <th>Pemohon Legalisir Berkas</th>
@@ -51,11 +52,52 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td>{{ $ktp }}</td>
-                            <td>{{ $kk }}</td>
-                            <td>{{ $legalisir }}</td>
-                            <td>{{ $pindahdatang }}</td>
-                            <td>{{ $pindahkeluar }}</td>
+                            <td>Cipaganti</td>
+                            <td>{{ $ktp_cipaganti }} pemohon</td>
+                            <td>{{ $kk_cipaganti }} pemohon</td>
+                            <td>{{ $legalisir_cipaganti }} pemohon</td>
+                            <td>{{ $pindahdatang_cipaganti }} pemohon</td>
+                            <td>{{ $pindahkeluar_cipaganti }} pemohon</td>
+                        </tr>
+                        <tr>
+                            <td>Dago</td>
+                            <td>{{ $ktp_dago }} pemohon</td>
+                            <td>{{ $kk_dago }} pemohon</td>
+                            <td>{{ $legalisir_dago }} pemohon</td>
+                            <td>{{ $pindahdatang_dago }} pemohon</td>
+                            <td>{{ $pindahkeluar_dago }} pemohon</td>
+                        </tr>
+                        <tr>
+                            <td>Lebak Gede</td>
+                            <td>{{ $ktp_lebakgede }} pemohon</td>
+                            <td>{{ $kk_lebakgede }} pemohon</td>
+                            <td>{{ $legalisir_lebakgede }} pemohon</td>
+                            <td>{{ $pindahdatang_lebakgede }} pemohon</td>
+                            <td>{{ $pindahkeluar_lebakgede }} pemohon</td>
+                        </tr>
+                        <tr>
+                            <td>Lebak Siliwangi</td>
+                            <td>{{ $ktp_lebaksiliwangi }} pemohon</td>
+                            <td>{{ $kk_lebaksiliwangi }} pemohon</td>
+                            <td>{{ $legalisir_lebaksiliwangi }} pemohon</td>
+                            <td>{{ $pindahdatang_lebaksiliwangi }} pemohon</td>
+                            <td>{{ $pindahkeluar_lebaksiliwangi }} pemohon</td>
+                        </tr>
+                        <tr>
+                            <td>Sadang Serang</td>
+                            <td>{{ $ktp_sadangserang }} pemohon</td>
+                            <td>{{ $kk_sadangserang }} pemohon</td>
+                            <td>{{ $legalisir_sadangserang }} pemohon</td>
+                            <td>{{ $pindahdatang_sadangserang }} pemohon</td>
+                            <td>{{ $pindahkeluar_sadangserang }} pemohon</td>
+                        </tr>
+                        <tr>
+                            <td>Sekeloa</td>
+                            <td>{{ $ktp_sekeloa }} pemohon</td>
+                            <td>{{ $kk_sekeloa }} pemohon</td>
+                            <td>{{ $legalisir_sekeloa }} pemohon</td>
+                            <td>{{ $pindahdatang_sekeloa }} pemohon</td>
+                            <td>{{ $pindahkeluar_sekeloa }} pemohon</td>
                         </tr>
                     </tbody>
                 </table>
