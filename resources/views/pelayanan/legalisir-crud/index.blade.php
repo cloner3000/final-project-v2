@@ -119,7 +119,7 @@
         </div><br>
         <div class="row">
           <div class="col-lg-12 col-md-8 col-sm-12 col-xs-12">
-            <table id="legalisir-table" class="table table-hover">
+            <table id="legalisir-table" class="table table-hover display responsive nowrap" cellspacing="0" width="100%">
               <thead>
                 <th>NIK</th>
                 <th>Nama</th>
@@ -179,14 +179,48 @@
       ]
      })
 
+    // New Legalisir
+    $('.btn-new').click(function() {
+      clearErrorCreateField()
+      clearCreateField()
+    })
+
+    // Submit Filter
+    $('#filter-legalisir-form').submit(function(e) {
+      e.preventDefault()
+
+      $('#report-filter-nik').val($('#filter-legalisir-nik').val())
+      $('#report-filter-nama').val($('#filter-legalisir-nama').val())
+      $('#report-filter-rt').val($('#filter-legalisir-rt').val())
+      $('#report-filter-rw').val($('#filter-legalisir-rw').val())
+      $('#report-filter-kelurahan').val($('#filter-legalisir-kelurahan').val())
+      $('#report-filter-jenis-berkas').val($('#filter-legalisir-jenis-berkas').val())
+
+      $('#report-filter-status').val($('#filter-legalisir-status').val())
+
+      $('#report-filter-tanggal-dari').val($('#filter-legalisir-tanggal-dari').val())
+      $('#report-filter-tanggal-sampai').val($('#filter-legalisir-tanggal-sampai').val())
+
+      legalisir_table.draw()
+    })
+
+    // Submit create
+    $('#legalisir-create-form').submit(function(e) {
+      e.preventDefault()
+      /* Act on the event */
+      doAjaxCreate(`/dashboard/legalisir`, 'POST', $(this).serialize())
+    })
+
+    // Submit update
+    $('#legalisir-edit-form').submit(function(e) {
+      e.preventDefault()
+      let id = $('#legalisir-edit-id').val()
+      /* Act on the event */
+      doAjaxUpdate(`/dashboard/legalisir/${id}`, 'PUT', $(this).serialize())
+    })
+
      // Core : draw datatables!
      $('#legalisir-table').on('draw.dt', function() {
-
-      // New Legalisir
-      $('.btn-new').click(function() {
-        clearErrorCreateField()
-        clearCreateField()
-      })
 
       // Show Legalisir
       $('.legalisir-show').click(function() {
@@ -229,40 +263,6 @@
         let nik = $(this).data('nik')
         /* Act on the event */
         doAjaxDelete(`/dashboard/legalisir/${id}`, 'DELETE', {'id' : id, 'nik' : nik})
-      })
-
-      // Submit Filter
-      $('#filter-legalisir-form').submit(function(e) {
-          e.preventDefault()
-
-          $('#report-filter-nik').val($('#filter-legalisir-nik').val())
-          $('#report-filter-nama').val($('#filter-legalisir-nama').val())
-          $('#report-filter-rt').val($('#filter-legalisir-rt').val())
-          $('#report-filter-rw').val($('#filter-legalisir-rw').val())
-          $('#report-filter-kelurahan').val($('#filter-legalisir-kelurahan').val())
-          $('#report-filter-jenis-berkas').val($('#filter-legalisir-jenis-berkas').val())
-
-          $('#report-filter-status').val($('#filter-legalisir-status').val())
-
-          $('#report-filter-tanggal-dari').val($('#filter-legalisir-tanggal-dari').val())
-          $('#report-filter-tanggal-sampai').val($('#filter-legalisir-tanggal-sampai').val())
-
-          legalisir_table.draw()
-      })
-
-      // Submit create
-      $('#legalisir-create-form').submit(function(e) {
-        e.preventDefault()
-        /* Act on the event */
-        doAjaxCreate(`/dashboard/legalisir`, 'POST', $(this).serialize())
-      })
-
-      // Submit update
-      $('#legalisir-edit-form').submit(function(e) {
-        e.preventDefault()
-        let id = $('#legalisir-edit-id').val()
-        /* Act on the event */
-        doAjaxUpdate(`/dashboard/legalisir/${id}`, 'PUT', $(this).serialize())
       })
 
     })

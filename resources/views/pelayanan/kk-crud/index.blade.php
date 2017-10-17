@@ -131,7 +131,7 @@
         </div><br>
         <div class="row">
           <div class="col-lg-12 col-md-8 col-sm-12 col-xs-12">
-            <table id="kk-table" class="table table-hover">
+            <table id="kk-table" class="table table-hover display responsive nowrap" cellspacing="0" width="100%">
               <thead>
                 <th>No. KK</th>
                 <th>NIK</th>
@@ -193,14 +193,50 @@
       ]
      })
 
+    // New Kartu Keluarga
+    $('.btn-new').click(function() {
+      clearErrorCreateField()
+      clearCreateField()
+    })
+
+    // Submit Filter
+    $('#filter-kk-form').submit(function(e) {
+        e.preventDefault()
+
+        $('#report-filter-no-kk').val($('#filter-kk-no-kk').val())
+        $('#report-filter-nik').val($('#filter-kk-nik').val())
+        $('#report-filter-nama').val($('#filter-kk-nama').val())
+        $('#report-filter-jenis-kelamin').val($('#filter-kk-jenis-kelamin').val())
+        $('#report-filter-rt').val($('#filter-kk-rt').val())
+        $('#report-filter-rw').val($('#filter-kk-rw').val())
+        $('#report-filter-kelurahan').val($('#filter-kk-kelurahan').val())
+        $('#report-filter-jumlah-pengikut').val($('#filter-kk-jumlah-pengikut').val())
+
+        $('#report-filter-status').val($('#filter-kk-status').val())
+
+        $('#report-filter-tanggal-dari').val($('#filter-kk-tanggal-dari').val())
+        $('#report-filter-tanggal-sampai').val($('#filter-kk-tanggal-sampai').val())
+
+        kk_table.draw()
+    })
+
+    // Submit Create
+    $('#kk-create-form').submit(function(e) {
+      e.preventDefault()
+      /* Act on the event */
+      doAjaxCreate(`/dashboard/kk`, 'POST', $(this).serialize())
+    })
+
+    // Submit update
+    $('#kk-edit-form').submit(function(e) {
+      e.preventDefault()
+      let id = $('#kk-edit-id').val()
+      /* Act on the event */
+      doAjaxUpdate(`/dashboard/kk/${id}`, 'PUT', $(this).serialize())
+    })
+
      // Core : draw datatables!
      $('#kk-table').on('draw.dt', function() {
-
-      // New Kartu Keluarga
-      $('.btn-new').click(function() {
-        clearErrorCreateField()
-        clearCreateField()
-      })
 
       // Show Kartu Keluarga
       $('.kk-show').click(function(e) {
@@ -248,43 +284,6 @@
         /* Act on the event */
         doAjaxDelete(`/dashboard/kk/${id}`, 'DELETE', {'id' : id, 'nik' : nik})
       })
-
-      // Submit Filter
-      $('#filter-kk-form').submit(function(e) {
-          e.preventDefault()
-
-          $('#report-filter-no-kk').val($('#filter-kk-no-kk').val())
-          $('#report-filter-nik').val($('#filter-kk-nik').val())
-          $('#report-filter-nama').val($('#filter-kk-nama').val())
-          $('#report-filter-jenis-kelamin').val($('#filter-kk-jenis-kelamin').val())
-          $('#report-filter-rt').val($('#filter-kk-rt').val())
-          $('#report-filter-rw').val($('#filter-kk-rw').val())
-          $('#report-filter-kelurahan').val($('#filter-kk-kelurahan').val())
-          $('#report-filter-jumlah-pengikut').val($('#filter-kk-jumlah-pengikut').val())
-
-          $('#report-filter-status').val($('#filter-kk-status').val())
-
-          $('#report-filter-tanggal-dari').val($('#filter-kk-tanggal-dari').val())
-          $('#report-filter-tanggal-sampai').val($('#filter-kk-tanggal-sampai').val())
-
-          kk_table.draw()
-      })
-
-      // Submit Create
-      $('#kk-create-form').submit(function(e) {
-        e.preventDefault()
-        /* Act on the event */
-        doAjaxCreate(`/dashboard/kk`, 'POST', $(this).serialize())
-      })
-
-      // Submit update
-      $('#kk-edit-form').submit(function(e) {
-        e.preventDefault()
-        let id = $('#kk-edit-id').val()
-        /* Act on the event */
-        doAjaxUpdate(`/dashboard/kk/${id}`, 'PUT', $(this).serialize())
-      })
-
     })
   })
 </script>

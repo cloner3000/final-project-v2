@@ -40,37 +40,25 @@ function doAjaxCreate(url, type, param) {
       type: type,
       data: param,
       success: function(data) {
-          // If validating process fails, display the error messages
-          if(data.hasOwnProperty('errors'))
-          {
-              let name = data.errors.name
-              let username = data.errors.username
-              let email = data.errors.email
+        if (data.message == 'stored')
+          $('#user-create-modal').modal('hide')
 
-              // Clear error field first
-              clearErrorCreateField()
-              
-              // Show validating error messages
-              fillErrorCreateField(name, username, email)
-          } 
-          else {
-              $('#user-create-modal').modal('hide')
-              swal({
-                  title: 'Simpan data?',
-                  text: "Anda bisa melakukan perbaharuan apabila terdapat kesalahan",
-                  type: 'warning',
-                  showCancelButton: true,
-                  confirmButtonColor: '#3085d6',
-                  cancelButtonColor: '#d33',
-                  confirmButtonText: 'Simpan data'
-              }).then(function () {
-                  if (data.message == 'stored') {
-                      swal('Tersimpan!', 'Data tersimpan!', 'success')
-                      $('#user-table').dataTable().fnStandingRedraw()
-                      clearCreateField()
-                  }
-              })
-          }
+        $('#user-table').dataTable().fnStandingRedraw()
+        clearCreateField()
+      },
+      error: function(jqXHR) {
+        let message = JSON.parse(jqXHR.responseText)
+
+        // If validating process fails, display the error messages
+        let name = message.errors.name
+        let username = message.errors.username
+        let email = message.errors.email
+
+        // Clear error field first
+        clearErrorCreateField()
+        
+        // Show validating error messages
+        fillErrorCreateField(name, username, email)
       }
   })
 }
@@ -85,7 +73,8 @@ function doAjaxDelete(url, type, param) {
     confirmButtonColor: '#3085d6',
     cancelButtonColor: '#d33',
     confirmButtonText: 'Hapus data!'
-  }).then(function () {
+  })
+  .then(function () {
     $.ajax({
       headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -94,12 +83,16 @@ function doAjaxDelete(url, type, param) {
       type: type,
       data: param,
       success: function(data) {
-        if(data.message == 'deleted') {
+        if(data.message == 'deleted')
           swal('Terhapus!', 'Data terhapus!', 'success')
-        }
+
         $('#user-table').dataTable().fnStandingRedraw()
       }
     })
+  },
+  function (dismiss) {
+    if (dismiss === 'cancel')
+      swal('Batal', 'Aksi dibatalkan!', 'error')
   })
 }
 // End of Function

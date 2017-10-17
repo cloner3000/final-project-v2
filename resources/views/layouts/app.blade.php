@@ -29,6 +29,7 @@
   <link rel="stylesheet" href="{{ asset('vendor/jvectormap/jquery-jvectormap.css') }}">
   <link rel="stylesheet" href="{{ asset('vendor/bootstrap-datepicker/bootstrap-datepicker.min.css') }}">
   <link rel="stylesheet" href="{{ asset('vendor/datatables-bootstrap/dataTables.bootstrap.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('vendor/datatables-responsive/dataTables.responsive.min.css') }}">
   <!-- Fonts -->
   <link rel="stylesheet" href="{{ asset('fonts/material-design/material-design.min.css') }}">
   <link rel="stylesheet" href="{{ asset('fonts/brand-icons/brand-icons.min.css') }}">
@@ -89,6 +90,8 @@
   <script src="{{ asset('vendor/datatables/jquery.dataTables.min.js') }}"></script>
   <script src="{{ asset('vendor/datatables-bootstrap/dataTables.bootstrap.min.js') }}"></script>
   <script src="{{ asset('vendor/bootstrap-datepicker/bootstrap-datepicker.min.js') }}"></script>
+  <script src="{{ asset('vendor/datatables-responsive/dataTables.responsive.js') }}"></script>
+  <script src="{{ asset('vendor/datatables-responsive/responsive.bootstrap.js') }}"></script>
   <!-- Scripts -->
   <script src="{{ asset('js/State.js') }}"></script>
   <script src="{{ asset('js/Component.js') }}"></script>
@@ -155,23 +158,8 @@
               $('.password-error-new').html(new_password)
               $('.password-error-confirm').html(new_password_confirmation)
             } else {
-              $('#change-password-modal').modal('hide')
-
-              swal({
-                title: 'Ganti password?',
-                text: "Tips : Jangan lupakan password anda untuk saat ini",
-                type: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Ganti password'
-              })
-              .then(function () {
                 if (data.message == 'success') 
-                {
-                  swal('Sukses!', 'Password berhasil diganti!', 'success')
-                }
-              })
+                  $('#change-password-modal').modal('hide')
             }
           }
         })

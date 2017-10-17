@@ -168,7 +168,7 @@
         </div><br>
         <div class="row">
           <div class="col-lg-12 col-md-8 col-sm-12 col-xs-12">
-            <table id="pindahkeluar-table" class="table table-hover">
+            <table id="pindahkeluar-table" class="table table-hover display responsive nowrap" cellspacing="0" width="100%">
               <thead>
                 <th>NIK</th>
                 <th>Nama</th>
@@ -239,14 +239,59 @@
       ]
      })
 
+    // New Pindah Keluar
+    $('.btn-new').click(function() {
+      clearErrorCreateField()
+      clearCreateField()
+    })
+
+    // Submit Filter
+    $('#filter-pindahkeluar-form').submit(function(e) {
+      e.preventDefault()
+
+      $('#report-filter-nik').val($('#filter-pindahkeluar-nik').val())
+      $('#report-filter-nama').val($('#filter-pindahkeluar-nama').val())
+      $('#report-filter-jenis-kelamin').val($('#filter-pindahkeluar-jenis-kelamin').val())
+      $('#report-filter-tempat-lahir').val($('#filter-pindahkeluar-tempat-lahir').val())
+      $('#report-filter-tanggal-lahir').val($('#filter-pindahkeluar-tanggal-lahir').val())
+      $('#report-filter-kewarganegaraan').val($('#filter-pindahkeluar-kewarganegaraan').val())
+
+      $('#report-filter-golongan-darah').val($('#filter-pindahkeluar-golongan-darah').val())
+      $('#report-filter-agama').val($('#filter-pindahkeluar-agama').val())
+      $('#report-filter-status-perkawinan').val($('#filter-pindahkeluar-status-perkawinan').val())
+      $('#report-filter-shdk').val($('#filter-pindahkeluar-shdk').val())
+      $('#report-filter-pendidikan').val($('#filter-pindahkeluar-pendidikan').val())
+      $('#report-filter-pekerjaan').val($('#filter-pindahkeluar-pekerjaan').val())
+
+      $('#report-filter-rt').val($('#filter-pindahkeluar-rt').val())
+      $('#report-filter-rw').val($('#filter-pindahkeluar-rw').val())
+      $('#report-filter-kelurahan').val($('#filter-pindahkeluar-kelurahan').val())
+
+      $('#report-filter-status').val($('#filter-pindahkeluar-status').val())
+
+      $('#report-filter-tanggal-dari').val($('#filter-pindahkeluar-tanggal-dari').val())
+      $('#report-filter-tanggal-sampai').val($('#filter-pindahkeluar-tanggal-sampai').val())
+
+      pindahkeluar_table.draw()
+    })
+
+    // Submit create
+    $('#pindahkeluar-create-form').submit(function(e) {
+      e.preventDefault()
+      /* Act on the event */
+      doAjaxCreate(`/dashboard/pindahkeluar`, 'POST', $(this).serialize())
+    })
+
+    // Submit update
+    $('#pindahkeluar-edit-form').submit(function(e) {
+      e.preventDefault()
+      let id = $('#pindahkeluar-edit-id').val()
+      /* Act on the event */
+      doAjaxUpdate(`/dashboard/pindahkeluar/${id}`, 'PUT', $(this).serialize())
+    })
+
      // Core : draw datatables!
      $('#pindahkeluar-table').on('draw.dt', function() {
-
-      // New Pindah Keluar
-      $('.btn-new').click(function() {
-        clearErrorCreateField()
-        clearCreateField()
-      })
 
       // Show Pindah Keluar
       $('.pindahkeluar-show').click(function() {
@@ -315,51 +360,6 @@
         let nik = $(this).data('nik')
         /* Act on the event */
         doAjaxDelete(`/dashboard/pindahkeluar/${id}`, 'DELETE', {'id' : id, 'nik' : nik})
-      })
-
-      // Submit Filter
-      $('#filter-pindahkeluar-form').submit(function(e) {
-          e.preventDefault()
-
-          $('#report-filter-nik').val($('#filter-pindahkeluar-nik').val())
-          $('#report-filter-nama').val($('#filter-pindahkeluar-nama').val())
-          $('#report-filter-jenis-kelamin').val($('#filter-pindahkeluar-jenis-kelamin').val())
-          $('#report-filter-tempat-lahir').val($('#filter-pindahkeluar-tempat-lahir').val())
-          $('#report-filter-tanggal-lahir').val($('#filter-pindahkeluar-tanggal-lahir').val())
-          $('#report-filter-kewarganegaraan').val($('#filter-pindahkeluar-kewarganegaraan').val())
-
-          $('#report-filter-golongan-darah').val($('#filter-pindahkeluar-golongan-darah').val())
-          $('#report-filter-agama').val($('#filter-pindahkeluar-agama').val())
-          $('#report-filter-status-perkawinan').val($('#filter-pindahkeluar-status-perkawinan').val())
-          $('#report-filter-shdk').val($('#filter-pindahkeluar-shdk').val())
-          $('#report-filter-pendidikan').val($('#filter-pindahkeluar-pendidikan').val())
-          $('#report-filter-pekerjaan').val($('#filter-pindahkeluar-pekerjaan').val())
-
-          $('#report-filter-rt').val($('#filter-pindahkeluar-rt').val())
-          $('#report-filter-rw').val($('#filter-pindahkeluar-rw').val())
-          $('#report-filter-kelurahan').val($('#filter-pindahkeluar-kelurahan').val())
-
-          $('#report-filter-status').val($('#filter-pindahkeluar-status').val())
-
-          $('#report-filter-tanggal-dari').val($('#filter-pindahkeluar-tanggal-dari').val())
-          $('#report-filter-tanggal-sampai').val($('#filter-pindahkeluar-tanggal-sampai').val())
-
-          pindahkeluar_table.draw()
-      })
-
-      // Submit create
-      $('#pindahkeluar-create-form').submit(function(e) {
-        e.preventDefault()
-        /* Act on the event */
-        doAjaxCreate(`/dashboard/pindahkeluar`, 'POST', $(this).serialize())
-      })
-
-      // Submit update
-      $('#pindahkeluar-edit-form').submit(function(e) {
-        e.preventDefault()
-        let id = $('#pindahkeluar-edit-id').val()
-        /* Act on the event */
-        doAjaxUpdate(`/dashboard/pindahkeluar/${id}`, 'PUT', $(this).serialize())
       })
 
     })

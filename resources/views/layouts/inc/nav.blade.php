@@ -12,11 +12,6 @@
     <div class="navbar-brand navbar-brand-center site-gridmenu-toggle" data-toggle="gridmenu">
       <span class="navbar-brand-text hidden-xs-down"> Kecamatan Coblong</span>
     </div>
-    <button type="button" class="navbar-toggler collapsed" data-target="#site-navbar-search"
-    data-toggle="collapse">
-      <span class="sr-only">Toggle Search</span>
-      <i class="icon md-search" aria-hidden="true"></i>
-    </button>
   </div>
   <div class="navbar-container container-fluid">
     <!-- Navbar Collapse -->

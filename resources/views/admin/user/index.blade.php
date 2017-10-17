@@ -57,14 +57,21 @@
       ]
      });
 
+    // New Users
+    $('.btn-new').click(function() {
+      clearErrorCreateField();
+      clearCreateField();
+    });
+    
+    // Submit create
+    $('#user-create-form').submit(function(e) {
+      e.preventDefault();
+      /* Act on the event */
+      doAjaxCreate(`/dashboard/users`, 'POST', $(this).serialize());
+    });
+
      // Core : draw datatables!
      $('#user-table').on('draw.dt', function() {
-
-      // New Users
-      $('.btn-new').click(function() {
-        clearErrorCreateField();
-        clearCreateField();
-      });
 
       // Show Users
       $('.user-show').click(function() {
@@ -83,13 +90,6 @@
         let id = $(this).data('id');
         /* Act on the event */
         doAjaxDelete(`/dashboard/users/${id}`, 'DELETE', {'id' : id});
-      });
-
-      // Submit create
-      $('#user-create-form').submit(function(e) {
-        e.preventDefault();
-        /* Act on the event */
-        doAjaxCreate(`/dashboard/users`, 'POST', $(this).serialize());
       });
 
     });

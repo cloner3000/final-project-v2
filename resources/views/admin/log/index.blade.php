@@ -54,14 +54,14 @@
       ]
      });
 
-     // Core : draw datatables!
-     $('#log-table').on('draw.dt', function() {
-
-      // Delete data
-      $('.log-delete').click(function() {
-        /* Act on the event */
-        doAjaxDelete("{{ url('/dashboard/truncatelog') }}", 'POST', '');
-      });
+    // Delete data
+    $('.log-delete').click(function() {
+      /* Act on the event */
+      doAjaxDelete("{{ url('/dashboard/truncatelog') }}", 'POST', '');
+    });
+    
+    // Core : draw datatables!
+    $('#log-table').on('draw.dt', function() {
 
     });
   });

@@ -162,7 +162,7 @@
         </div><br>
         <div class="row">
           <div class="col-lg-12 col-md-8 col-sm-12 col-xs-12">
-            <table id="ktp-table" class="table table-hover">
+            <table id="ktp-table" class="table table-hover display responsive nowrap" cellspacing="0" width="100%">
               <thead>
                 <th>NIK</th>
                 <th>Nama</th>
@@ -228,14 +228,57 @@
       ]
      })
 
+    // New KTP
+    $('.btn-new').click(function() {
+      clearErrorCreateField()
+      clearCreateField()
+    })
+
+    // Submit Filter
+    $('#filter-ktp-form').submit(function(e) {
+      e.preventDefault()
+
+      $('#report-filter-nik').val($('#filter-ktp-nik').val())
+      $('#report-filter-nama').val($('#filter-ktp-nama').val())
+      $('#report-filter-jenis-kelamin').val($('#filter-ktp-jenis-kelamin').val())
+      $('#report-filter-tempat-lahir').val($('#filter-ktp-tempat-lahir').val())
+      $('#report-filter-tanggal-lahir').val($('#filter-ktp-tanggal-lahir').val())
+      $('#report-filter-kewarganegaraan').val($('#filter-ktp-kewarganegaraan').val())
+      $('#report-filter-golongan-darah').val($('#filter-ktp-golongan-darah').val())
+      $('#report-filter-agama').val($('#filter-ktp-agama').val())
+      $('#report-filter-status-perkawinan').val($('#filter-ktp-status-perkawinan').val())
+      $('#report-filter-pendidikan').val($('#filter-ktp-pendidikan').val())
+      $('#report-filter-pekerjaan').val($('#filter-ktp-pekerjaan').val())
+      $('#report-filter-rt').val($('#filter-ktp-rt').val())
+      $('#report-filter-rw').val($('#filter-ktp-rw').val())
+      $('#report-filter-kelurahan').val($('#filter-ktp-kelurahan').val())
+
+      $('#report-filter-status').val($('#filter-ktp-status').val())
+
+      $('#report-filter-tanggal-dari').val($('#filter-ktp-tanggal-dari').val())
+      $('#report-filter-tanggal-sampai').val($('#filter-ktp-tanggal-sampai').val())
+
+      /* Act on the event */
+      ktp_table.draw()
+    })
+
+    // Submit create
+    $('#ktp-create-form').submit(function(e) {
+      e.preventDefault()
+      /* Act on the event */
+      doAjaxCreate(`/dashboard/ktp`, 'POST', $(this).serialize())
+    })
+
+    // Submit update
+    $('#ktp-edit-form').submit(function(e) {
+      e.preventDefault()
+      let id = $('#ktp-edit-id').val()
+      /* Act on the event */
+      doAjaxUpdate(`/dashboard/ktp/${id}`, 'PUT', $(this).serialize())
+    })
+
      // Core : draw datatables!
      $('#ktp-table').on('draw.dt', function() {
-
-      // New KTP
-      $('.btn-new').click(function() {
-        clearErrorCreateField()
-        clearCreateField()
-      })
 
       // Show KTP
       $('.ktp-show').click(function() {
@@ -301,49 +344,6 @@
         let nik = $(this).data('nik')
         /* Act on the event */
         doAjaxDelete(`/dashboard/ktp/${id}`, 'DELETE', {'id' : id, 'nik' : nik})
-      })
-
-      // Submit Filter
-      $('#filter-ktp-form').submit(function(e) {
-          e.preventDefault()
-
-          $('#report-filter-nik').val($('#filter-ktp-nik').val())
-          $('#report-filter-nama').val($('#filter-ktp-nama').val())
-          $('#report-filter-jenis-kelamin').val($('#filter-ktp-jenis-kelamin').val())
-          $('#report-filter-tempat-lahir').val($('#filter-ktp-tempat-lahir').val())
-          $('#report-filter-tanggal-lahir').val($('#filter-ktp-tanggal-lahir').val())
-          $('#report-filter-kewarganegaraan').val($('#filter-ktp-kewarganegaraan').val())
-          $('#report-filter-golongan-darah').val($('#filter-ktp-golongan-darah').val())
-          $('#report-filter-agama').val($('#filter-ktp-agama').val())
-          $('#report-filter-status-perkawinan').val($('#filter-ktp-status-perkawinan').val())
-          $('#report-filter-pendidikan').val($('#filter-ktp-pendidikan').val())
-          $('#report-filter-pekerjaan').val($('#filter-ktp-pekerjaan').val())
-          $('#report-filter-rt').val($('#filter-ktp-rt').val())
-          $('#report-filter-rw').val($('#filter-ktp-rw').val())
-          $('#report-filter-kelurahan').val($('#filter-ktp-kelurahan').val())
-
-          $('#report-filter-status').val($('#filter-ktp-status').val())
-
-          $('#report-filter-tanggal-dari').val($('#filter-ktp-tanggal-dari').val())
-          $('#report-filter-tanggal-sampai').val($('#filter-ktp-tanggal-sampai').val())
-
-          /* Act on the event */
-          ktp_table.draw()
-      })
-
-      // Submit create
-      $('#ktp-create-form').submit(function(e) {
-        e.preventDefault()
-        /* Act on the event */
-        doAjaxCreate(`/dashboard/ktp`, 'POST', $(this).serialize())
-      })
-
-      // Submit update
-      $('#ktp-edit-form').submit(function(e) {
-        e.preventDefault()
-        let id = $('#ktp-edit-id').val()
-        /* Act on the event */
-        doAjaxUpdate(`/dashboard/ktp/${id}`, 'PUT', $(this).serialize())
       })
 
     })
