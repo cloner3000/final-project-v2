@@ -223,9 +223,6 @@ class KtpController extends Controller
                     if ($request->input('tempat_lahir')) {
                         $query->where('tempat_lahir', 'like', "%{$request->tempat_lahir}%");
                     }
-                    if ($request->input('tanggal_lahir')) {
-                        $query->where('tanggal_lahir', 'like', "%{$request->tanggal_lahir}%");
-                    }
                     if ($request->input('kewarganegaraan')) {
                         $query->where('kewarganegaraan', '=', $request->kewarganegaraan);
                     }
@@ -258,6 +255,9 @@ class KtpController extends Controller
                     }
                     if ($request->input('tanggal_dari') && $request->input('tanggal_sampai')) {
                         $query->whereBetween('created_at', [$request->tanggal_dari, $request->tanggal_sampai]);
+                    }
+                    if ($request->input('tanggal_lahir_dari') && $request->input('tanggal_lahir_sampai')) {
+                        $query->whereBetween('tanggal_lahir', [$request->tanggal_lahir_dari, $request->tanggal_lahir_sampai]);
                     }
                 })
                 ->editColumn('created_at', function ($user) {
@@ -332,11 +332,9 @@ class KtpController extends Controller
         
         $query = DB::table('ktp')->where('nik', '=', $request->nik)->first();
 
-        $pdf = PDF::loadView('admin.reports.resi.resiktp', [
+        return view('admin.reports.resi.resiktp', [
             'ktp' => $query
         ]);
-
-        return $pdf->setPaper('A4', 'portrait')->stream();
     }
 
     /**
@@ -359,9 +357,6 @@ class KtpController extends Controller
         }
         if ($request->input('tempat_lahir')) {
             $query->where('tempat_lahir', 'like', "%{$request->tempat_lahir}%");
-        }
-        if ($request->input('tanggal_lahir')) {
-            $query->where('tanggal_lahir', 'like', "%{$request->tanggal_lahir}%");
         }
         if ($request->input('kewarganegaraan')) {
             $query->where('kewarganegaraan', '=', $request->kewarganegaraan);
@@ -396,7 +391,10 @@ class KtpController extends Controller
         if ($request->input('tanggal_dari') && $request->input('tanggal_sampai')) {
             $query->whereBetween('created_at', [$request->tanggal_dari, $request->tanggal_sampai]);
         }
-
+        if ($request->input('tanggal_lahir_dari') && $request->input('tanggal_lahir_sampai')) {
+            $query->whereBetween('tanggal_lahir', [$request->tanggal_lahir_dari, $request->tanggal_lahir_sampai]);
+        }
+        
         return view('admin.reports.a4.dynamic', [
             'ktp' => $query->get(),
             'count' => $query->count()
@@ -404,43 +402,14 @@ class KtpController extends Controller
     }
 
     /**
-    * Generate reports filter by date.
+    * Archive E-KTP data
     *
     * @return \Illuminate\Http\Response
     */
-    public function displayReportsByDate(Request $request) {
-        $startsAt = $request->input('tanggal_dari'); 
-        $endsAt = $request->input('tanggal_sampai');
+    public function generateKtpArchives(Request $request) {
+        $ktp = DB::table('ktp')->where('created_at', 'like', "%{$request->tanggal}%")->orderBy('created_at', 'ASC')->get();
+        $formattedDate = Carbon::parse($request->tanggal)->format('d F Y');
 
-        $formattedStarts = Carbon::parse($startsAt)->format('d/m/Y');
-        $formattedEnds = Carbon::parse($endsAt)->format('d/m/Y');
-
-        $query = DB::table('ktp')->select(['nik', 'nama', 'jenis_kelamin', 'alamat', 'rt', 'rw', 'kelurahan'])->whereBetween('created_at', [$startsAt, $endsAt])->get();
-        $count = DB::table('ktp')->whereBetween('created_at', [$startsAt, $endsAt])->count();
-
-        return view('admin.reports.a4.reports', [
-            'ktp' => $query,
-            'count' => $count,
-            'formattedStarts' => $formattedStarts,
-            'formattedEnds' => $formattedEnds
-        ]);
-    }
-
-    /**
-    * Generate reports filter by kelurahan.
-    *
-    * @return \Illuminate\Http\Response
-    */
-    public function displayReportsByKelurahan(Request $request) {
-        $kelurahan = $request->input('kelurahan'); 
-
-        $query = DB::table('ktp')->select(['nik', 'nama', 'jenis_kelamin', 'alamat', 'rt', 'rw', 'kelurahan'])->where('kelurahan', '=', $kelurahan)->get();
-        $count = DB::table('ktp')->where('kelurahan', '=', $kelurahan)->count();
-
-        return view('admin.reports.a4.reports', [
-            'kelurahan' => $kelurahan,
-            'ktp' => $query,
-            'count' => $count,
-        ]);
+        return view('admin.reports.a4.archive', ['ktp' => $ktp, 'formattedDate' => $formattedDate]);
     }
 }

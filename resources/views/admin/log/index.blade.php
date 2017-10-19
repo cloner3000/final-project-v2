@@ -59,11 +59,7 @@
       /* Act on the event */
       doAjaxDelete("{{ url('/dashboard/truncatelog') }}", 'POST', '');
     });
-    
-    // Core : draw datatables!
-    $('#log-table').on('draw.dt', function() {
-
-    });
+  
   });
 </script>
 @endpush

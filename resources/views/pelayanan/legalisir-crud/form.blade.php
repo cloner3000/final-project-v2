@@ -38,6 +38,15 @@
                       <input type="text" class="form-control" id="create-nama" name="nama" placeholder="Masukkan Nama" />
                       <small class="create-legalisir-error-nama text-danger"></small>
                     </div>
+                    <!-- Jenis Kelamin -->
+                    <div class="form-group form-material" data-plugin="formMaterial">
+                      <label class="form-control-label" for="jenis_kelamin">Jenis Kelamin</label>
+                      <select id="create-jenis-kelamin" name="jenis_kelamin" class="form-control">
+                        <option value="L">Laki-Laki</option>
+                        <option value="P">Perempuan</option>
+                      </select>
+                      <small class="create-legalisir-error-jenis-kelamin text-danger"></small>
+                    </div>
                     <!-- Jenis Berkas -->
                     <div class="form-group form-material" data-plugin="formMaterial">
                       <label class="form-control-label" for="jenis_berkas">Jenis Berkas</label>
@@ -140,6 +149,14 @@
                       <label class="form-control-label" for="nama">Nama</label>
                       <input type="text" class="form-control" id="show-nama" name="nama" placeholder="Masukkan Nama" readonly />
                     </div>
+                    <!-- Jenis Kelamin -->
+                    <div class="form-group form-material" data-plugin="formMaterial">
+                      <label class="form-control-label" for="jenis_kelamin">Jenis Kelamin</label>
+                      <select id="show-jenis-kelamin" name="jenis_kelamin" class="form-control" disabled>
+                        <option value="L">Laki-Laki</option>
+                        <option value="P">Perempuan</option>
+                      </select>
+                    </div>
                     <!-- Jenis Berkas -->
                     <div class="form-group form-material" data-plugin="formMaterial">
                       <label class="form-control-label" for="jenis_berkas">Jenis Berkas</label>
@@ -239,6 +256,15 @@
                       <label class="form-control-label" for="nama">Nama</label>
                       <input type="text" class="form-control" id="edit-nama" name="nama" placeholder="Masukkan Nama" />
                       <small class="edit-legalisir-error-nama text-danger"></small>
+                    </div>
+                    <!-- Jenis Kelamin -->
+                    <div class="form-group form-material" data-plugin="formMaterial">
+                      <label class="form-control-label" for="jenis_kelamin">Jenis Kelamin</label>
+                      <select id="edit-jenis-kelamin" name="jenis_kelamin" class="form-control">
+                        <option value="L">Laki-Laki</option>
+                        <option value="P">Perempuan</option>
+                      </select>
+                      <small class="edit-legalisir-error-jenis-kelamin text-danger"></small>
                     </div>
                     <!-- Jenis Berkas -->
                     <div class="form-group form-material" data-plugin="formMaterial">

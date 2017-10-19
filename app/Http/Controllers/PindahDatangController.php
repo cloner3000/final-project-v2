@@ -226,9 +226,6 @@ class PindahDatangController extends Controller
                                 if ($request->input('tempat_lahir')) {
                                     $query->where('tempat_lahir', 'like', "%{$request->tempat_lahir}%");
                                 }
-                                if ($request->input('tanggal_lahir')) {
-                                    $query->where('tanggal_lahir', 'like', "%{$request->tanggal_lahir}%");
-                                }
                                 if ($request->input('kewarganegaraan')) {
                                     $query->where('kewarganegaraan', '=', $request->kewarganegaraan);
                                 }
@@ -264,6 +261,9 @@ class PindahDatangController extends Controller
                                 }
                                 if ($request->input('tanggal_dari') && $request->input('tanggal_sampai')) {
                                     $query->whereBetween('created_at', [$request->tanggal_dari, $request->tanggal_sampai]);
+                                }
+                                if ($request->input('tanggal_lahir_dari') && $request->input('tanggal_lahir_sampai')) {
+                                    $query->whereBetween('tanggal_lahir', [$request->tanggal_lahir_dari, $request->tanggal_lahir_sampai]);
                                 }
                             })
                             ->editColumn('created_at', function ($user) {
@@ -352,9 +352,6 @@ class PindahDatangController extends Controller
         if ($request->input('tempat_lahir')) {
             $query->where('tempat_lahir', 'like', $request->tempat_lahir);
         }
-        if ($request->input('tanggal_lahir')) {
-            $query->where('tanggal_lahir', 'like', $request->tanggal_lahir);
-        }
         if ($request->input('kewarganegaraan')) {
             $query->where('kewarganegaraan', '=', $request->kewarganegaraan);
         }
@@ -391,6 +388,9 @@ class PindahDatangController extends Controller
         if ($request->input('tanggal_dari') && $request->input('tanggal_sampai')) {
             $query->whereBetween('created_at', [$request->tanggal_dari, $request->tanggal_sampai]);
         }
+        if ($request->input('tanggal_lahir_dari') && $request->input('tanggal_lahir_sampai')) {
+            $query->whereBetween('tanggal_lahir', [$request->tanggal_lahir_dari, $request->tanggal_lahir_sampai]);
+        }
 
         return view('admin.reports.a4.dynamic', [
             'pindahdatang' => $query->get(),
@@ -399,43 +399,14 @@ class PindahDatangController extends Controller
     }
 
     /**
-    * Generate reports filter by date.
+    * Archive Pindah Datang data
     *
     * @return \Illuminate\Http\Response
     */
-    public function displayReportsByDate(Request $request) {
-        $startsAt = $request->input('tanggal_dari'); 
-        $endsAt = $request->input('tanggal_sampai');
+    public function generatePindahDatangArchives(Request $request) {
+        $pindahdatang = DB::table('pindah_datang')->where('created_at', 'like', "%{$request->tanggal}%")->orderBy('created_at', 'ASC')->get();
+        $formattedDate = Carbon::parse($request->tanggal)->format('d F Y');
 
-        $formattedStarts = Carbon::parse($startsAt)->format('d/m/Y');
-        $formattedEnds = Carbon::parse($endsAt)->format('d/m/Y');
-
-        $query = DB::table('pindah_datang')->select(['nik', 'nama', 'alamat_lama', 'alamat_sekarang', 'rt', 'rw', 'kelurahan'])->whereBetween('created_at', [$startsAt, $endsAt])->get();
-        $count = DB::table('pindah_datang')->whereBetween('created_at', [$startsAt, $endsAt])->count();
-
-        return view('admin.reports.a4.reports', [
-            'pindahdatang' => $query,
-            'count' => $count,
-            'formattedStarts' => $formattedStarts,
-            'formattedEnds' => $formattedEnds
-        ]);
-    }
-
-    /**
-    * Generate reports filter by kelurahan.
-    *
-    * @return \Illuminate\Http\Response
-    */
-    public function displayReportsByKelurahan(Request $request) {
-        $kelurahan = $request->input('kelurahan'); 
-
-        $query = DB::table('pindah_datang')->select(['nik', 'nama', 'alamat_lama', 'alamat_sekarang', 'rt', 'rw', 'kelurahan'])->where('kelurahan', '=', $kelurahan)->get();
-        $count = DB::table('pindah_datang')->where('kelurahan', '=', $kelurahan)->count();
-
-        return view('admin.reports.a4.reports', [
-            'kelurahan' => $kelurahan,
-            'pindahdatang' => $query,
-            'count' => $count,
-        ]);
+        return view('admin.reports.a4.archive', ['pindahdatang' => $pindahdatang, 'formattedDate' => $formattedDate]);
     }
 }

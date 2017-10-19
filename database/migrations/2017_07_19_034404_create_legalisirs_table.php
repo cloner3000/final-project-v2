@@ -17,6 +17,7 @@ class CreateLegalisirsTable extends Migration
             $table->increments('id');
             $table->bigInteger('nik');
             $table->string('nama');
+            $table->char('jenis_kelamin', 1);
             $table->string('alamat');
             $table->char('rt', 2);
             $table->char('rw', 2);

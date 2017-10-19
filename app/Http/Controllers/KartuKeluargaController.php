@@ -264,11 +264,9 @@ class KartuKeluargaController extends Controller
         
         $query = DB::table('kartu_keluarga')->where('nik', '=', $request->nik)->first();
 
-        $pdf = PDF::loadView('admin.reports.resi.resikk', [
+        return view('admin.reports.resi.resikk', [
             'kk' => $query
         ]);
-
-        return $pdf->setPaper('A4', 'portrait')->stream();
     }
 
     /**
@@ -318,43 +316,14 @@ class KartuKeluargaController extends Controller
     }
 
     /**
-    * Generate reports filter by date.
+    * Archive Kartu Keluarga data
     *
     * @return \Illuminate\Http\Response
     */
-    public function displayReportsByDate(Request $request) {
-        $startsAt = $request->input('tanggal_dari'); 
-        $endsAt = $request->input('tanggal_sampai');
+    public function generateKartuKeluargaArchives(Request $request) {
+        $kk = DB::table('kartu_keluarga')->where('created_at', 'like', "%{$request->tanggal}%")->orderBy('created_at', 'ASC')->get();
+        $formattedDate = Carbon::parse($request->tanggal)->format('d F Y');
 
-        $formattedStarts = Carbon::parse($startsAt)->format('d/m/Y');
-        $formattedEnds = Carbon::parse($endsAt)->format('d/m/Y');
-
-        $query = DB::table('kartu_keluarga')->select(['no_kk', 'nik', 'nama', 'jenis_kelamin', 'alamat', 'rt', 'rw', 'kelurahan'])->whereBetween('created_at', [$startsAt, $endsAt])->get();
-        $count = DB::table('kartu_keluarga')->whereBetween('created_at', [$startsAt, $endsAt])->count();
-
-        return view('admin.reports.a4.reports', [
-            'kk' => $query,
-            'count' => $count,
-            'formattedStarts' => $formattedStarts,
-            'formattedEnds' => $formattedEnds
-        ]);
-    }
-
-    /**
-    * Generate reports filter by kelurahan.
-    *
-    * @return \Illuminate\Http\Response
-    */
-    public function displayReportsByKelurahan(Request $request) {
-        $kelurahan = $request->input('kelurahan'); 
-
-        $query = DB::table('kartu_keluarga')->select(['no_kk', 'nik', 'nama', 'jenis_kelamin', 'alamat', 'rt', 'rw', 'kelurahan'])->where('kelurahan', '=', $kelurahan)->get();
-        $count = DB::table('kartu_keluarga')->where('kelurahan', '=', $kelurahan)->count();
-
-        return view('admin.reports.a4.reports', [
-            'kelurahan' => $kelurahan,
-            'kk' => $query,
-            'count' => $count,
-        ]);
+        return view('admin.reports.a4.archive', ['kk' => $kk, 'formattedDate' => $formattedDate]);
     }
 }

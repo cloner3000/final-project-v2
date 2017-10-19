@@ -4,8 +4,6 @@
 
 @include('pelayanan.ktp-crud.form')
 
-@include('admin.reports.form')
-
 <div class="col-xxl-12 col-lg-12 col-xs-12">
   <!-- Main Widget -->
   <div id="filter-ktp-card" class="card card-shadow">
@@ -36,11 +34,6 @@
                 <!-- Tempat Lahir -->
                 <div class="form-group form-material">
                   <input type="text" class="form-control" id="filter-ktp-tempat-lahir" name="tempat_lahir" placeholder="Filter by Tempat Lahir" autocomplete="off" />
-                </div>
-                <!-- Tanggal lahir -->
-                <div class="form-group form-material">
-                  <input type="text" class="form-control" id="filter-ktp-tanggal-lahir" name="tanggal_lahir" placeholder="Filter by Tanggal Lahir"
-                  autocomplete="off" />
                 </div>
                 <!-- Kewarganegaraan -->
                 <div class="form-group form-material">
@@ -81,6 +74,18 @@
                   <input type="text" class="form-control typeahead-kelurahan" id="filter-ktp-kelurahan" name="kelurahan" placeholder="Filter by Kelurahan" autocomplete="off" />
                 </div>
               </div>
+              <!-- Tanggal Lahir -->
+              <div class="form-group">
+                <h5><strong>Tanggal Lahir</strong></h5>
+                <!-- Tanggal Dari -->
+                <div class="form-group form-material">
+                  <input type="text" class="form-control" id="filter-ktp-tanggal-lahir-dari" name="tanggal_lahir_dari" placeholder="Dari" autocomplete="off" />
+                </div>
+                <!-- Tanggal Sampai -->
+                <div class="form-group form-material">
+                  <input type="text" class="form-control" id="filter-ktp-tanggal-lahir-sampai" name="tanggal_lahir_sampai" placeholder="Sampai" autocomplete="off" />
+                </div>
+              </div><br>
               <!-- Status -->
               <div class="form-group">
                 <h5><strong>Status</strong></h5>
@@ -90,10 +95,10 @@
                     <option value="1">1 - Sudah Dicek</option>
                   </select>
                 </div>
-              </div><br><br>
-              <!-- Rentang Waktu -->
+              </div><br>
+              <!-- Tanggal Dibuat -->
               <div class="form-group">
-                <h5><strong>Rentang Waktu</strong></h5>
+                <h5><strong>Tanggal Dibuat</strong></h5>
                 <!-- Tanggal Dari -->
                 <div class="form-group form-material">
                   <input type="text" class="form-control" id="filter-ktp-tanggal-dari" name="tanggal_dari" placeholder="Dari" autocomplete="off" />
@@ -116,7 +121,6 @@
                 <input type="hidden" id="report-filter-nama" name="nama">
                 <input type="hidden" id="report-filter-jenis-kelamin" name="jenis_kelamin">
                 <input type="hidden" id="report-filter-tempat-lahir" name="tempat-lahir">
-                <input type="hidden" id="report-filter-tanggal-lahir" name="tanggal_lahir">
                 <input type="hidden" id="report-filter-kewarganegaraan" name="kewarganegaraan">
                 <input type="hidden" id="report-filter-golongan-darah" name="gol_darah">
                 <input type="hidden" id="report-filter-agama" name="agama">
@@ -126,6 +130,9 @@
                 <input type="hidden" id="report-filter-rt" name="rt">
                 <input type="hidden" id="report-filter-rw" name="rw">
                 <input type="hidden" id="report-filter-kelurahan" name="kelurahan">
+
+                <input type="hidden" id="report-filter-tanggal-lahir-dari" name="tanggal_lahir_dari">
+                <input type="hidden" id="report-filter-tanggal-lahir-sampai" name="tanggal_lahir_sampai">
 
                 <input type="hidden" id="report-filter-status" name="status">
 
@@ -155,7 +162,8 @@
               <button id="filter-ktp" class="btn btn-default btn-sm" style="float: right; top: 105px"><i class="md-filter-list"></i>&nbsp; Filter Data</button>
               @if (Auth::user()->isAdmin() == 0)
                 <button class="btn btn-primary btn-sm btn-new" data-toggle="modal" data-target="#ktp-create-modal" style="float: right; top: 105px; right: 10px"><i class="md-collection-plus"></i>&nbsp; Entri Data</button>
-                {{-- <button class="btn btn-info btn-sm" id="ktp-reports" data-toggle="modal" data-target="#reports-ktp-modal" style="float: right top: 105px right: 20px"><i class="md-print"></i>&nbsp Print Report</button> --}}
+              @else
+                <button class="btn btn-primary btn-sm" id="ktp-archive" data-toggle="modal" data-target="#archive-ktp-modal" style="float: right; top: 105px; right: 10px"><i class="md-archive"></i>&nbsp; Arsipkan Data</button>
               @endif
             </div>
           </div>
@@ -204,7 +212,6 @@
           d.nama = $('#filter-ktp-nama').val(),
           d.jenis_kelamin = $('#filter-ktp-jenis-kelamin').val(),
           d.tempat_lahir = $('#filter-ktp-tempat-lahir').val(),
-          d.tanggal_lahir = $('#filter-ktp-tanggal-lahir').val(),
           d.kewarganegaraan = $('#filter-ktp-kewarganegaraan').val(),
           d.gol_darah = $('#filter-ktp-golongan-darah').val(),
           d.agama = $('#filter-ktp-agama').val(),
@@ -214,7 +221,12 @@
           d.rt = $('#filter-ktp-rt').val(),
           d.rw = $('#filter-ktp-rw').val(),
           d.kelurahan = $('#filter-ktp-kelurahan').val(),
+
+          d.tanggal_lahir_dari = $('#filter-ktp-tanggal-lahir-dari').val(),
+          d.tanggal_lahir_sampai = $('#filter-ktp-tanggal-lahir-sampai').val(),
+
           d.status = $('#filter-ktp-status').val(),
+          
           d.tanggal_dari = $('#filter-ktp-tanggal-dari').val(),
           d.tanggal_sampai = $('#filter-ktp-tanggal-sampai').val()
         }
@@ -242,7 +254,6 @@
       $('#report-filter-nama').val($('#filter-ktp-nama').val())
       $('#report-filter-jenis-kelamin').val($('#filter-ktp-jenis-kelamin').val())
       $('#report-filter-tempat-lahir').val($('#filter-ktp-tempat-lahir').val())
-      $('#report-filter-tanggal-lahir').val($('#filter-ktp-tanggal-lahir').val())
       $('#report-filter-kewarganegaraan').val($('#filter-ktp-kewarganegaraan').val())
       $('#report-filter-golongan-darah').val($('#filter-ktp-golongan-darah').val())
       $('#report-filter-agama').val($('#filter-ktp-agama').val())
@@ -252,6 +263,9 @@
       $('#report-filter-rt').val($('#filter-ktp-rt').val())
       $('#report-filter-rw').val($('#filter-ktp-rw').val())
       $('#report-filter-kelurahan').val($('#filter-ktp-kelurahan').val())
+
+      $('#report-filter-tanggal-lahir-dari').val($('#filter-ktp-tanggal-lahir-dari').val())
+      $('#report-filter-tanggal-lahir-sampai').val($('#filter-ktp-tanggal-lahir-sampai').val())
 
       $('#report-filter-status').val($('#filter-ktp-status').val())
 

@@ -74,7 +74,8 @@ class LegalisirTableSeeder extends Seeder
         	$date = $faker->dateTimeBetween($startDate = '-1095 days', $endDate = 'now')->format('Y-m-d H:i:s');
         	$data[] = [
         		'nik'		 	 	 => $faker->unique()->numberBetween($min = 3273020101010001, $max = 3273020101019999),
-        		'nama'		 	 	 => $faker->randomElement($array = $nama_depan) . ' ' . $faker->randomElement($array = $nama_belakang), 
+        		'nama'		 	 	 => $faker->randomElement($array = $nama_depan) . ' ' . $faker->randomElement($array = $nama_belakang),
+                'jenis_kelamin'      => $faker->randomElement($array = ['L', 'P']), 
     		    'alamat'		     => 'Jl. ' . $faker->randomElement($array = $alamat) . ' No. ' . $faker->randomDigitNotNull, 
         		'rt'		 	 	 => $faker->randomDigitNotNull, 
         		'rw'		 	 	 => $faker->randomDigitNotNull,

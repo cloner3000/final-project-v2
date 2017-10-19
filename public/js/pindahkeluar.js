@@ -9,9 +9,13 @@ function initPindahKeluar() {
       /* Act on the event */
       $('#filter-pindahkeluar-card').slideToggle()
       
-      $('#filter-pindahkeluar-tanggal-lahir').datepicker({
-        format: 'yyyy-mm-dd',
-        autoclose: true
+      $('#filter-pindahkeluar-tanggal-lahir-dari').datepicker({
+          format: 'yyyy-mm-dd',
+          autoclose: true
+      })
+      $('#filter-pindahkeluar-tanggal-lahir-sampai').datepicker({
+          format: 'yyyy-mm-dd',
+          autoclose: true
       })
       $('#filter-pindahkeluar-tanggal-dari').datepicker({
         format: 'yyyy-mm-dd',

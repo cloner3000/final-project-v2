@@ -36,23 +36,15 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'is.logged.in'], function
 	Route::get('/reports/pindahdatang/filter', 'PindahDatangController@generatePindahDatangReports');
 	Route::get('/reports/pindahkeluar/filter', 'PindahKeluarController@generatePindahKeluarReports');
 
-	Route::post('/resi/ktp', 'KtpController@cetakResiKtp');
-	Route::post('/resi/kk', 'KartuKeluargaController@cetakResiKartuKeluarga');
+	Route::get('/archive/ktp/date', 'KtpController@generateKtpArchives');
+	Route::get('/archive/kk/date', 'KartuKeluargaController@generateKartuKeluargaArchives');
+	Route::get('/archive/legalisir/date', 'LegalisirController@generateLegalisirArchives');
+	Route::get('/archive/pindahdatang/date', 'PindahDatangController@generatePindahDatangArchives');
+	Route::get('/archive/pindahkeluar/date', 'PindahKeluarController@generatePindahKeluarArchives');
 
-	Route::post('/rekap', 'DashboardController@cetakRekap');
-	
-	// Route::post('/reports/ktp/date', 'KtpController@displayReportsByDate');
-	// Route::post('/reports/ktp/kelurahan', 'KtpController@displayReportsByKelurahan');
-	
-	// Route::post('/reports/kk/date', 'KartuKeluargaController@displayReportsByDate');
-	// Route::post('/reports/kk/kelurahan', 'KartuKeluargaController@displayReportsByKelurahan');
-	
-	// Route::post('/reports/legalisir/date', 'LegalisirController@displayReportsByDate');
-	// Route::post('/reports/legalisir/kelurahan', 'LegalisirController@displayReportsByKelurahan');
+	Route::get('/resi/ktp', 'KtpController@cetakResiKtp');
+	Route::get('/resi/kk', 'KartuKeluargaController@cetakResiKartuKeluarga');
 
-	// Route::post('/reports/pindahdatang/date', 'PindahDatangController@displayReportsByDate');
-	// Route::post('/reports/pindahdatang/kelurahan', 'PindahDatangController@displayReportsByKelurahan');
-
-	// Route::post('/reports/pindahkeluar/date', 'PindahKeluarController@displayReportsByDate');
-	// Route::post('/reports/pindahkeluar/kelurahan', 'PindahKeluarController@displayReportsByKelurahan');
+	Route::get('/rekap', 'DashboardController@cetakRekap');
+	
 });

@@ -4,8 +4,6 @@
 
 @include('pelayanan.legalisir-crud.form')
 
-@include('admin.reports.form')
-
 <div class="col-xxl-12 col-lg-12 col-xs-12">
   <!-- Main Widget -->
   <div id="filter-legalisir-card" class="card card-shadow">
@@ -28,6 +26,10 @@
                   <input type="text" class="form-control" id="filter-legalisir-nama" name="nama" placeholder="Filter by Nama"
                   autocomplete="off" />
                 </div>
+                <!-- Jenis Kelamin -->
+                <div class="form-group form-material">
+                  <input type="text" class="form-control typeahead-jenis-kelamin" id="filter-legalisir-jenis-kelamin" name="jenis_kelamin" placeholder="Filter by Jenis Kelamin" autocomplete="off" />
+                </div>
                 <!-- RT -->
                 <div class="form-group form-material">
                   <input type="number" class="form-control" id="filter-legalisir-rt" name="rt" placeholder="Filter by RT"
@@ -46,7 +48,7 @@
                 <div class="form-group form-material">
                   <input type="text" class="form-control typeahead-jenis-berkas" id="filter-legalisir-jenis-berkas" name="jenis_berkas" placeholder="Filter by Jenis Berkas" autocomplete="off" />
                 </div>
-              </div><br><br>
+              </div><br>
               <!-- Status -->
               <div class="form-group">
                 <h5><strong>Status</strong></h5>
@@ -56,10 +58,10 @@
                     <option value="1">1 - Sudah Dicek</option>
                   </select>
                 </div>
-              </div><br><br>
-              <!-- Rentang Waktu -->
+              </div><br>
+              <!-- Tanggal Dibuat -->
               <div class="form-group">
-                <h5><strong>Rentang Waktu</strong></h5>
+                <h5><strong>Tanggal Dibuat</strong></h5>
                 <!-- Tanggal Dari -->
                 <div class="form-group form-material">
                   <input type="text" class="form-control" id="filter-legalisir-tanggal-dari" name="tanggal_dari" placeholder="Dari" autocomplete="off" />
@@ -80,6 +82,7 @@
 
                 <input type="hidden" id="report-filter-nik" name="nik">
                 <input type="hidden" id="report-filter-nama" name="nama">
+                <input type="hidden" id="report-filter-jenis-kelamin" name="jenis_kelamin">
                 <input type="hidden" id="report-filter-rt" name="rt">
                 <input type="hidden" id="report-filter-rw" name="rw">
                 <input type="hidden" id="report-filter-kelurahan" name="kelurahan">
@@ -112,7 +115,8 @@
               <button id="filter-legalisir" class="btn btn-default btn-sm" style="float: right; top: 105px"><i class="md-filter-list"></i>&nbsp; Filter Data</button>
               @if (Auth::user()->isAdmin() == 0)
                 <button class="btn btn-primary btn-sm btn-new" data-toggle="modal" data-target="#legalisir-create-modal" style="float: right; top: 105px; right: 10px"><i class="md-collection-plus"></i>&nbsp; Entri Data</button>
-                {{-- <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#reports-legalisir-modal" style="float: right; top: 105px; right: 20px"><i class="md-print"></i>&nbsp; Print Report</button> --}}
+              @else
+                <button class="btn btn-primary btn-sm" id="legalisir-archive" data-toggle="modal" data-target="#archive-legalisir-modal" style="float: right; top: 105px; right: 10px"><i class="md-archive"></i>&nbsp; Arsipkan Data</button>
               @endif
             </div>
           </div>
@@ -160,6 +164,7 @@
         data: function(d) {
           d.nik = $('#filter-legalisir-nik').val(),
           d.nama = $('#filter-legalisir-nama').val(),
+          d.jenis_kelamin = $('#filter-legalisir-jenis-kelamin').val(),
           d.rt = $('#filter-legalisir-rt').val(),
           d.rw = $('#filter-legalisir-rw').val(),
           d.kelurahan = $('#filter-legalisir-kelurahan').val(),
@@ -191,6 +196,7 @@
 
       $('#report-filter-nik').val($('#filter-legalisir-nik').val())
       $('#report-filter-nama').val($('#filter-legalisir-nama').val())
+      $('#report-filter-jenis-kelamin').val($('#filter-legalisir-jenis-kelamin').val())
       $('#report-filter-rt').val($('#filter-legalisir-rt').val())
       $('#report-filter-rw').val($('#filter-legalisir-rw').val())
       $('#report-filter-kelurahan').val($('#filter-legalisir-kelurahan').val())
@@ -228,14 +234,15 @@
         /* Get the value and store to temporary variable */
         let nik = $(this).data('nik')
         let nama = $(this).data('nama')
+        let jenis_kelamin = $(this).data('jenis_kelamin')
+        let jenis_berkas = $(this).data('jenis_berkas')
         let alamat = $(this).data('alamat')
         let rt = $(this).data('rt')
         let rw = $(this).data('rw')
         let kelurahan = $(this).data('kelurahan')
-        let jenis_berkas = $(this).data('jenis_berkas')
 
         /* Act on the event */
-        fillShowForm(nik, nama, alamat, rt, rw, kelurahan, jenis_berkas)
+        fillShowForm(nik, nama, jenis_kelamin, jenis_berkas, alamat, rt, rw, kelurahan)
       })
 
       // Edit legalisir
@@ -246,15 +253,16 @@
         let id = $(this).data('id')
         let nik = $(this).data('nik')
         let nama = $(this).data('nama')
+        let jenis_kelamin = $(this).data('jenis_kelamin')
+        let jenis_berkas = $(this).data('jenis_berkas')
         let alamat = $(this).data('alamat')
         let rt = $(this).data('rt')
         let rw = $(this).data('rw')
         let kelurahan = $(this).data('kelurahan')
-        let jenis_berkas = $(this).data('jenis_berkas')
 
         /* Act on the event */
         clearErrorEditField()
-        fillEditForm(id, nik, nama, alamat, rt, rw, kelurahan, jenis_berkas)
+        fillEditForm(id, nik, nama, jenis_kelamin, jenis_berkas, alamat, rt, rw, kelurahan)
       })
 
       // Delete data

@@ -9,9 +9,13 @@ function initPindahDatang() {
       /* Act on the event */
       $('#filter-pindahdatang-card').slideToggle()
       
-      $('#filter-pindahdatang-tanggal-lahir').datepicker({
-        format: 'yyyy-mm-dd',
-        autoclose: true
+      $('#filter-pindahdatang-tanggal-lahir-dari').datepicker({
+          format: 'yyyy-mm-dd',
+          autoclose: true
+      })
+      $('#filter-pindahdatang-tanggal-lahir-sampai').datepicker({
+          format: 'yyyy-mm-dd',
+          autoclose: true
       })
       $('#filter-pindahdatang-tanggal-dari').datepicker({
         format: 'yyyy-mm-dd',

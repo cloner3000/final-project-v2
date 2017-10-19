@@ -123,7 +123,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form action="{{ url('/dashboard/resi/kk') }}" target="_blank" id="kk-show-form" method="POST">
+      <form action="{{ url('/dashboard/resi/kk') }}" target="_blank" id="kk-show-form" method="GET">
         <div class="modal-body">
           <!-- Tab Kartu Keluarga -->
           <ul class="nav nav-tabs nav-tabs-line">

@@ -49,6 +49,7 @@ class LegalisirController extends Controller
         $validator = Validator::make($request->all(), [
             'nik' => 'required|numeric',
             'nama' => 'required',
+            'jenis_kelamin' => 'required',
             'alamat' => 'required',
             'rt' => 'required|integer',
             'rw' => 'required|integer',
@@ -62,6 +63,7 @@ class LegalisirController extends Controller
             DB::table('legalisir')->insertGetId([
                 'nik' => $request->nik,
                 'nama' => $request->nama,
+                'jenis_kelamin' => $request->jenis_kelamin,
                 'alamat' => $request->alamat,
                 'rt' => $request->rt,
                 'rw' => $request->rw,
@@ -97,6 +99,7 @@ class LegalisirController extends Controller
         $validator = Validator::make($request->all(), [
             'nik' => 'required|numeric',
             'nama' => 'required',
+            'jenis_kelamin' => 'required',
             'alamat' => 'required',
             'rt' => 'required|integer',
             'rw' => 'required|integer',
@@ -112,6 +115,7 @@ class LegalisirController extends Controller
                 ->update([
                 'nik' => $request->nik,
                 'nama' => $request->nama,
+                'jenis_kelamin' => $request->jenis_kelamin,
                 'alamat' => $request->alamat,
                 'rt' => $request->rt,
                 'rw' => $request->rw,
@@ -161,7 +165,7 @@ class LegalisirController extends Controller
      */
     public function getLegalisirData(Request $request)
     {
-        $legalisirs = DB::table('legalisir')->select(['id', 'nik', 'nama', 'alamat', 'rt', 'rw', 'kelurahan', 'jenis_berkas', 'status', 'created_at', 'updated_at', 'user_id']);
+        $legalisirs = DB::table('legalisir')->select(['id', 'nik', 'nama', 'jenis_kelamin', 'alamat', 'rt', 'rw', 'kelurahan', 'jenis_berkas', 'status', 'created_at', 'updated_at', 'user_id']);
         
         return DataTables::of($legalisirs)
                             ->filter(function($query) use ($request) {
@@ -170,6 +174,9 @@ class LegalisirController extends Controller
                                 }
                                 if ($request->input('nama')) {
                                     $query->where('nama', 'like', "%{$request->nama}%");
+                                }
+                                if ($request->input('jenis_kelamin')) {
+                                    $query->where('jenis_kelamin', '=', $request->jenis_kelamin);
                                 }
                                 if ($request->input('rt')) {
                                     $query->where('rt', '=', $request->rt);
@@ -190,6 +197,17 @@ class LegalisirController extends Controller
                                     $query->whereBetween('created_at', [$request->tanggal_dari, $request->tanggal_sampai]);
                                 }
                             })
+                            ->editColumn('jenis_berkas', function ($query) {
+                                switch ($query->jenis_berkas) {
+                                    case 'KK':
+                                        return 'Kartu Keluarga';
+                                        break;
+                                    
+                                    case 'E-KTP':
+                                        return 'E-KTP';
+                                        break;
+                                }
+                            })
                             ->editColumn('created_at', function ($user) {
                                 return $user->created_at ? with(new Carbon($user->created_at))->format('Y/m/d') : '';
                             })
@@ -202,11 +220,12 @@ class LegalisirController extends Controller
                                         data-id="'. $legalisir->id .'"
                                         data-nik="'. $legalisir->nik .'"
                                         data-nama="'. $legalisir->nama .'"
+                                        data-jenis_kelamin="'. $legalisir->jenis_kelamin .'"
+                                        data-jenis_berkas="'. $legalisir->jenis_berkas .'"
                                         data-alamat="'. $legalisir->alamat .'"
                                         data-rt="'. $legalisir->rt .'"
                                         data-rw="'. $legalisir->rw .'"
                                         data-kelurahan="'. $legalisir->kelurahan .'"
-                                        data-jenis_berkas="'. $legalisir->jenis_berkas .'"
                                         data-status="'. $legalisir->status .'"
                                         data-user_id="'. $legalisir->user_id .'"
                                         ><i class="md-eye"></i></button>
@@ -217,11 +236,12 @@ class LegalisirController extends Controller
                                         data-id="'. $legalisir->id .'"
                                         data-nik="'. $legalisir->nik .'"
                                         data-nama="'. $legalisir->nama .'"
+                                        data-jenis_kelamin="'. $legalisir->jenis_kelamin .'"
+                                        data-jenis_berkas="'. $legalisir->jenis_berkas .'"
                                         data-alamat="'. $legalisir->alamat .'"
                                         data-rt="'. $legalisir->rt .'"
                                         data-rw="'. $legalisir->rw .'"
                                         data-kelurahan="'. $legalisir->kelurahan .'"
-                                        data-jenis_berkas="'. $legalisir->jenis_berkas .'"
                                         data-status="'. $legalisir->status .'"
                                         data-user_id="'. $legalisir->user_id .'"
                                         ><i class="md-edit"></i></button>
@@ -241,13 +261,16 @@ class LegalisirController extends Controller
     */
     public function generateLegalisirReports(Request $request) {
         
-        $query = DB::table('legalisir')->select(['nik', 'nama', 'alamat', 'rt', 'rw', 'kelurahan', 'jenis_berkas']);
+        $query = DB::table('legalisir')->select(['nik', 'nama', 'jenis_kelamin', 'alamat', 'rt', 'rw', 'kelurahan', 'jenis_berkas']);
 
         if ($request->input('nik')) {
             $query->where('nik', 'like', "%{$request->nik}%");
         }
         if ($request->input('nama')) {
             $query->where('nama', 'like', "%{$request->nama}%");
+        }
+        if ($request->input('jenis_kelamin')) {
+            $query->where('jenis_kelamin', '=', $request->jenis_kelamin);
         }
         if ($request->input('rt')) {
             $query->where('rt', '=', $request->rt);
@@ -275,43 +298,14 @@ class LegalisirController extends Controller
     }
 
     /**
-    * Generate reports filter by date.
+    * Archive Legalisir data
     *
     * @return \Illuminate\Http\Response
     */
-    public function displayReportsByDate(Request $request) {
-        $startsAt = $request->input('tanggal_dari'); 
-        $endsAt = $request->input('tanggal_sampai');
+    public function generateLegalisirArchives(Request $request) {
+        $legalisir = DB::table('legalisir')->where('created_at', 'like', "%{$request->tanggal}%")->orderBy('created_at', 'ASC')->get();
+        $formattedDate = Carbon::parse($request->tanggal)->format('d F Y');
 
-        $formattedStarts = Carbon::parse($startsAt)->format('d/m/Y');
-        $formattedEnds = Carbon::parse($endsAt)->format('d/m/Y');
-
-        $query = DB::table('legalisir')->select(['nik', 'nama', 'alamat', 'rt', 'rw', 'kelurahan', 'jenis_berkas'])->whereBetween('created_at', [$startsAt, $endsAt])->get();
-        $count = DB::table('legalisir')->whereBetween('created_at', [$startsAt, $endsAt])->count();
-
-        return view('admin.reports.a4.reports', [
-            'legalisir' => $query,
-            'count' => $count,
-            'formattedStarts' => $formattedStarts,
-            'formattedEnds' => $formattedEnds
-        ]);
-    }
-
-    /**
-    * Generate reports filter by kelurahan.
-    *
-    * @return \Illuminate\Http\Response
-    */
-    public function displayReportsByKelurahan(Request $request) {
-        $kelurahan = $request->input('kelurahan'); 
-
-        $query = DB::table('legalisir')->select(['nik', 'nama', 'alamat', 'rt', 'rw', 'kelurahan', 'jenis_berkas'])->where('kelurahan', '=', $kelurahan)->get();
-        $count = DB::table('legalisir')->where('kelurahan', '=', $kelurahan)->count();
-
-        return view('admin.reports.a4.reports', [
-            'kelurahan' => $kelurahan,
-            'legalisir' => $query,
-            'count' => $count,
-        ]);
+        return view('admin.reports.a4.archive', ['legalisir' => $legalisir, 'formattedDate' => $formattedDate]);
     }
 }

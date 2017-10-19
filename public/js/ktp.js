@@ -9,7 +9,11 @@ function initKtp() {
 
         $('#filter-ktp-card').slideToggle()
         
-        $('#filter-ktp-tanggal-lahir').datepicker({
+        $('#filter-ktp-tanggal-lahir-dari').datepicker({
+            format: 'yyyy-mm-dd',
+            autoclose: true
+        })
+        $('#filter-ktp-tanggal-lahir-sampai').datepicker({
             format: 'yyyy-mm-dd',
             autoclose: true
         })

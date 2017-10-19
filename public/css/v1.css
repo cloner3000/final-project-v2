@@ -1,3 +1,8 @@
+#summary-charts {
+  height: 400px;
+  margin: 0 auto;
+}
+
 .dashboard .card, .dashboard .panel {
   height: -webkit-calc(100% - 30px);
   height:         calc(100% - 30px);

@@ -4,8 +4,6 @@
 
 @include('pelayanan.kk-crud.form')
 
-@include('admin.reports.form')
-
 <div class="col-xxl-12 col-lg-12 col-xs-12">
   <!-- Main Widget -->
   <div id="filter-kk-card" class="card card-shadow">
@@ -66,10 +64,10 @@
                     <option value="1">1 - Sudah Dicek</option>
                   </select>
                 </div>
-              </div><br><br>
-              <!-- Rentang Waktu -->
+              </div><br>
+              <!-- Tanggal Dibuat -->
               <div class="form-group">
-                <h5><strong>Rentang Waktu</strong></h5>
+                <h5><strong>Tanggal Dibuat</strong></h5>
                 <!-- Tanggal Dari -->
                 <div class="form-group form-material">
                   <input type="text" class="form-control" id="filter-kk-tanggal-dari" name="tanggal_dari" placeholder="Dari" autocomplete="off" />
@@ -124,7 +122,8 @@
               <button id="filter-kk" class="btn btn-default btn-sm" style="float: right; top: 105px"><i class="md-filter-list"></i>&nbsp; Filter Data</button>
               @if (Auth::user()->isAdmin() == 0)
                 <button class="btn btn-primary btn-sm btn-new" data-toggle="modal" data-target="#kk-create-modal" style="float: right; top: 105px; right: 10px"><i class="md-collection-plus"></i>&nbsp; Entri Data</button>
-                {{-- <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#reports-kk-modal" style="float: right top: 105px right: 20px"><i class="md-print"></i>&nbsp Print Report</button> --}}
+              @else
+                <button class="btn btn-primary btn-sm" id="kk-archive" data-toggle="modal" data-target="#archive-kk-modal" style="float: right; top: 105px; right: 10px"><i class="md-archive"></i>&nbsp; Arsipkan Data</button>
               @endif
             </div>
           </div>

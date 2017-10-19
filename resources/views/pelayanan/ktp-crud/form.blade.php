@@ -229,7 +229,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form action="{{ url('/dashboard/resi/ktp') }}" target="_blank" id="ktp-show-form" method="POST">
+      <form action="{{ url('/dashboard/resi/ktp') }}" target="_blank" id="ktp-show-form" method="GET">
         <div class="modal-body">
           <!-- Tab Ktp -->
           <ul class="nav nav-tabs nav-tabs-line">

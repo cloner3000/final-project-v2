@@ -4,8 +4,6 @@
 
 @include('pelayanan.pindahdatang-crud.form')
 
-@include('admin.reports.form')
-
 <div class="col-xxl-12 col-lg-12 col-xs-12">
   <!-- Main Widget -->
   <div id="filter-pindahdatang-card" class="card card-shadow">
@@ -36,11 +34,6 @@
                 <!-- Tempat Lahir -->
                 <div class="form-group form-material">
                   <input type="text" id="filter-pindahdatang-tempat-lahir" class="form-control" name="tempat_lahir" placeholder="Filter by Tempat Lahir" autocomplete="off" />
-                </div>
-                <!-- Tanggal lahir -->
-                <div class="form-group form-material">
-                  <input type="text" id="filter-pindahdatang-tanggal-lahir" class="form-control" name="tanggal_lahir" placeholder="Filter by Tanggal Lahir"
-                  autocomplete="off" />
                 </div>
                 <!-- Kewarganegaraan -->
                 <div class="form-group form-material">
@@ -85,6 +78,18 @@
                   <input type="text" id="filter-pindahdatang-kelurahan" class="form-control typeahead-kelurahan" name="kelurahan" placeholder="Filter by Kelurahan" autocomplete="off" />
                 </div>
               </div>
+              <!-- Tanggal Lahir -->
+              <div class="form-group">
+                <h5><strong>Tanggal Lahir</strong></h5>
+                <!-- Tanggal Dari -->
+                <div class="form-group form-material">
+                  <input type="text" class="form-control" id="filter-pindahdatang-tanggal-lahir-dari" name="tanggal_lahir_dari" placeholder="Dari" autocomplete="off" />
+                </div>
+                <!-- Tanggal Sampai -->
+                <div class="form-group form-material">
+                  <input type="text" class="form-control" id="filter-pindahdatang-tanggal-lahir-sampai" name="tanggal_lahir_sampai" placeholder="Sampai" autocomplete="off" />
+                </div>
+              </div><br>
               <!-- Status -->
               <div class="form-group">
                 <h5><strong>Status</strong></h5>
@@ -94,10 +99,10 @@
                     <option value="1">1 - Sudah Dicek</option>
                   </select>
                 </div>
-              </div><br><br>
-              <!-- Rentang Waktu -->
+              </div><br>
+              <!-- Tanggal Dibuat -->
               <div class="form-group">
-                <h5><strong>Rentang Waktu</strong></h5>
+                <h5><strong>Tanggal Dibuat</strong></h5>
                 <!-- Tanggal Dari -->
                 <div class="form-group form-material">
                   <input type="text" class="form-control" id="filter-pindahdatang-tanggal-dari" name="tanggal_dari" placeholder="Dari" autocomplete="off" />
@@ -120,7 +125,6 @@
                 <input type="hidden" id="report-filter-nama" name="nama">
                 <input type="hidden" id="report-filter-jenis-kelamin" name="jenis_kelamin">
                 <input type="hidden" id="report-filter-tempat-lahir" name="tempat-lahir">
-                <input type="hidden" id="report-filter-tanggal-lahir" name="tanggal_lahir">
                 <input type="hidden" id="report-filter-kewarganegaraan" name="kewarganegaraan">
 
                 <input type="hidden" id="report-filter-golongan-darah" name="gol_darah">
@@ -133,6 +137,9 @@
                 <input type="hidden" id="report-filter-rt" name="rt">
                 <input type="hidden" id="report-filter-rw" name="rw">
                 <input type="hidden" id="report-filter-kelurahan" name="kelurahan">
+
+                <input type="hidden" id="report-filter-tanggal-lahir-dari" name="tanggal_lahir_dari">
+                <input type="hidden" id="report-filter-tanggal-lahir-sampai" name="tanggal_lahir_sampai">
 
                 <input type="hidden" id="report-filter-status" name="status">
 
@@ -161,7 +168,8 @@
               <button id="filter-pindahdatang" class="btn btn-default btn-sm" style="float: right; top: 105px"><i class="md-filter-list"></i>&nbsp; Filter Data</button>
               @if (Auth::user()->isAdmin() == 0)
                 <button class="btn btn-primary btn-sm btn-new" data-toggle="modal" data-target="#pindahdatang-create-modal" style="float: right; top: 105px; right: 10px"><i class="md-collection-plus"></i>&nbsp; Entri Data</button>
-                {{-- <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#reports-pindahdatang-modal" style="float: right; top: 105px; right: 20px"><i class="md-print"></i>&nbsp; Print Report</button> --}}
+              @else
+                <button class="btn btn-primary btn-sm" id="pindahdatang-archive" data-toggle="modal" data-target="#archive-pindahdatang-modal" style="float: right; top: 105px; right: 10px"><i class="md-archive"></i>&nbsp; Arsipkan Data</button>
               @endif
             </div>
           </div>
@@ -211,7 +219,6 @@
           d.nama = $('#filter-pindahdatang-nama').val(),
           d.jenis_kelamin = $('#filter-pindahdatang-jenis-kelamin').val(),
           d.tempat_lahir = $('#filter-pindahdatang-tempat-lahir').val(),
-          d.tanggal_lahir = $('#filter-pindahdatang-tanggal-lahir').val(),
           d.kewarganegaraan = $('#filter-pindahdatang-kewarganegaraan').val(),
           d.gol_darah = $('#filter-pindahdatang-golongan-darah').val(),
           d.agama = $('#filter-pindahdatang-agama').val(),
@@ -222,6 +229,9 @@
           d.rt = $('#filter-pindahdatang-rt').val(),
           d.rw = $('#filter-pindahdatang-rw').val(),
           d.kelurahan = $('#filter-pindahdatang-kelurahan').val(),
+
+          d.tanggal_lahir_dari = $('#filter-pindahdatang-tanggal-lahir-dari').val(),
+          d.tanggal_lahir_sampai = $('#filter-pindahdatang-tanggal-lahir-sampai').val(),
 
           d.status = $('#filter-pindahdatang-status').val(),
 
@@ -253,7 +263,6 @@
       $('#report-filter-nama').val($('#filter-pindahdatang-nama').val())
       $('#report-filter-jenis-kelamin').val($('#filter-pindahdatang-jenis-kelamin').val())
       $('#report-filter-tempat-lahir').val($('#filter-pindahdatang-tempat-lahir').val())
-      $('#report-filter-tanggal-lahir').val($('#filter-pindahdatang-tanggal-lahir').val())
       $('#report-filter-kewarganegaraan').val($('#filter-pindahdatang-kewarganegaraan').val())
 
       $('#report-filter-golongan-darah').val($('#filter-pindahdatang-golongan-darah').val())
@@ -266,6 +275,9 @@
       $('#report-filter-rt').val($('#filter-pindahdatang-rt').val())
       $('#report-filter-rw').val($('#filter-pindahdatang-rw').val())
       $('#report-filter-kelurahan').val($('#filter-pindahdatang-kelurahan').val())
+
+      $('#report-filter-tanggal-lahir-dari').val($('#filter-pindahdatang-tanggal-lahir-dari').val())
+      $('#report-filter-tanggal-lahir-sampai').val($('#filter-pindahdatang-tanggal-lahir-sampai').val())
 
       $('#report-filter-status').val($('#filter-pindahdatang-status').val())
 

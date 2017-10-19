@@ -1,6 +1,14 @@
 @extends('layouts.app')
 
 @section('content')
+<div class="col-xxl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+  <!-- Charts -->
+  <div class="card card-block p-35 clearfix">
+    <div id="summary-charts"></div>
+  </div>
+  <!-- End Charts -->
+</div>
+
 <div class="col-xxl-4 col-lg-4 col-md-6 col-sm-12 col-xs-12">
   <!-- Card -->
   <div class="card card-block p-35 clearfix">
@@ -91,4 +99,77 @@
   </div>
   <!-- End Card -->
 </div>
+<script src="{{ asset('js/Plugin/highcharts.js') }}"></script>
+<script src="{{ asset('js/Plugin/exporting.js') }}"></script>
+<script type="text/javascript">
+  let startDate = Date.parse("{{ $count['ktp_summary'][0]->date }}")
+  Highcharts.chart('summary-charts', {
+
+    title: {
+        text: 'Total Pemohon Berkas Per Bulan'
+    },
+
+    subtitle: {
+        text: 'Bidang Pelayanan Kecamatan Coblong'
+    },
+
+    xAxis: {
+      type: 'datetime'
+    },
+
+    yAxis: {
+        title: {
+            text: 'Jumlah Pemohon'
+        }
+    },
+
+    legend: {
+        layout: 'vertical',
+        align: 'right',
+        verticalAlign: 'middle'
+    },
+
+    plotOptions: {
+        series: {
+            label: {
+                connectorAllowed: false
+            },
+            pointStart: startDate,
+            pointInterval: 24 * 3600 * 1000
+        }
+    },
+
+    series: [{
+        name: 'Pemohon E-KTP',
+        data: [@foreach ($count['ktp_summary'] as $data)  {{ $data->value . ', ' }}  @endforeach]
+    }, {
+        name: 'Pemohon Kartu Keluarga',
+        data: [@foreach ($count['kk_summary'] as $data)  {{ $data->value . ', ' }}  @endforeach]
+    }, {
+        name: 'Pemohon Legalisir',
+        data: [@foreach ($count['legalisir_summary'] as $data)  {{ $data->value . ', ' }}  @endforeach]
+    }, {
+        name: 'Pemohon Pindah Datang',
+        data: [@foreach ($count['pindahdatang_summary'] as $data)  {{ $data->value . ', ' }}  @endforeach]
+    }, {
+        name: 'Pemohon Pindah Keluar',
+        data: [@foreach ($count['pindahkeluar_summary'] as $data)  {{ $data->value . ', ' }}  @endforeach]
+    }],
+
+    responsive: {
+        rules: [{
+            condition: {
+                maxWidth: 500
+            },
+            chartOptions: {
+                legend: {
+                    layout: 'horizontal',
+                    align: 'center',
+                    verticalAlign: 'bottom'
+                }
+            }
+        }]
+    }
+  });
+</script>
 @endsection

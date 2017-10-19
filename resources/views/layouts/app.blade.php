@@ -9,7 +9,7 @@
   <meta id="token" name="csrf-token" content="{{ csrf_token() }}">
   <title>Sistem Informasi Pelayanan Kantor Kecamatan Coblong</title>
   <link rel="apple-touch-icon" href="{{ asset('images/apple-touch-icon.png') }}">
-  <link rel="shortcut icon" href="{{ asset('images/favicon.ico') }}">
+  <link rel="shortcut icon" href="{{ asset('favicon.ico') }}">
   <!-- Stylesheets -->
   <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
   <link rel="stylesheet" href="{{ asset('css/bootstrap-extend.min.css') }}">

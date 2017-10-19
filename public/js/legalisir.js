@@ -25,6 +25,7 @@ function clearCreateField()
 {
     $('#create-nik').val('')
     $('#create-nama').val('')
+    $('#create-jenis-kelamin').val('')
     $('#create-alamat').val('')
     $('#create-rt').val('')
     $('#create-rw').val('')
@@ -37,6 +38,7 @@ function clearErrorCreateField()
 {
     $('.create-legalisir-error-nik').html('')
     $('.create-legalisir-error-nama').html('')
+    $('.create-legalisir-error-jenis-kelamin').html('')
     $('.create-legalisir-error-alamat').html('')
     $('.create-legalisir-error-rt').html('')
     $('.create-legalisir-error-rw').html('')
@@ -49,6 +51,7 @@ function clearErrorEditField()
 {
     $('.edit-legalisir-error-nik').html('')
     $('.edit-legalisir-error-nama').html('')
+    $('.edit-legalisir-error-jenis-kelamin').html('')
     $('.edit-legalisir-error-alamat').html('')
     $('.edit-legalisir-error-rt').html('')
     $('.edit-legalisir-error-rw').html('')
@@ -57,10 +60,11 @@ function clearErrorEditField()
 }
 
 // Fill error field on create field
-function fillErrorCreateField(nik, nama, alamat, rt, rw, kelurahan, jenis_berkas) 
+function fillErrorCreateField(nik, nama, jenis_kelamin, alamat, rt, rw, kelurahan, jenis_berkas) 
 {
     $('.create-legalisir-error-nik').html(nik)
     $('.create-legalisir-error-nama').html(nama)
+    $('.create-legalisir-error-jenis-kelamin').html(jenis_kelamin)
     $('.create-legalisir-error-alamat').html(alamat)
     $('.create-legalisir-error-rt').html(rt)
     $('.create-legalisir-error-rw').html(rw)
@@ -69,10 +73,11 @@ function fillErrorCreateField(nik, nama, alamat, rt, rw, kelurahan, jenis_berkas
 }
 
 // Fill error field on edit form
-function fillErrorEditField(nik, nama, alamat, rt, rw, kelurahan, jenis_berkas) 
+function fillErrorEditField(nik, nama, jenis_kelamin, alamat, rt, rw, kelurahan, jenis_berkas) 
 {
     $('.edit-legalisir-error-nik').html(nik)
     $('.edit-legalisir-error-nama').html(nama)
+    $('.edit-legalisir-error-jenis-kelamin').html(jenis_kelamin)
     $('.edit-legalisir-error-alamat').html(alamat)
     $('.edit-legalisir-error-rt').html(rt)
     $('.edit-legalisir-error-rw').html(rw)
@@ -81,28 +86,30 @@ function fillErrorEditField(nik, nama, alamat, rt, rw, kelurahan, jenis_berkas)
 }
 
 // Fill Show Form
-function fillShowForm(nik, nama, alamat, rt, rw, kelurahan, jenis_berkas) 
+function fillShowForm(nik, nama, jenis_kelamin, jenis_berkas, alamat, rt, rw, kelurahan) 
 {
     $('#show-nik').val(nik)
     $('#show-nama').val(nama)
+    $('#show-jenis-kelamin').val(jenis_kelamin)
+    $('#show-jenis-berkas').val(jenis_berkas)
     $('#show-alamat').val(alamat)
     $('#show-rt').val(rt)
     $('#show-rw').val(rw)
     $('#show-kelurahan').val(kelurahan)
-    $('#show-jenis-berkas').val(jenis_berkas)
 }
 
 // Fill Edit Form
-function fillEditForm(id, nik, nama, alamat, rt, rw, kelurahan, jenis_berkas) 
+function fillEditForm(id, nik, nama, jenis_kelamin, jenis_berkas, alamat, rt, rw, kelurahan) 
 {
     $('#legalisir-edit-id').val(id)
     $('#edit-nik').val(nik)
     $('#edit-nama').val(nama)
+    $('#edit-jenis-kelamin').val(jenis_kelamin)
+    $('#edit-jenis-berkas').val(jenis_berkas)
     $('#edit-alamat').val(alamat)
     $('#edit-rt').val(rt)
     $('#edit-rw').val(rw)
     $('#edit-kelurahan').val(kelurahan)
-    $('#edit-jenis-berkas').val(jenis_berkas)
 }
 
 // Do Ajax Create
@@ -126,17 +133,18 @@ function doAjaxCreate(url, type, param) {
 
             let nik = message.errors.nik
             let nama = message.errors.nama
+            let jenis_kelamin = message.errors.jenis_kelamin
+            let jenis_berkas = message.errors.jenis_berkas
             let alamat = message.errors.alamat
             let rt = message.errors.rt
             let rw = message.errors.rw
             let kelurahan = message.errors.kelurahan
-            let jenis_berkas = message.errors.jenis_berkas
 
             // Clear error field first
             clearErrorCreateField()
             
             // Show validating error messages
-            fillErrorCreateField(nik, nama, alamat, rt, rw, kelurahan, jenis_berkas)
+            fillErrorCreateField(nik, nama, jenis_kelamin, jenis_berkas, alamat, rt, rw, kelurahan)
         }
     })
 }
@@ -162,17 +170,18 @@ function doAjaxUpdate(url, type, param) {
             // If validating process fails, display the error messages
             let nik = message.errors.nik
             let nama = message.errors.nama
+            let jenis_kelamin = message.errors.jenis_kelamin
+            let jenis_berkas = message.errors.jenis_berkas
             let alamat = message.errors.alamat
             let rt = message.errors.rt
             let rw = message.errors.rw
             let kelurahan = message.errors.kelurahan
-            let jenis_berkas = message.errors.jenis_berkas
             
             // Clear error field first
             clearErrorEditField()
             
             // Show validating error messages
-            fillErrorEditField(nik, nama, alamat, rt, rw, kelurahan, jenis_berkas)
+            fillErrorEditField(nik, nama, jenis_kelamin, jenis_berkas, alamat, rt, rw, kelurahan)
         }
     })
 }

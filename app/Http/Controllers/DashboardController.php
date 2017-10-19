@@ -10,6 +10,8 @@ class DashboardController extends Controller
 {
     public function index()
     {
+        $range = Carbon::now()->subDays(31);
+
     	$count = [
     		'ktp' => DB::table('ktp')->count(),
     		'kk' => DB::table('kartu_keluarga')->count(),
@@ -17,6 +19,42 @@ class DashboardController extends Controller
     		'pindahdatang' => DB::table('pindah_datang')->count(),
     		'pindahkeluar' => DB::table('pindah_keluar')->count(),
             'users' => DB::table('users')->count(),
+
+            'ktp_summary' => DB::table('ktp')->where('created_at', '>=', $range)
+                                             ->groupBy('date')
+                                             ->orderBy('date', 'ASC')
+                                             ->get([
+                                                    DB::raw('DATE(created_at) as date'),
+                                                    DB::raw('COUNT(*) as value')
+                                                ]),
+            'kk_summary' => DB::table('kartu_keluarga')->where('created_at', '>=', $range)
+                                             ->groupBy('date')
+                                             ->orderBy('date', 'ASC')
+                                             ->get([
+                                                    DB::raw('DATE(created_at) as date'),
+                                                    DB::raw('COUNT(*) as value')
+                                                ]),
+            'legalisir_summary' => DB::table('legalisir')->where('created_at', '>=', $range)
+                                             ->groupBy('date')
+                                             ->orderBy('date', 'ASC')
+                                             ->get([
+                                                    DB::raw('DATE(created_at) as date'),
+                                                    DB::raw('COUNT(*) as value')
+                                                ]),
+            'pindahdatang_summary' => DB::table('pindah_datang')->where('created_at', '>=', $range)
+                                             ->groupBy('date')
+                                             ->orderBy('date', 'ASC')
+                                             ->get([
+                                                    DB::raw('DATE(created_at) as date'),
+                                                    DB::raw('COUNT(*) as value')
+                                                ]),
+            'pindahkeluar_summary' => DB::table('pindah_keluar')->where('created_at', '>=', $range)
+                                             ->groupBy('date')
+                                             ->orderBy('date', 'ASC')
+                                             ->get([
+                                                    DB::raw('DATE(created_at) as date'),
+                                                    DB::raw('COUNT(*) as value')
+                                                ]),
     	];
 
     	return view('dashboard', compact('count'));
@@ -27,84 +65,59 @@ class DashboardController extends Controller
         $startsAt = $request->input('tanggal_dari'); 
         $endsAt = $request->input('tanggal_sampai');
 
-        $formattedStarts = Carbon::parse($startsAt)->format('d/m/Y');
-        $formattedEnds = Carbon::parse($endsAt)->format('d/m/Y');
+        $date = [
+            'formattedStarts' => Carbon::parse($startsAt)->format('d F Y'),
+            'formattedEnds' => Carbon::parse($endsAt)->format('d F Y'),
+        ];
 
-        $ktp_cipaganti = DB::table('ktp')->where('kelurahan', '=', 'Cipaganti')->whereBetween('created_at', [$startsAt, $endsAt])->count();
-        $kk_cipaganti = DB::table('kartu_keluarga')->where('kelurahan', '=', 'Cipaganti')->whereBetween('created_at', [$startsAt, $endsAt])->count();
-        $legalisir_cipaganti = DB::table('legalisir')->where('kelurahan', '=', 'Cipaganti')->whereBetween('created_at', [$startsAt, $endsAt])->count();
-        $pindahdatang_cipaganti = DB::table('pindah_datang')->where('kelurahan', '=', 'Cipaganti')->whereBetween('created_at', [$startsAt, $endsAt])->count();
-        $pindahkeluar_cipaganti = DB::table('pindah_keluar')->where('kelurahan', '=', 'Cipaganti')->whereBetween('created_at', [$startsAt, $endsAt])->count();
+        $cipaganti = [
+            'ktp' => DB::table('ktp')->select(DB::raw('count(id) as total'), 'jenis_kelamin')->where('kelurahan', '=', 'Cipaganti')->whereBetween('created_at', [$startsAt, $endsAt])->groupBy('jenis_kelamin')->get(),
+            'kk' => DB::table('kartu_keluarga')->select(DB::raw('count(id) as total'), 'jenis_kelamin')->where('kelurahan', '=', 'Cipaganti')->whereBetween('created_at', [$startsAt, $endsAt])->groupBy('jenis_kelamin')->get(),
+            'pindahdatang' => DB::table('pindah_datang')->select(DB::raw('count(id) as total'), 'jenis_kelamin')->where('kelurahan', '=', 'Cipaganti')->whereBetween('created_at', [$startsAt, $endsAt])->groupBy('jenis_kelamin')->get(),
+            'pindahkeluar' => DB::table('pindah_keluar')->select(DB::raw('count(id) as total'), 'jenis_kelamin')->where('kelurahan', '=', 'Cipaganti')->whereBetween('created_at', [$startsAt, $endsAt])->groupBy('jenis_kelamin')->get(),
+            'legalisir' => DB::table('legalisir')->select(DB::raw('count(id) as total'), 'jenis_kelamin')->where('kelurahan', '=', 'Cipaganti')->whereBetween('created_at', [$startsAt, $endsAt])->groupBy('jenis_kelamin')->get(),
+        ];
 
-        $ktp_dago = DB::table('ktp')->where('kelurahan', '=', 'Dago')->whereBetween('created_at', [$startsAt, $endsAt])->count();
-        $kk_dago = DB::table('kartu_keluarga')->where('kelurahan', '=', 'Dago')->whereBetween('created_at', [$startsAt, $endsAt])->count();
-        $legalisir_dago = DB::table('legalisir')->where('kelurahan', '=', 'Dago')->whereBetween('created_at', [$startsAt, $endsAt])->count();
-        $pindahdatang_dago = DB::table('pindah_datang')->where('kelurahan', '=', 'Dago')->whereBetween('created_at', [$startsAt, $endsAt])->count();
-        $pindahkeluar_dago = DB::table('pindah_keluar')->where('kelurahan', '=', 'Dago')->whereBetween('created_at', [$startsAt, $endsAt])->count();
+        $dago = [
+            'ktp' => DB::table('ktp')->select(DB::raw('count(id) as total'), 'jenis_kelamin')->where('kelurahan', '=', 'Dago')->whereBetween('created_at', [$startsAt, $endsAt])->groupBy('jenis_kelamin')->get(),
+            'kk' => DB::table('kartu_keluarga')->select(DB::raw('count(id) as total'), 'jenis_kelamin')->where('kelurahan', '=', 'Dago')->whereBetween('created_at', [$startsAt, $endsAt])->groupBy('jenis_kelamin')->get(),
+            'pindahdatang' => DB::table('pindah_datang')->select(DB::raw('count(id) as total'), 'jenis_kelamin')->where('kelurahan', '=', 'Dago')->whereBetween('created_at', [$startsAt, $endsAt])->groupBy('jenis_kelamin')->get(),
+            'pindahkeluar' => DB::table('pindah_keluar')->select(DB::raw('count(id) as total'), 'jenis_kelamin')->where('kelurahan', '=', 'Dago')->whereBetween('created_at', [$startsAt, $endsAt])->groupBy('jenis_kelamin')->get(),
+            'legalisir' => DB::table('legalisir')->select(DB::raw('count(id) as total'), 'jenis_kelamin')->where('kelurahan', '=', 'Dago')->whereBetween('created_at', [$startsAt, $endsAt])->groupBy('jenis_kelamin')->get(),
+        ];
 
-        $ktp_lebakgede = DB::table('ktp')->where('kelurahan', '=', 'Lebak Gede')->whereBetween('created_at', [$startsAt, $endsAt])->count();
-        $kk_lebakgede = DB::table('kartu_keluarga')->where('kelurahan', '=', 'Lebak Gede')->whereBetween('created_at', [$startsAt, $endsAt])->count();
-        $legalisir_lebakgede = DB::table('legalisir')->where('kelurahan', '=', 'Lebak Gede')->whereBetween('created_at', [$startsAt, $endsAt])->count();
-        $pindahdatang_lebakgede = DB::table('pindah_datang')->where('kelurahan', '=', 'Lebak Gede')->whereBetween('created_at', [$startsAt, $endsAt])->count();
-        $pindahkeluar_lebakgede = DB::table('pindah_keluar')->where('kelurahan', '=', 'Lebak Gede')->whereBetween('created_at', [$startsAt, $endsAt])->count();
+        $lebakgede = [
+            'ktp' => DB::table('ktp')->select(DB::raw('count(id) as total'), 'jenis_kelamin')->where('kelurahan', '=', 'Lebak Gede')->whereBetween('created_at', [$startsAt, $endsAt])->groupBy('jenis_kelamin')->get(),
+            'kk' => DB::table('kartu_keluarga')->select(DB::raw('count(id) as total'), 'jenis_kelamin')->where('kelurahan', '=', 'Lebak Gede')->whereBetween('created_at', [$startsAt, $endsAt])->groupBy('jenis_kelamin')->get(),
+            'pindahdatang' => DB::table('pindah_datang')->select(DB::raw('count(id) as total'), 'jenis_kelamin')->where('kelurahan', '=', 'Lebak Gede')->whereBetween('created_at', [$startsAt, $endsAt])->groupBy('jenis_kelamin')->get(),
+            'pindahkeluar' => DB::table('pindah_keluar')->select(DB::raw('count(id) as total'), 'jenis_kelamin')->where('kelurahan', '=', 'Lebak Gede')->whereBetween('created_at', [$startsAt, $endsAt])->groupBy('jenis_kelamin')->get(),
+            'legalisir' => DB::table('legalisir')->select(DB::raw('count(id) as total'), 'jenis_kelamin')->where('kelurahan', '=', 'Lebak Gede')->whereBetween('created_at', [$startsAt, $endsAt])->groupBy('jenis_kelamin')->get(),
+        ];
 
-        $ktp_lebaksiliwangi = DB::table('ktp')->where('kelurahan', '=', 'Lebak Siliwangi')->whereBetween('created_at', [$startsAt, $endsAt])->count();
-        $kk_lebaksiliwangi = DB::table('kartu_keluarga')->where('kelurahan', '=', 'Lebak Siliwangi')->whereBetween('created_at', [$startsAt, $endsAt])->count();
-        $legalisir_lebaksiliwangi = DB::table('legalisir')->where('kelurahan', '=', 'Lebak Siliwangi')->whereBetween('created_at', [$startsAt, $endsAt])->count();
-        $pindahdatang_lebaksiliwangi = DB::table('pindah_datang')->where('kelurahan', '=', 'Lebak Siliwangi')->whereBetween('created_at', [$startsAt, $endsAt])->count();
-        $pindahkeluar_lebaksiliwangi = DB::table('pindah_keluar')->where('kelurahan', '=', 'Lebak Siliwangi')->whereBetween('created_at', [$startsAt, $endsAt])->count();
+        $lebaksiliwangi = [
+            'ktp' => DB::table('ktp')->select(DB::raw('count(id) as total'), 'jenis_kelamin')->where('kelurahan', '=', 'Lebak Siliwangi')->whereBetween('created_at', [$startsAt, $endsAt])->groupBy('jenis_kelamin')->get(),
+            'kk' => DB::table('kartu_keluarga')->select(DB::raw('count(id) as total'), 'jenis_kelamin')->where('kelurahan', '=', 'Lebak Siliwangi')->whereBetween('created_at', [$startsAt, $endsAt])->groupBy('jenis_kelamin')->get(),
+            'pindahdatang' => DB::table('pindah_datang')->select(DB::raw('count(id) as total'), 'jenis_kelamin')->where('kelurahan', '=', 'Lebak Siliwangi')->whereBetween('created_at', [$startsAt, $endsAt])->groupBy('jenis_kelamin')->get(),
+            'pindahkeluar' => DB::table('pindah_keluar')->select(DB::raw('count(id) as total'), 'jenis_kelamin')->where('kelurahan', '=', 'Lebak Siliwangi')->whereBetween('created_at', [$startsAt, $endsAt])->groupBy('jenis_kelamin')->get(),
+            'legalisir' => DB::table('legalisir')->select(DB::raw('count(id) as total'), 'jenis_kelamin')->where('kelurahan', '=', 'Lebak Siliwangi')->whereBetween('created_at', [$startsAt, $endsAt])->groupBy('jenis_kelamin')->get(),
+        ];
 
-        $ktp_sadangserang = DB::table('ktp')->where('kelurahan', '=', 'Sadang Serang')->whereBetween('created_at', [$startsAt, $endsAt])->count();
-        $kk_sadangserang = DB::table('kartu_keluarga')->where('kelurahan', '=', 'Sadang Serang')->whereBetween('created_at', [$startsAt, $endsAt])->count();
-        $legalisir_sadangserang = DB::table('legalisir')->where('kelurahan', '=', 'Sadang Serang')->whereBetween('created_at', [$startsAt, $endsAt])->count();
-        $pindahdatang_sadangserang = DB::table('pindah_datang')->where('kelurahan', '=', 'Sadang Serang')->whereBetween('created_at', [$startsAt, $endsAt])->count();
-        $pindahkeluar_sadangserang = DB::table('pindah_keluar')->where('kelurahan', '=', 'Sadang Serang')->whereBetween('created_at', [$startsAt, $endsAt])->count();
+        $sadangserang = [
+            'ktp' => DB::table('ktp')->select(DB::raw('count(id) as total'), 'jenis_kelamin')->where('kelurahan', '=', 'Sadang Serang')->whereBetween('created_at', [$startsAt, $endsAt])->groupBy('jenis_kelamin')->get(),
+            'kk' => DB::table('kartu_keluarga')->select(DB::raw('count(id) as total'), 'jenis_kelamin')->where('kelurahan', '=', 'Sadang Serang')->whereBetween('created_at', [$startsAt, $endsAt])->groupBy('jenis_kelamin')->get(),
+            'pindahdatang' => DB::table('pindah_datang')->select(DB::raw('count(id) as total'), 'jenis_kelamin')->where('kelurahan', '=', 'Sadang Serang')->whereBetween('created_at', [$startsAt, $endsAt])->groupBy('jenis_kelamin')->get(),
+            'pindahkeluar' => DB::table('pindah_keluar')->select(DB::raw('count(id) as total'), 'jenis_kelamin')->where('kelurahan', '=', 'Sadang Serang')->whereBetween('created_at', [$startsAt, $endsAt])->groupBy('jenis_kelamin')->get(),
+            'legalisir' => DB::table('legalisir')->select(DB::raw('count(id) as total'), 'jenis_kelamin')->where('kelurahan', '=', 'Sadang Serang')->whereBetween('created_at', [$startsAt, $endsAt])->groupBy('jenis_kelamin')->get(),
+        ];
 
-        $ktp_sekeloa = DB::table('ktp')->where('kelurahan', '=', 'Sekeloa')->whereBetween('created_at', [$startsAt, $endsAt])->count();
-        $kk_sekeloa = DB::table('kartu_keluarga')->where('kelurahan', '=', 'Sekeloa')->whereBetween('created_at', [$startsAt, $endsAt])->count();
-        $legalisir_sekeloa = DB::table('legalisir')->where('kelurahan', '=', 'Sekeloa')->whereBetween('created_at', [$startsAt, $endsAt])->count();
-        $pindahdatang_sekeloa = DB::table('pindah_datang')->where('kelurahan', '=', 'Sekeloa')->whereBetween('created_at', [$startsAt, $endsAt])->count();
-        $pindahkeluar_sekeloa = DB::table('pindah_keluar')->where('kelurahan', '=', 'Sekeloa')->whereBetween('created_at', [$startsAt, $endsAt])->count();
+        $sekeloa = [
+            'ktp' => DB::table('ktp')->select(DB::raw('count(id) as total'), 'jenis_kelamin')->where('kelurahan', '=', 'Sekeloa')->whereBetween('created_at', [$startsAt, $endsAt])->groupBy('jenis_kelamin')->get(),
+            'kk' => DB::table('kartu_keluarga')->select(DB::raw('count(id) as total'), 'jenis_kelamin')->where('kelurahan', '=', 'Sekeloa')->whereBetween('created_at', [$startsAt, $endsAt])->groupBy('jenis_kelamin')->get(),
+            'pindahdatang' => DB::table('pindah_datang')->select(DB::raw('count(id) as total'), 'jenis_kelamin')->where('kelurahan', '=', 'Sekeloa')->whereBetween('created_at', [$startsAt, $endsAt])->groupBy('jenis_kelamin')->get(),
+            'pindahkeluar' => DB::table('pindah_keluar')->select(DB::raw('count(id) as total'), 'jenis_kelamin')->where('kelurahan', '=', 'Sekeloa')->whereBetween('created_at', [$startsAt, $endsAt])->groupBy('jenis_kelamin')->get(),
+            'legalisir' => DB::table('legalisir')->select(DB::raw('count(id) as total'), 'jenis_kelamin')->where('kelurahan', '=', 'Sekeloa')->whereBetween('created_at', [$startsAt, $endsAt])->groupBy('jenis_kelamin')->get(),
+        ];
 
-        return view('admin.reports.a4.rekap', [
-            'formattedStarts' => $formattedStarts,
-            'formattedEnds' => $formattedEnds,
-
-            'ktp_cipaganti' => $ktp_cipaganti,
-            'kk_cipaganti' => $kk_cipaganti,
-            'legalisir_cipaganti' => $legalisir_cipaganti,
-            'pindahdatang_cipaganti' => $pindahdatang_cipaganti,
-            'pindahkeluar_cipaganti' => $pindahkeluar_cipaganti,
-
-            'ktp_dago' => $ktp_dago,
-            'kk_dago' => $kk_dago,
-            'legalisir_dago' => $legalisir_dago,
-            'pindahdatang_dago' => $pindahdatang_dago,
-            'pindahkeluar_dago' => $pindahkeluar_dago,
-
-            'ktp_lebakgede' => $ktp_lebakgede,
-            'kk_lebakgede' => $kk_lebakgede,
-            'legalisir_lebakgede' => $legalisir_lebakgede,
-            'pindahdatang_lebakgede' => $pindahdatang_lebakgede,
-            'pindahkeluar_lebakgede' => $pindahkeluar_lebakgede,
-
-            'ktp_lebaksiliwangi' => $ktp_lebaksiliwangi,
-            'kk_lebaksiliwangi' => $kk_lebaksiliwangi,
-            'legalisir_lebaksiliwangi' => $legalisir_lebaksiliwangi,
-            'pindahdatang_lebaksiliwangi' => $pindahdatang_lebaksiliwangi,
-            'pindahkeluar_lebaksiliwangi' => $pindahkeluar_lebaksiliwangi,
-
-            'ktp_sadangserang' => $ktp_sadangserang,
-            'kk_sadangserang' => $kk_sadangserang,
-            'legalisir_sadangserang' => $legalisir_sadangserang,
-            'pindahdatang_sadangserang' => $pindahdatang_sadangserang,
-            'pindahkeluar_sadangserang' => $pindahkeluar_sadangserang,
-
-            'ktp_sekeloa' => $ktp_sekeloa,
-            'kk_sekeloa' => $kk_sekeloa,
-            'legalisir_sekeloa' => $legalisir_sekeloa,
-            'pindahdatang_sekeloa' => $pindahdatang_sekeloa,
-            'pindahkeluar_sekeloa' => $pindahkeluar_sekeloa,
-        ]);
+        return view('admin.reports.a4.rekap', compact('date', 'cipaganti', 'dago', 'lebakgede', 'lebaksiliwangi', 'sadangserang', 'sekeloa'));
     }
 }
