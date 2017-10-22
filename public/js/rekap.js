@@ -117,13 +117,6 @@ function summary() {
     let legalisir_summary_l = cipaganti_legalisir_l + dago_legalisir_l + lebakgede_legalisir_l + lebaksiliwangi_legalisir_l + sadangserang_legalisir_l + sekeloa_legalisir_l
     let legalisir_summary_p = cipaganti_legalisir_p + dago_legalisir_p + lebakgede_legalisir_p + lebaksiliwangi_legalisir_p + sadangserang_pindahdatang_p + sekeloa_pindahdatang_p
 
-    $('.cipaganti-summary').html(cipaganti_summary)
-    $('.dago-summary').html(dago_summary)
-    $('.lebakgede-summary').html(lebakgede_summary)
-    $('.lebaksiliwangi-summary').html(lebaksiliwangi_summary)
-    $('.sadangserang-summary').html(sadangserang_summary)
-    $('.sekeloa-summary').html(sekeloa_summary)
-
     $('.summary-ktp-l').html(ktp_summary_l)
     $('.summary-ktp-p').html(ktp_summary_p)
 
@@ -138,4 +131,61 @@ function summary() {
 
     $('.summary-legalisir-l').html(legalisir_summary_l)
     $('.summary-legalisir-p').html(legalisir_summary_p)
+
+    $('.summary-ktp-cipaganti').html(cipaganti_ktp_l + cipaganti_ktp_p)
+    $('.summary-kk-cipaganti').html(cipaganti_kk_l + cipaganti_kk_p)
+    $('.summary-pindahdatang-cipaganti').html(cipaganti_pindahdatang_l + cipaganti_pindahdatang_p)
+    $('.summary-pindahkeluar-cipaganti').html(cipaganti_pindahkeluar_l + cipaganti_pindahkeluar_p)
+    $('.summary-legalisir-cipaganti').html(cipaganti_legalisir_l + cipaganti_legalisir_p)
+
+    $('.summary-ktp-dago').html(dago_ktp_l + dago_ktp_p)
+    $('.summary-kk-dago').html(dago_kk_l + dago_kk_p)
+    $('.summary-pindahdatang-dago').html(dago_pindahdatang_l + dago_pindahdatang_p)
+    $('.summary-pindahkeluar-dago').html(dago_pindahkeluar_l + dago_pindahkeluar_p)
+    $('.summary-legalisir-dago').html(dago_legalisir_l + dago_legalisir_p)
+
+    $('.summary-ktp-lebakgede').html(lebakgede_ktp_l + lebakgede_ktp_p)
+    $('.summary-kk-lebakgede').html(lebakgede_kk_l + lebakgede_kk_p)
+    $('.summary-pindahdatang-lebakgede').html(lebakgede_pindahdatang_l + lebakgede_pindahdatang_p)
+    $('.summary-pindahkeluar-lebakgede').html(lebakgede_pindahkeluar_l + lebakgede_pindahkeluar_p)
+    $('.summary-legalisir-lebakgede').html(lebakgede_legalisir_l + lebakgede_legalisir_p)
+
+    $('.summary-ktp-lebaksiliwangi').html(lebaksiliwangi_ktp_l + lebaksiliwangi_ktp_p)
+    $('.summary-kk-lebaksiliwangi').html(lebaksiliwangi_kk_l + lebaksiliwangi_kk_p)
+    $('.summary-pindahdatang-lebaksiliwangi').html(lebaksiliwangi_pindahdatang_l + lebaksiliwangi_pindahdatang_p)
+    $('.summary-pindahkeluar-lebaksiliwangi').html(lebaksiliwangi_pindahkeluar_l + lebaksiliwangi_pindahkeluar_p)
+    $('.summary-legalisir-lebaksiliwangi').html(lebaksiliwangi_legalisir_l + lebaksiliwangi_legalisir_p)
+
+    $('.summary-ktp-sadangserang').html(sadangserang_ktp_l + sadangserang_ktp_p)
+    $('.summary-kk-sadangserang').html(sadangserang_kk_l + sadangserang_kk_p)
+    $('.summary-pindahdatang-sadangserang').html(sadangserang_pindahdatang_l + sadangserang_pindahdatang_p)
+    $('.summary-pindahkeluar-sadangserang').html(sadangserang_pindahkeluar_l + sadangserang_pindahkeluar_p)
+    $('.summary-legalisir-sadangserang').html(sadangserang_legalisir_l + sadangserang_legalisir_p)
+
+    $('.summary-ktp-sekeloa').html(sekeloa_ktp_l + sekeloa_ktp_p)
+    $('.summary-kk-sekeloa').html(sekeloa_kk_l + sekeloa_kk_p)
+    $('.summary-pindahdatang-sekeloa').html(sekeloa_pindahdatang_l + sekeloa_pindahdatang_p)
+    $('.summary-pindahkeluar-sekeloa').html(sekeloa_pindahkeluar_l + sekeloa_pindahkeluar_p)
+    $('.summary-legalisir-sekeloa').html(sekeloa_legalisir_l + sekeloa_legalisir_p)
+
+    let summary_ktp_l = parseInt($('.summary-ktp-l').html())
+    let summary_ktp_p = parseInt($('.summary-ktp-p').html())
+
+    let summary_kk_l = parseInt($('.summary-kk-l').html())
+    let summary_kk_p = parseInt($('.summary-kk-p').html())
+
+    let summary_pindahdatang_l = parseInt($('.summary-pindahdatang-l').html())
+    let summary_pindahdatang_p = parseInt($('.summary-pindahdatang-p').html())
+
+    let summary_pindahkeluar_l = parseInt($('.summary-pindahkeluar-l').html())
+    let summary_pindahkeluar_p = parseInt($('.summary-pindahkeluar-p').html())
+
+    let summary_legalisir_l = parseInt($('.summary-legalisir-l').html())
+    let summary_legalisir_p = parseInt($('.summary-legalisir-p').html())
+
+    $('.summary-ktp').html(summary_ktp_l + summary_ktp_p)
+    $('.summary-kk').html(summary_kk_l + summary_kk_p)
+    $('.summary-pindahdatang').html(summary_pindahdatang_l + summary_pindahdatang_p)
+    $('.summary-pindahkeluar').html(summary_pindahkeluar_l + summary_pindahkeluar_p)
+    $('.summary-legalisir').html(summary_legalisir_l + summary_legalisir_p)
 }

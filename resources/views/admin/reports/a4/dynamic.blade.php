@@ -35,9 +35,9 @@
                 @elseif (isset($legalisir))
                     <h4 class="text-center">Laporan Pemohon Legalisir</h4>
                 @elseif (isset($pindahdatang))
-                    <h4 class="text-center">Laporan Pemohon Pindah Datang</h4>
+                    <h4 class="text-center">Laporan Penduduk Pindah Datang</h4>
                 @elseif (isset($pindahkeluar))
-                    <h4 class="text-center">Laporan Pemohon Pindah Keluar</h4>
+                    <h4 class="text-center">Laporan Penduduk Pindah Keluar</h4>
                 @endif
                 
                 <p>Jumlah Data : {{ $count }}</p>

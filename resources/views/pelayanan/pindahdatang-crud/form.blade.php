@@ -3,7 +3,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Entri Data Pemohon Pindah Datang</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Entri Data Penduduk Pindah Datang</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -158,12 +158,12 @@
                       <label class="form-control-label" for="pekerjaan">Pekerjaan</label>
                       <select id="create-pekerjaan" name="pekerjaan" class="form-control">
                         <option value="Belum/Tidak Bekerja">Belum/Tidak Bekerja</option>
-                        <option value="MRT">Mengurus Rumah Tangga</option>
+                        <option value="Mengurus Rumah Tangga">Mengurus Rumah Tangga</option>
                         <option value="Pelajar/Mahasiswa">Pelajar/Mahasiswa</option>
                         <option value="Pensiunan">Pensiunan</option>
-                        <option value="PNS">Pegawai Negeri Sipil (PNS)</option>
+                        <option value="Pegawai Negeri Sipil (PNS)">Pegawai Negeri Sipil (PNS)</option>
 
-                        <option value="TNI">Tentara Nasional Indonesia</option>
+                        <option value="Tentara Nasional Indonesia">Tentara Nasional Indonesia</option>
                         <option value="Kepolisian RI">Kepolisian RI</option>
                         <option value="Perdagangan">Perdagangan</option>
                         <option value="Karyawan Swasta">Karyawan Swasta</option>
@@ -242,7 +242,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Tampil Data Pemohon Pindah Datang</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Tampil Data Penduduk Pindah Datang</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -385,12 +385,12 @@
                       <label class="form-control-label" for="pekerjaan">Pekerjaan</label>
                       <select id="show-pekerjaan" name="pekerjaan" class="form-control" disabled>
                         <option value="Belum/Tidak Bekerja">Belum/Tidak Bekerja</option>
-                        <option value="MRT">Mengurus Rumah Tangga</option>
+                        <option value="Mengurus Rumah Tangga">Mengurus Rumah Tangga</option>
                         <option value="Pelajar/Mahasiswa">Pelajar/Mahasiswa</option>
                         <option value="Pensiunan">Pensiunan</option>
-                        <option value="PNS">Pegawai Negeri Sipil (PNS)</option>
+                        <option value="Pegawai Negeri Sipil (PNS)">Pegawai Negeri Sipil (PNS)</option>
 
-                        <option value="TNI">Tentara Nasional Indonesia</option>
+                        <option value="Tentara Nasional Indonesia">Tentara Nasional Indonesia</option>
                         <option value="Kepolisian RI">Kepolisian RI</option>
                         <option value="Perdagangan">Perdagangan</option>
                         <option value="Karyawan Swasta">Karyawan Swasta</option>
@@ -463,7 +463,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Perbaharui Data Pemohon Pindah Datang</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Perbaharui Data Penduduk Pindah Datang</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -620,12 +620,12 @@
                       <label class="form-control-label" for="pekerjaan">Pekerjaan</label>
                       <select id="edit-pekerjaan" name="pekerjaan" class="form-control">
                         <option value="Belum/Tidak Bekerja">Belum/Tidak Bekerja</option>
-                        <option value="MRT">Mengurus Rumah Tangga</option>
+                        <option value="Mengurus Rumah Tangga">Mengurus Rumah Tangga</option>
                         <option value="Pelajar/Mahasiswa">Pelajar/Mahasiswa</option>
                         <option value="Pensiunan">Pensiunan</option>
-                        <option value="PNS">Pegawai Negeri Sipil (PNS)</option>
+                        <option value="Pegawai Negeri Sipil (PNS)">Pegawai Negeri Sipil (PNS)</option>
 
-                        <option value="TNI">Tentara Nasional Indonesia</option>
+                        <option value="Tentara Nasional Indonesia">Tentara Nasional Indonesia</option>
                         <option value="Kepolisian RI">Kepolisian RI</option>
                         <option value="Perdagangan">Perdagangan</option>
                         <option value="Karyawan Swasta">Karyawan Swasta</option>

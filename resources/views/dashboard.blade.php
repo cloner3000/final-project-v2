@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+
 <div class="col-xxl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
   <!-- Charts -->
   <div class="card card-block p-35 clearfix">
@@ -144,16 +145,20 @@
         data: [@foreach ($count['ktp_summary'] as $data)  {{ $data->value . ', ' }}  @endforeach]
     }, {
         name: 'Pemohon Kartu Keluarga',
-        data: [@foreach ($count['kk_summary'] as $data)  {{ $data->value . ', ' }}  @endforeach]
+        data: [@foreach ($count['kk_summary'] as $data)  {{ $data->value . ', ' }}  @endforeach],
+        visible: false
     }, {
         name: 'Pemohon Legalisir',
-        data: [@foreach ($count['legalisir_summary'] as $data)  {{ $data->value . ', ' }}  @endforeach]
+        data: [@foreach ($count['legalisir_summary'] as $data)  {{ $data->value . ', ' }}  @endforeach],
+        visible: false
     }, {
         name: 'Pemohon Pindah Datang',
-        data: [@foreach ($count['pindahdatang_summary'] as $data)  {{ $data->value . ', ' }}  @endforeach]
+        data: [@foreach ($count['pindahdatang_summary'] as $data)  {{ $data->value . ', ' }}  @endforeach],
+        visible: false
     }, {
         name: 'Pemohon Pindah Keluar',
-        data: [@foreach ($count['pindahkeluar_summary'] as $data)  {{ $data->value . ', ' }}  @endforeach]
+        data: [@foreach ($count['pindahkeluar_summary'] as $data)  {{ $data->value . ', ' }}  @endforeach],
+        visible: false
     }],
 
     responsive: {

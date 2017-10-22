@@ -8,7 +8,6 @@ use DataTables;
 use Validator;
 use DB;
 use Auth;
-use PDF;
 
 class PindahDatangController extends Controller
 {
@@ -270,32 +269,7 @@ class PindahDatangController extends Controller
                                 return $user->created_at ? with(new Carbon($user->created_at))->format('Y/m/d') : '';
                             })
                             ->addColumn('action', function($pindahdatang) {
-                                return '<button 
-                                        class="btn btn-info btn-xs pindahdatang-show"
-                                        data-toggle="modal"
-                                        data-target="#pindahdatang-show-modal"
-                                        data-id="'. $pindahdatang->id .'"
-                                        data-no_kk="'. $pindahdatang->no_kk .'"
-                                        data-nik="'. $pindahdatang->nik .'"
-                                        data-nama="'. $pindahdatang->nama .'"
-                                        data-jenis_kelamin="'. $pindahdatang->jenis_kelamin .'"
-                                        data-tempat_lahir="'. $pindahdatang->tempat_lahir .'"
-                                        data-tanggal_lahir="'. $pindahdatang->tanggal_lahir .'"
-                                        data-kewarganegaraan="'. $pindahdatang->kewarganegaraan .'"
-                                        data-gol_darah="'. $pindahdatang->gol_darah .'"
-                                        data-agama="'. $pindahdatang->agama .'"
-                                        data-status_perkawinan="'. $pindahdatang->status_perkawinan .'"
-                                        data-shdk="'. $pindahdatang->shdk .'"
-                                        data-pendidikan="'. $pindahdatang->pendidikan .'"
-                                        data-pekerjaan="'. $pindahdatang->pekerjaan .'"
-                                        data-alamat_lama="'. $pindahdatang->alamat_lama .'"
-                                        data-alamat_sekarang="'. $pindahdatang->alamat_sekarang .'"
-                                        data-rt="'. $pindahdatang->rt .'"
-                                        data-rw="'. $pindahdatang->rw .'"
-                                        data-kelurahan="'. $pindahdatang->kelurahan .'"
-                                        data-status="'. $pindahdatang->status .'"
-                                        data-user_id="'. $pindahdatang->user_id .'"
-                                        ><i class="md-eye"></i></button>
+                                return '
                                         <button 
                                         class="btn btn-warning btn-xs pindahdatang-edit"
                                         data-toggle="modal"

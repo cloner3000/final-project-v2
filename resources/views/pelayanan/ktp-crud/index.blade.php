@@ -170,11 +170,11 @@
         </div><br>
         <div class="row">
           <div class="col-lg-12 col-md-8 col-sm-12 col-xs-12">
-            <table id="ktp-table" class="table table-hover display responsive nowrap" cellspacing="0" width="100%">
+            <table id="ktp-table" class="table table-hover nowrap" cellspacing="0" width="100%">
               <thead>
+                <th></th>
                 <th>NIK</th>
                 <th>Nama</th>
-                <th>Alamat</th>
                 <th>Dibuat Tanggal</th>
                 <th>Action</th>
               </thead>
@@ -232,13 +232,74 @@
         }
       },
       columns: [
+        {
+          "class": "details-control",
+          "orderable": false,
+          "data": null,
+          "defaultContent": ""
+        },
         { data: 'nik' },
         { data: 'nama' },
-        { data: 'alamat' },
         { data: 'created_at' },
         { data: 'action', searchable: false, orderable: false }
       ]
      })
+
+    // Handle specified data to show
+    function format ( d ) {
+      return `<table class="table borderless">
+                <tr>
+                  <td>No. Registrasi : <strong>${d.id}</strong></td>
+                  <td>Jenis Kelamin : <strong>${d.jenis_kelamin}</strong></td>
+                  <td>Golongan Darah : <strong>${d.gol_darah}</strong></td>
+                  <td>Status Perkawinan : <strong>${d.status_perkawinan}</strong></td>
+                </tr>
+                <tr>
+                  <td>Tempat Lahir  : <strong>${d.tempat_lahir}</strong></td>
+                  <td>Tanggal Lahir : <strong>${d.tanggal_lahir}</strong></td>
+                  <td>Kewarganegaraan : <strong>${d.kewarganegaraan}</strong></td>
+                  <td>Agama : <strong>${d.agama}</strong></td>
+                </tr>
+                <tr>
+                  <td>Pendidikan  : <strong>${d.pendidikan}</strong></td>
+                  <td>Pekerjaan : <strong>${d.pekerjaan}</strong></td>
+                  <td>Nama Ayah : <strong>${d.nama_ayah}</strong></td>
+                  <td>Nama Ibu : <strong>${d.nama_ibu}</strong></td>
+                </tr>
+                <tr>
+                  <td>Alamat : <strong>${d.alamat}</strong></td>
+                  <td>RT / RW : <strong>${d.rt} / ${d.rw}</strong></td>
+                  <td>Kelurahan : <strong>${d.kelurahan}</strong></td>
+                </tr>
+              </table>`
+    }
+
+    // Array to track the ids of the details displayed rows
+    let detailRows = [];
+  
+    // Assign event action to button
+    $('#ktp-table tbody').on( 'click', 'tr td.details-control', function () {
+      let tr = $(this).closest('tr');
+      let row = ktp_table.row( tr );
+      let idx = $.inArray( tr.attr('id'), detailRows );
+
+      if ( row.child.isShown() ) {
+          tr.removeClass( 'details' );
+          row.child.hide();
+
+          // Remove from the 'open' array
+          detailRows.splice( idx, 1 );
+      }
+      else {
+        tr.addClass( 'details' );
+        row.child( format( row.data() ) ).show();
+
+        // Add to the 'open' array
+        if ( idx === -1 ) {
+          detailRows.push( tr.attr('id') );
+        }
+      }
+    })
 
     // New KTP
     $('.btn-new').click(function() {
@@ -294,33 +355,38 @@
      // Core : draw datatables!
      $('#ktp-table').on('draw.dt', function() {
 
+      // Trigger click to details button
+      $.each( detailRows, function ( i, id ) {
+        $('#'+ id +' td.details-control').trigger( 'click' );
+      });
+      
       // Show KTP
-      $('.ktp-show').click(function() {
+      // $('.ktp-show').click(function() {
 
-        /* Get the value and store to temporary variable */
-        let nik = $(this).data('nik')
-        let nama = $(this).data('nama')
-        let jenis_kelamin = $(this).data('jenis_kelamin')
-        let tempat_lahir = $(this).data('tempat_lahir')
-        let tanggal_lahir = $(this).data('tanggal_lahir')
-        let kewarganegaraan = $(this).data('kewarganegaraan')
-        let gol_darah = $(this).data('gol_darah')
+      //   /* Get the value and store to temporary variable */
+      //   let nik = $(this).data('nik')
+      //   let nama = $(this).data('nama')
+      //   let jenis_kelamin = $(this).data('jenis_kelamin')
+      //   let tempat_lahir = $(this).data('tempat_lahir')
+      //   let tanggal_lahir = $(this).data('tanggal_lahir')
+      //   let kewarganegaraan = $(this).data('kewarganegaraan')
+      //   let gol_darah = $(this).data('gol_darah')
 
-        let agama = $(this).data('agama')
-        let status_perkawinan = $(this).data('status_perkawinan')
-        let pendidikan = $(this).data('pendidikan')
-        let pekerjaan = $(this).data('pekerjaan')
-        let nama_ayah = $(this).data('nama_ayah')
-        let nama_ibu = $(this).data('nama_ibu')
+      //   let agama = $(this).data('agama')
+      //   let status_perkawinan = $(this).data('status_perkawinan')
+      //   let pendidikan = $(this).data('pendidikan')
+      //   let pekerjaan = $(this).data('pekerjaan')
+      //   let nama_ayah = $(this).data('nama_ayah')
+      //   let nama_ibu = $(this).data('nama_ibu')
 
-        let alamat = $(this).data('alamat')
-        let rt = $(this).data('rt')
-        let rw = $(this).data('rw')
-        let kelurahan = $(this).data('kelurahan')
+      //   let alamat = $(this).data('alamat')
+      //   let rt = $(this).data('rt')
+      //   let rw = $(this).data('rw')
+      //   let kelurahan = $(this).data('kelurahan')
 
-        /* Act on the event */
-        fillShowForm(nik, nama, jenis_kelamin, tempat_lahir, tanggal_lahir, kewarganegaraan, gol_darah, agama, status_perkawinan, pendidikan, pekerjaan, nama_ayah, nama_ibu, alamat, rt, rw, kelurahan)
-      })
+      //   /* Act on the event */
+      //   fillShowForm(nik, nama, jenis_kelamin, tempat_lahir, tanggal_lahir, kewarganegaraan, gol_darah, agama, status_perkawinan, pendidikan, pekerjaan, nama_ayah, nama_ibu, alamat, rt, rw, kelurahan)
+      // })
 
       // Edit KTP
       $('.ktp-edit').click(function(e) {

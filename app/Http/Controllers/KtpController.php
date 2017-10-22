@@ -8,7 +8,6 @@ use DataTables;
 use Validator;
 use DB;
 use Auth;
-use PDF;
 
 class KtpController extends Controller
 {
@@ -264,31 +263,7 @@ class KtpController extends Controller
                     return $user->created_at ? with(new Carbon($user->created_at))->format('Y/m/d') : '';
                 })
                 ->addColumn('action', function($ktp) {
-                    return '<button 
-                    class="btn btn-info btn-xs ktp-show"
-                    data-toggle="modal"
-                    data-target="#ktp-show-modal"
-                    data-id="'. $ktp->id .'"
-                    data-nik="'. $ktp->nik .'"
-                    data-nama="'. $ktp->nama .'"
-                    data-jenis_kelamin="'. $ktp->jenis_kelamin .'"
-                    data-tempat_lahir="'. $ktp->tempat_lahir .'"
-                    data-tanggal_lahir="'. $ktp->tanggal_lahir .'"
-                    data-kewarganegaraan="'. $ktp->kewarganegaraan .'"
-                    data-gol_darah="'. $ktp->gol_darah .'"
-                    data-agama="'. $ktp->agama .'"
-                    data-status_perkawinan="'. $ktp->status_perkawinan .'"
-                    data-pendidikan="'. $ktp->pendidikan .'"
-                    data-pekerjaan="'. $ktp->pekerjaan .'"
-                    data-nama_ayah="'. $ktp->nama_ayah .'"
-                    data-nama_ibu="'. $ktp->nama_ibu .'"
-                    data-alamat="'. $ktp->alamat .'"
-                    data-rt="'. $ktp->rt .'"
-                    data-rw="'. $ktp->rw .'"
-                    data-kelurahan="'. $ktp->kelurahan .'"
-                    data-status="'. $ktp->status .'"
-                    data-user_id="'. $ktp->user_id .'"
-                    ><i class="md-eye"></i></button>
+                    return '
                     <button 
                     class="btn btn-warning btn-xs ktp-edit"
                     data-toggle="modal"

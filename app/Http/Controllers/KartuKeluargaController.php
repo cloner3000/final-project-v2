@@ -8,7 +8,6 @@ use DataTables;
 use Validator;
 use DB;
 use Auth;
-use PDF;
 
 class KartuKeluargaController extends Controller
 {
@@ -212,23 +211,7 @@ class KartuKeluargaController extends Controller
                                 return $user->created_at ? with(new Carbon($user->created_at))->format('Y/m/d') : '';
                             })
                             ->addColumn('action', function($kk) {
-                                return '<button 
-                                        class="btn btn-info btn-xs kk-show"
-                                        data-toggle="modal"
-                                        data-target="#kk-show-modal"
-                                        data-id="'. $kk->id .'"
-                                        data-no_kk="'. $kk->no_kk .'"
-                                        data-nik="'. $kk->nik .'"
-                                        data-nama="'. $kk->nama .'"
-                                        data-jenis_kelamin="'. $kk->jenis_kelamin .'"
-                                        data-alamat="'. $kk->alamat .'"
-                                        data-rt="'. $kk->rt .'"
-                                        data-rw="'. $kk->rw .'"
-                                        data-kelurahan="'. $kk->kelurahan .'"
-                                        data-jumlah_pengikut="'. $kk->jumlah_pengikut .'"
-                                        data-status="'. $kk->status .'"
-                                        data-user_id="'. $kk->user_id .'"
-                                        ><i class="md-eye"></i></button>
+                                return '
                                         <button 
                                         class="btn btn-warning btn-xs kk-edit"
                                         data-toggle="modal"

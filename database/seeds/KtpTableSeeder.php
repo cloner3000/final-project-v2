@@ -84,8 +84,25 @@ class KtpTableSeeder extends Seeder
                                         'Islam', 'Kristen', 'Katholik', 'Hindu', 'Buddha'
                                         ]),
                 'status_perkawinan'  => $faker->randomElement($array = ['Lajang', 'Menikah']),
-                'pendidikan'         => 'S1',
-        		'pekerjaan'          => 'Pelajar/Mahasiswa',
+                'pendidikan'         => $faker->randomElement($array = ['Tidak/Belum Sekolah', 'SD', 'SMP', 'SMA', 'S1', 'S2', 'S3']),
+        		'pekerjaan'          => $faker->randomElement($array = 
+                                        [
+                                        'Belum/Tidak Bekerja',
+                                        'Mengurus Rumah Tangga',
+                                        'Pelajar/Mahasiswa',
+                                        'Pensiunan',
+                                        'Pegawai Negeri Sipil (PNS)',
+                                        'Tentara Nasional Indonesia',
+                                        'Kepolisian RI',
+                                        'Perdagangan',
+                                        'Karyawan Swasta',
+                                        'Karyawan BUMN',
+                                        'Guru',
+                                        'Dosen',
+                                        'Dokter',
+                                        'Wiraswasta',
+                                        'Buruh Harian Lepas'
+                                        ]),
                 'nama_ayah'          => $faker->randomElement($array = $nama_depan) . ' ' . $faker->randomElement($array = $nama_belakang),
                 'nama_ibu'           => $faker->randomElement($array = $nama_depan) . ' ' . $faker->randomElement($array = $nama_belakang),
                 'alamat'             => 'Jl. ' . $faker->randomElement($array = $alamat) . ' No. ' . $faker->randomDigitNotNull,

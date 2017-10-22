@@ -11,7 +11,7 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <h1>Filter Pemohon Pindah Keluar</h1>
+            <h1>Filter Penduduk Pindah Keluar</h1>
           </div>
           <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <form id="filter-pindahkeluar-form" class="form-inline">
@@ -163,7 +163,7 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <h1 style="float: left">Daftar Pemohon Pindah Keluar</h1>
+            <h1 style="float: left">Daftar Penduduk Pindah Keluar</h1>
             <div style="top: 10px">
               <button id="filter-pindahkeluar" class="btn btn-default btn-sm" style="float: right; top: 105px"><i class="md-filter-list"></i>&nbsp; Filter Data</button>
               @if (Auth::user()->isAdmin() == 0)
@@ -178,10 +178,9 @@
           <div class="col-lg-12 col-md-8 col-sm-12 col-xs-12">
             <table id="pindahkeluar-table" class="table table-hover display responsive nowrap" cellspacing="0" width="100%">
               <thead>
+                <th></th>
                 <th>NIK</th>
                 <th>Nama</th>
-                <th>Alamat Sekarang</th>
-                <th>Alamat Tujuan</th>
                 <th>Dibuat Tgl</th>
                 <th>Action</th>
               </thead>
@@ -240,14 +239,74 @@
         }
       },
       columns: [
+        {
+          "class": "details-control",
+          "orderable": false,
+          "data": null,
+          "defaultContent": ""
+        },
         { data: 'nik' },
         { data: 'nama' },
-        { data: 'alamat_sekarang' },
-        { data: 'alamat_tujuan' },
         { data: 'created_at' },
         { data: 'action', searchable: false, orderable: false }
       ]
      })
+
+    // Handle specified data to show
+    function format ( d ) {
+      return `<table class="table borderless">
+                <tr>
+                  <td>No. Registrasi : <strong>${d.id}</strong></td>
+                  <td>Jenis Kelamin : <strong>${d.jenis_kelamin}</strong></td>
+                  <td>Golongan Darah : <strong>${d.gol_darah}</strong></td>
+                  <td>Status Perkawinan : <strong>${d.status_perkawinan}</strong></td>
+                </tr>
+                <tr>
+                  <td>Tempat Lahir  : <strong>${d.tempat_lahir}</strong></td>
+                  <td>Tanggal Lahir : <strong>${d.tanggal_lahir}</strong></td>
+                  <td>Kewarganegaraan : <strong>${d.kewarganegaraan}</strong></td>
+                  <td>Agama : <strong>${d.agama}</strong></td>
+                </tr>
+                <tr>
+                  <td>Pendidikan  : <strong>${d.pendidikan}</strong></td>
+                  <td>Pekerjaan : <strong>${d.pekerjaan}</strong></td>
+                  <td>SHDK : <strong>${d.shdk}</strong></td>
+                </tr>
+                <tr>
+                  <td>Alamat Sekarang : <strong>${d.alamat_sekarang}</strong></td>
+                  <td>RT / RW : <strong>${d.rt} / ${d.rw}</strong></td>
+                  <td>Kelurahan : <strong>${d.kelurahan}</strong></td>
+                  <td>Alamat Pindah : <strong>${d.alamat_tujuan}</strong></td>
+                </tr>
+              </table>`
+    }
+
+    // Array to track the ids of the details displayed rows
+    let detailRows = [];
+  
+    // Assign event action to button
+    $('#pindahkeluar-table tbody').on( 'click', 'tr td.details-control', function () {
+      let tr = $(this).closest('tr');
+      let row = pindahkeluar_table.row( tr );
+      let idx = $.inArray( tr.attr('id'), detailRows );
+
+      if ( row.child.isShown() ) {
+          tr.removeClass( 'details' );
+          row.child.hide();
+
+          // Remove from the 'open' array
+          detailRows.splice( idx, 1 );
+      }
+      else {
+        tr.addClass( 'details' );
+        row.child( format( row.data() ) ).show();
+
+        // Add to the 'open' array
+        if ( idx === -1 ) {
+          detailRows.push( tr.attr('id') );
+        }
+      }
+    })
 
     // New Pindah Keluar
     $('.btn-new').click(function() {
@@ -305,34 +364,39 @@
      // Core : draw datatables!
      $('#pindahkeluar-table').on('draw.dt', function() {
 
+      // Trigger click to details button
+      $.each( detailRows, function ( i, id ) {
+        $('#'+ id +' td.details-control').trigger( 'click' );
+      });
+      
       // Show Pindah Keluar
-      $('.pindahkeluar-show').click(function() {
-        /* Get the value and store to temporary variable */
-        let no_kk = $(this).data('no_kk')
-        let nik = $(this).data('nik')
-        let nama = $(this).data('nama')
-        let jenis_kelamin = $(this).data('jenis_kelamin')
-        let tempat_lahir = $(this).data('tempat_lahir')
-        let tanggal_lahir = $(this).data('tanggal_lahir')
-        let kewarganegaraan = $(this).data('kewarganegaraan')
-        let gol_darah = $(this).data('gol_darah')
+      // $('.pindahkeluar-show').click(function() {
+      //   /* Get the value and store to temporary variable */
+      //   let no_kk = $(this).data('no_kk')
+      //   let nik = $(this).data('nik')
+      //   let nama = $(this).data('nama')
+      //   let jenis_kelamin = $(this).data('jenis_kelamin')
+      //   let tempat_lahir = $(this).data('tempat_lahir')
+      //   let tanggal_lahir = $(this).data('tanggal_lahir')
+      //   let kewarganegaraan = $(this).data('kewarganegaraan')
+      //   let gol_darah = $(this).data('gol_darah')
 
-        let agama = $(this).data('agama')
-        let status_perkawinan = $(this).data('status_perkawinan')
-        let shdk = $(this).data('shdk')
-        let pendidikan = $(this).data('pendidikan')
-        let pekerjaan = $(this).data('pekerjaan')
+      //   let agama = $(this).data('agama')
+      //   let status_perkawinan = $(this).data('status_perkawinan')
+      //   let shdk = $(this).data('shdk')
+      //   let pendidikan = $(this).data('pendidikan')
+      //   let pekerjaan = $(this).data('pekerjaan')
 
-        let alamat_sekarang = $(this).data('alamat_sekarang')
-        let rt = $(this).data('rt')
-        let rw = $(this).data('rw')
-        let kelurahan = $(this).data('kelurahan')
-        let alamat_tujuan = $(this).data('alamat_tujuan')
-        let status = $(this).data('kelurahan')
+      //   let alamat_sekarang = $(this).data('alamat_sekarang')
+      //   let rt = $(this).data('rt')
+      //   let rw = $(this).data('rw')
+      //   let kelurahan = $(this).data('kelurahan')
+      //   let alamat_tujuan = $(this).data('alamat_tujuan')
+      //   let status = $(this).data('kelurahan')
 
-        /* Act on the event */
-        fillShowForm(no_kk, nik, nama, jenis_kelamin, tempat_lahir, tanggal_lahir, kewarganegaraan, gol_darah, agama, status_perkawinan, shdk, pendidikan, pekerjaan, alamat_sekarang, rt, rw, kelurahan, alamat_tujuan)
-      })
+      //   /* Act on the event */
+      //   fillShowForm(no_kk, nik, nama, jenis_kelamin, tempat_lahir, tanggal_lahir, kewarganegaraan, gol_darah, agama, status_perkawinan, shdk, pendidikan, pekerjaan, alamat_sekarang, rt, rw, kelurahan, alamat_tujuan)
+      // })
 
       // Edit Pindah Keluar
       $('.pindahkeluar-edit').click(function() {

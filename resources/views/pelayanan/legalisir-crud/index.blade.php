@@ -3,7 +3,6 @@
 @section('content')
 
 @include('pelayanan.legalisir-crud.form')
-
 <div class="col-xxl-12 col-lg-12 col-xs-12">
   <!-- Main Widget -->
   <div id="filter-legalisir-card" class="card card-shadow">
@@ -123,11 +122,11 @@
         </div><br>
         <div class="row">
           <div class="col-lg-12 col-md-8 col-sm-12 col-xs-12">
-            <table id="legalisir-table" class="table table-hover display responsive nowrap" cellspacing="0" width="100%">
+            <table id="legalisir-table" class="table table-hover nowrap" cellspacing="0" width="100%">
               <thead>
+                <th></th>
                 <th>NIK</th>
                 <th>Nama</th>
-                <th>Alamat</th>
                 <th>Jenis Berkas</th>
                 <th>Dibuat Tgl</th>
                 <th>Action</th>
@@ -175,14 +174,63 @@
         }
       },
       columns: [
+        {
+          "class": "details-control",
+          "orderable": false,
+          "data": null,
+          "defaultContent": ""
+        },
         { data: 'nik' },
         { data: 'nama' },
-        { data: 'alamat' },
         { data: 'jenis_berkas' },
         { data: 'created_at' },
         { data: 'action', searchable: false, orderable: false }
       ]
      })
+
+    // Handle specified data to show
+    function format ( d ) {
+      return `<table class="table borderless">
+                <tr>
+                  <td>No. Registrasi : <strong>${d.id}</strong></td>
+                  <td>Jenis Kelamin : <strong>${d.jenis_kelamin}</strong></td>
+                </tr>
+                <tr>
+                  <td>Alamat : <strong>${d.alamat}</strong></td>
+                  <td>RT / RW : <strong>${d.rt} / ${d.rw}</strong></td>
+                </tr>
+                <tr>
+                  <td>Kelurahan : <strong>${d.kelurahan}</strong></td>
+                </tr>
+              </table>`
+    }
+
+    // Array to track the ids of the details displayed rows
+    let detailRows = [];
+  
+    // Assign event action to button
+    $('#legalisir-table tbody').on( 'click', 'tr td.details-control', function () {
+      let tr = $(this).closest('tr');
+      let row = legalisir_table.row( tr );
+      let idx = $.inArray( tr.attr('id'), detailRows );
+
+      if ( row.child.isShown() ) {
+          tr.removeClass( 'details' );
+          row.child.hide();
+
+          // Remove from the 'open' array
+          detailRows.splice( idx, 1 );
+      }
+      else {
+        tr.addClass( 'details' );
+        row.child( format( row.data() ) ).show();
+
+        // Add to the 'open' array
+        if ( idx === -1 ) {
+          detailRows.push( tr.attr('id') );
+        }
+      }
+    })
 
     // New Legalisir
     $('.btn-new').click(function() {
@@ -228,22 +276,27 @@
      // Core : draw datatables!
      $('#legalisir-table').on('draw.dt', function() {
 
+      // Trigger click to details button
+      $.each( detailRows, function ( i, id ) {
+        $('#'+ id +' td.details-control').trigger( 'click' );
+      });
+
       // Show Legalisir
-      $('.legalisir-show').click(function() {
+      // $('.legalisir-show').click(function() {
 
-        /* Get the value and store to temporary variable */
-        let nik = $(this).data('nik')
-        let nama = $(this).data('nama')
-        let jenis_kelamin = $(this).data('jenis_kelamin')
-        let jenis_berkas = $(this).data('jenis_berkas')
-        let alamat = $(this).data('alamat')
-        let rt = $(this).data('rt')
-        let rw = $(this).data('rw')
-        let kelurahan = $(this).data('kelurahan')
+      //   /* Get the value and store to temporary variable */
+      //   let nik = $(this).data('nik')
+      //   let nama = $(this).data('nama')
+      //   let jenis_kelamin = $(this).data('jenis_kelamin')
+      //   let jenis_berkas = $(this).data('jenis_berkas')
+      //   let alamat = $(this).data('alamat')
+      //   let rt = $(this).data('rt')
+      //   let rw = $(this).data('rw')
+      //   let kelurahan = $(this).data('kelurahan')
 
-        /* Act on the event */
-        fillShowForm(nik, nama, jenis_kelamin, jenis_berkas, alamat, rt, rw, kelurahan)
-      })
+      //   /* Act on the event */
+      //   fillShowForm(nik, nama, jenis_kelamin, jenis_berkas, alamat, rt, rw, kelurahan)
+      // })
 
       // Edit legalisir
       $('.legalisir-edit').click(function() {

@@ -133,12 +133,12 @@
                       <label class="form-control-label" for="pekerjaan">Pekerjaan</label>
                       <select id="create-pekerjaan" name="pekerjaan" class="form-control">
                         <option value="Belum/Tidak Bekerja">Belum/Tidak Bekerja</option>
-                        <option value="MRT">Mengurus Rumah Tangga</option>
+                        <option value="Mengurus Rumah Tangga">Mengurus Rumah Tangga</option>
                         <option value="Pelajar/Mahasiswa">Pelajar/Mahasiswa</option>
                         <option value="Pensiunan">Pensiunan</option>
-                        <option value="PNS">Pegawai Negeri Sipil (PNS)</option>
+                        <option value="Pegawai Negeri Sipil (PNS)">Pegawai Negeri Sipil (PNS)</option>
 
-                        <option value="TNI">Tentara Nasional Indonesia</option>
+                        <option value="Tentara Nasional Indonesia">Tentara Nasional Indonesia</option>
                         <option value="Kepolisian RI">Kepolisian RI</option>
                         <option value="Perdagangan">Perdagangan</option>
                         <option value="Karyawan Swasta">Karyawan Swasta</option>
@@ -347,12 +347,12 @@
                       <label class="form-control-label" for="pekerjaan">Pekerjaan</label>
                       <select id="show-pekerjaan" name="pekerjaan" class="form-control" disabled>
                         <option value="Belum/Tidak Bekerja">Belum/Tidak Bekerja</option>
-                        <option value="MRT">Mengurus Rumah Tangga</option>
+                        <option value="Mengurus Rumah Tangga">Mengurus Rumah Tangga</option>
                         <option value="Pelajar/Mahasiswa">Pelajar/Mahasiswa</option>
                         <option value="Pensiunan">Pensiunan</option>
-                        <option value="PNS">Pegawai Negeri Sipil (PNS)</option>
+                        <option value="Pegawai Negeri Sipil (PNS)">Pegawai Negeri Sipil (PNS)</option>
 
-                        <option value="TNI">Tentara Nasional Indonesia</option>
+                        <option value="Tentara Nasional Indonesia">Tentara Nasional Indonesia</option>
                         <option value="Kepolisian RI">Kepolisian RI</option>
                         <option value="Perdagangan">Perdagangan</option>
                         <option value="Karyawan Swasta">Karyawan Swasta</option>
@@ -566,12 +566,12 @@
                       <label class="form-control-label" for="pekerjaan">Pekerjaan</label>
                       <select id="edit-pekerjaan" name="pekerjaan" class="form-control">
                         <option value="Belum/Tidak Bekerja">Belum/Tidak Bekerja</option>
-                        <option value="MRT">Mengurus Rumah Tangga</option>
+                        <option value="Mengurus Rumah Tangga">Mengurus Rumah Tangga</option>
                         <option value="Pelajar/Mahasiswa">Pelajar/Mahasiswa</option>
                         <option value="Pensiunan">Pensiunan</option>
-                        <option value="PNS">Pegawai Negeri Sipil (PNS)</option>
+                        <option value="Pegawai Negeri Sipil (PNS)">Pegawai Negeri Sipil (PNS)</option>
 
-                        <option value="TNI">Tentara Nasional Indonesia</option>
+                        <option value="Tentara Nasional Indonesia">Tentara Nasional Indonesia</option>
                         <option value="Kepolisian RI">Kepolisian RI</option>
                         <option value="Perdagangan">Perdagangan</option>
                         <option value="Karyawan Swasta">Karyawan Swasta</option>

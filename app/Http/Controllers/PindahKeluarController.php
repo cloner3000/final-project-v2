@@ -8,7 +8,6 @@ use DataTables;
 use Validator;
 use DB;
 use Auth;
-use PDF;
 
 class PindahKeluarController extends Controller
 {
@@ -271,32 +270,7 @@ class PindahKeluarController extends Controller
                                 return $user->created_at ? with(new Carbon($user->created_at))->format('Y/m/d') : '';
                             })
                             ->addColumn('action', function($pindahkeluar) {
-                                return '<button 
-                                        class="btn btn-info btn-xs pindahkeluar-show"
-                                        data-toggle="modal"
-                                        data-target="#pindahkeluar-show-modal"
-                                        data-id="'. $pindahkeluar->id .'"
-                                        data-no_kk="'. $pindahkeluar->no_kk .'"
-                                        data-nik="'. $pindahkeluar->nik .'"
-                                        data-nama="'. $pindahkeluar->nama .'"
-                                        data-jenis_kelamin="'. $pindahkeluar->jenis_kelamin .'"
-                                        data-tempat_lahir="'. $pindahkeluar->tempat_lahir .'"
-                                        data-tanggal_lahir="'. $pindahkeluar->tanggal_lahir .'"
-                                        data-kewarganegaraan="'. $pindahkeluar->kewarganegaraan .'"
-                                        data-gol_darah="'. $pindahkeluar->gol_darah .'"
-                                        data-agama="'. $pindahkeluar->agama .'"
-                                        data-status_perkawinan="'. $pindahkeluar->status_perkawinan .'"
-                                        data-shdk="'. $pindahkeluar->shdk .'"
-                                        data-pendidikan="'. $pindahkeluar->pendidikan .'"
-                                        data-pekerjaan="'. $pindahkeluar->pekerjaan .'"
-                                        data-alamat_sekarang="'. $pindahkeluar->alamat_sekarang .'"
-                                        data-rt="'. $pindahkeluar->rt .'"
-                                        data-rw="'. $pindahkeluar->rw .'"
-                                        data-kelurahan="'. $pindahkeluar->kelurahan .'"
-                                        data-alamat_tujuan="'. $pindahkeluar->alamat_tujuan .'"
-                                        data-status="'. $pindahkeluar->status .'"
-                                        data-user_id="'. $pindahkeluar->user_id .'"
-                                        ><i class="md-eye"></i></button>
+                                return '
                                         <button 
                                         class="btn btn-warning btn-xs pindahkeluar-edit"
                                         data-toggle="modal"

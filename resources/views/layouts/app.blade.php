@@ -35,6 +35,36 @@
   <link rel="stylesheet" href="{{ asset('fonts/brand-icons/brand-icons.min.css') }}">
   <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,300italic">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Pacifico">
+  <style type="text/css">
+    td.details-control {
+      background: url({{ asset('images/details_open.png')  }}) no-repeat center center;
+      cursor: pointer;
+    }
+
+    tr.details td.details-control {
+      background: url({{ asset('images/details_close.png')  }}) no-repeat center center;
+    }
+
+    table.dataTable thead .sorting { 
+      background: url({{ asset('vendor/datatables-bootstrap/sort_both.png') }}) no-repeat center right; 
+    }
+
+    table.dataTable thead .sorting_asc { 
+      background: url({{ asset('vendor/datatables-bootstrap/sort_asc.png') }}) no-repeat center right; 
+    }
+
+    table.dataTable thead .sorting_desc { 
+      background: url({{ asset('vendor/datatables-bootstrap/sort_desc.png') }}) no-repeat center right; 
+    }
+
+    table.dataTable thead .sorting_asc_disabled { 
+      background: url({{ asset('vendor/datatables-bootstrap/sort_asc_disabled.png') }}) no-repeat center right; 
+    }
+
+    table.dataTable thead .sorting_desc_disabled { 
+      background: url({{ asset('vendor/datatables-bootstrap/sort_desc_disabled.png') }}) no-repeat center right; 
+    }
+  </style>
   <!--[if lt IE 9]>
     <script src="../../global/vendor/html5shiv/html5shiv.min.js"></script>
     <![endif]-->

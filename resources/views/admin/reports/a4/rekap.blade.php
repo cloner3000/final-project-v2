@@ -7,15 +7,28 @@
     th, td {
         text-align: center;
     }
-    .cipaganti-summary, .dago-summary, .lebakgede-summary,
-    .lebaksiliwangi-summary, .sadangserang-summary, .sekeloa-summary {
-        font-weight: bold;
-    }
     .summary-ktp-l, .summary-ktp-p, .summary-kk-l, .summary-kk-p,
     .summary-legalisir-l, .summary-legalisir-p, .summary-pindahdatang-l, .summary-pindahdatang-p,
-    .summary-pindahkeluar-l, .summary-pindahkeluar-p {
+    .summary-pindahkeluar-l, .summary-pindahkeluar-p, 
+
+    .summary-ktp-cipaganti, .summary-kk-cipaganti, .summary-pindahdatang-cipaganti, .summary-pindahkeluar-cipaganti,
+    .summary-legalisir-cipaganti,
+    .summary-ktp-dago, .summary-kk-dago, .summary-pindahdatang-dago, .summary-pindahkeluar-dago,
+    .summary-legalisir-dago,
+    .summary-ktp-lebakgede, .summary-kk-lebakgede, .summary-pindahdatang-lebakgede, .summary-pindahkeluar-lebakgede,
+    .summary-legalisir-lebakgede,
+    .summary-ktp-lebaksiliwangi, .summary-kk-lebaksiliwangi, .summary-pindahdatang-lebaksiliwangi, .summary-pindahkeluar-lebaksiliwangi,
+    .summary-legalisir-lebaksiliwangi,
+    .summary-ktp-sadangserang, .summary-kk-sadangserang, .summary-pindahdatang-sadangserang, .summary-pindahkeluar-sadangserang,
+    .summary-legalisir-sadangserang,
+    .summary-ktp-sekeloa, .summary-kk-sekeloa, .summary-pindahdatang-sekeloa, .summary-pindahkeluar-sekeloa,
+    .summary-legalisir-sekeloa,
+
+    .summary-ktp, .summary-kk, .summary-pindahdatang, .summary-pindahkeluar, .summary-legalisir {
         font-weight: bold;
     }
+
+
 </style>
 <body>
     <div class="container">
@@ -40,7 +53,7 @@
 
         <div class="row">
         	<div class="col-lg-12">
-                <h4 class="text-center">Rekapitulasi Total Pemohon Berkas</h4>
+                <h4 class="text-center">Rekapitulasi Total Pengajuan Berkas</h4>
                 <p>Periode : {{ $date['formattedStarts'] }} - {{ $date['formattedEnds'] }}</p>
         	</div>
         </div>
@@ -51,33 +64,37 @@
                     <thead>
                         <tr>
                             <th rowspan="2"><span>Kelurahan</span></th>
-                            <th colspan="2">Pemohon E-KTP</th>
-                            <th colspan="2">Pemohon Kartu Keluarga</th>
-                            <th colspan="2">Penduduk Pindah Datang</th>
-                            <th colspan="2">Penduduk Pindah Keluar</th>
-                            <th colspan="2">Pemohon Legalisir Berkas</th>
-                            <th rowspan="2">Jumlah</th>
+                            <th colspan="3">Pemohon E-KTP</th>
+                            <th colspan="3">Pemohon Kartu Keluarga</th>
+                            <th colspan="3">Penduduk Pindah Datang</th>
+                            <th colspan="3">Penduduk Pindah Keluar</th>
+                            <th colspan="3">Pemohon Legalisir Berkas</th>
                         </tr>
                         <tr>
                             <!-- E-KTP -->
                             <th colspan="1">L</th>
                             <th colspan="1">P</th>
+                            <th colspan="1">Jml</th>
 
                             <!-- Kartu Keluarga -->
                             <th colspan="1">L</th>
                             <th colspan="1">P</th>
+                            <th colspan="1">Jml</th>
 
                             <!-- Pindah Datang -->
                             <th colspan="1">L</th>
                             <th colspan="1">P</th>
+                            <th colspan="1">Jml</th>
 
                             <!-- Pindah Keluar -->
                             <th colspan="1">L</th>
                             <th colspan="1">P</th>
+                            <th colspan="1">Jml</th>
 
                             <!-- Legalisir -->
                             <th colspan="1">L</th>
                             <th colspan="1">P</th>
+                            <th colspan="1">Jml</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -87,24 +104,27 @@
                             <!-- E-KTP -->
                             <td colspan="1" class="cipaganti-ktp-l">{{ !empty($cipaganti['ktp']['0']) ? $cipaganti['ktp']['0']->total : 0 }}</td>
                             <td colspan="1" class="cipaganti-ktp-p">{{ !empty($cipaganti['ktp']['1']) ? $cipaganti['ktp']['1']->total : 0 }}</td>
+                            <td colspan="1" class="summary-ktp-cipaganti"></td>
 
                             <!-- Kartu Keluarga -->
                             <td colspan="1" class="cipaganti-kk-l">{{ !empty($cipaganti['kk']['0']) ? $cipaganti['kk']['0']->total : 0 }}</td>
                             <td colspan="1" class="cipaganti-kk-p">{{ !empty($cipaganti['kk']['1']) ? $cipaganti['kk']['1']->total : 0 }}</td>
+                            <td colspan="1" class="summary-kk-cipaganti"></td>
 
                             <!-- Pindah Datang -->
                             <td colspan="1" class="cipaganti-pindahdatang-l">{{ !empty($cipaganti['pindahdatang']['0']) ? $cipaganti['pindahdatang']['0']->total : 0 }}</td>
                             <td colspan="1" class="cipaganti-pindahdatang-p">{{ !empty($cipaganti['pindahdatang']['1']) ? $cipaganti['pindahdatang']['1']->total : 0 }}</td>
+                            <td class="summary-pindahdatang-cipaganti"></td>
 
                             <!-- Pindah Keluar -->
                             <td colspan="1" class="cipaganti-pindahkeluar-l">{{ !empty($cipaganti['pindahkeluar']['0']) ? $cipaganti['pindahkeluar']['0']->total : 0 }}</td>
                             <td colspan="1" class="cipaganti-pindahkeluar-p">{{ !empty($cipaganti['pindahkeluar']['1']) ? $cipaganti['pindahkeluar']['1']->total : 0 }}</td>
+                            <td colspan="1" class="summary-pindahkeluar-cipaganti"></td>
 
                             <!-- Legalisir -->
                             <td colspan="1" class="cipaganti-legalisir-l">{{ !empty($cipaganti['legalisir']['0']) ? $cipaganti['legalisir']['0']->total : 0 }}</td>
                             <td colspan="1" class="cipaganti-legalisir-p">{{ !empty($cipaganti['legalisir']['1']) ? $cipaganti['legalisir']['1']->total : 0 }}</td>
-
-                            <td class="cipaganti-summary"></td>
+                            <td colspan="1" class="summary-legalisir-cipaganti"></td>
                         </tr>
                         <tr>
                             <td class="text-left">Dago</td>
@@ -112,24 +132,27 @@
                             <!-- E-KTP -->
                             <td colspan="1" class="dago-ktp-l">{{ !empty($dago['ktp']['0']) ? $dago['ktp']['0']->total : 0 }}</td>
                             <td colspan="1" class="dago-ktp-p">{{ !empty($dago['ktp']['1']) ? $dago['ktp']['1']->total : 0 }}</td>
+                            <td colspan="1" class="summary-ktp-dago"></td>
 
                             <!-- Kartu Keluarga -->
                             <td colspan="1" class="dago-kk-l">{{ !empty($dago['kk']['0']) ? $dago['kk']['0']->total : 0 }}</td>
                             <td colspan="1" class="dago-kk-p">{{ !empty($dago['kk']['1']) ? $dago['kk']['1']->total : 0 }}</td>
+                            <td colspan="1" class="summary-kk-dago"></td>
 
                             <!-- Pindah Datang -->
                             <td colspan="1" class="dago-pindahdatang-l">{{ !empty($dago['pindahdatang']['0']) ? $dago['pindahdatang']['0']->total : 0 }}</td>
                             <td colspan="1" class="dago-pindahdatang-p">{{ !empty($dago['pindahdatang']['1']) ? $dago['pindahdatang']['1']->total : 0 }}</td>
+                            <td colspan="1" class="summary-pindahdatang-dago"></td>
 
                             <!-- Pindah Keluar -->
                             <td colspan="1" class="dago-pindahkeluar-l">{{ !empty($dago['pindahkeluar']['0']) ? $dago['pindahkeluar']['0']->total : 0 }}</td>
                             <td colspan="1" class="dago-pindahkeluar-p">{{ !empty($dago['pindahkeluar']['1']) ? $dago['pindahkeluar']['1']->total : 0 }}</td>
+                            <td colspan="1" class="summary-pindahkeluar-dago"></td>
 
                             <!-- Legalisir -->
                             <td colspan="1" class="dago-legalisir-l">{{ !empty($dago['legalisir']['0']) ? $dago['legalisir']['0']->total : 0 }}</td>
                             <td colspan="1" class="dago-legalisir-p">{{ !empty($dago['legalisir']['1']) ? $dago['legalisir']['1']->total : 0 }}</td>
-                        
-                            <td class="dago-summary"></td>
+                            <td colspan="1" class="summary-legalisir-dago"></td>
                         </tr>
                         <tr>
                             <td class="text-left">Lebak Gede</td>
@@ -137,24 +160,27 @@
                             <!-- E-KTP -->
                             <td colspan="1" class="lebakgede-ktp-l">{{ !empty($lebakgede['ktp']['0']) ? $lebakgede['ktp']['0']->total : 0 }}</td>
                             <td colspan="1" class="lebakgede-ktp-p">{{ !empty($lebakgede['ktp']['1']) ? $lebakgede['ktp']['1']->total : 0 }}</td>
+                            <td colspan="1" class="summary-ktp-lebakgede"></td>
 
                             <!-- Kartu Keluarga -->
                             <td colspan="1" class="lebakgede-kk-l">{{ !empty($lebakgede['kk']['0']) ? $lebakgede['kk']['0']->total : 0 }}</td>
                             <td colspan="1" class="lebakgede-kk-p">{{ !empty($lebakgede['kk']['1']) ? $lebakgede['kk']['1']->total : 0 }}</td>
+                            <td colspan="1" class="summary-kk-lebakgede"></td>
 
                             <!-- Pindah Datang -->
                             <td colspan="1" class="lebakgede-pindahdatang-l">{{ !empty($lebakgede['pindahdatang']['0']) ? $lebakgede['pindahdatang']['0']->total : 0 }}</td>
                             <td colspan="1" class="lebakgede-pindahdatang-p">{{ !empty($lebakgede['pindahdatang']['1']) ? $lebakgede['pindahdatang']['1']->total : 0 }}</td>
+                            <td colspan="1" class="summary-pindahdatang-lebakgede"></td>
 
                             <!-- Pindah Keluar -->
                             <td colspan="1" class="lebakgede-pindahkeluar-l">{{ !empty($lebakgede['pindahkeluar']['0']) ? $lebakgede['pindahkeluar']['0']->total : 0 }}</td>
                             <td colspan="1" class="lebakgede-pindahkeluar-p">{{ !empty($lebakgede['pindahkeluar']['1']) ? $lebakgede['pindahkeluar']['1']->total : 0 }}</td>
+                            <td colspan="1" class="summary-pindahkeluar-lebakgede"></td>
 
                             <!-- Legalisir -->
                             <td colspan="1" class="lebakgede-legalisir-l">{{ !empty($lebakgede['legalisir']['0']) ? $lebakgede['legalisir']['0']->total : 0 }}</td>
                             <td colspan="1" class="lebakgede-legalisir-p">{{ !empty($lebakgede['legalisir']['1']) ? $lebakgede['legalisir']['1']->total : 0 }}</td>
-
-                            <td class="lebakgede-summary"></td>
+                            <td colspan="1" class="summary-legalisir-lebakgede"></td>
                         </tr>
                         <tr>
                             <td class="text-left">Lebak Siliwangi</td>
@@ -162,24 +188,27 @@
                             <!-- E-KTP -->
                             <td colspan="1" class="lebaksiliwangi-ktp-l">{{ !empty($lebaksiliwangi['ktp']['0']) ? $lebaksiliwangi['ktp']['0']->total : 0 }}</td>
                             <td colspan="1" class="lebaksiliwangi-ktp-p">{{ !empty($lebaksiliwangi['ktp']['1']) ? $lebaksiliwangi['ktp']['1']->total : 0 }}</td>
+                            <td colspan="1" class="summary-ktp-lebaksiliwangi"></td>
 
                             <!-- Kartu Keluarga -->
                             <td colspan="1" class="lebaksiliwangi-kk-l">{{ !empty($lebaksiliwangi['kk']['0']) ? $lebaksiliwangi['kk']['0']->total : 0 }}</td>
                             <td colspan="1" class="lebaksiliwangi-kk-p">{{ !empty($lebaksiliwangi['kk']['1']) ? $lebaksiliwangi['kk']['1']->total : 0 }}</td>
+                            <td colspan="1" class="summary-kk-lebaksiliwangi"></td>
 
                             <!-- Pindah Datang -->
                             <td colspan="1" class="lebaksiliwangi-pindahdatang-l">{{ !empty($lebaksiliwangi['pindahdatang']['0']) ? $lebaksiliwangi['pindahdatang']['0']->total : 0 }}</td>
                             <td colspan="1" class="lebaksiliwangi-pindahdatang-p">{{ !empty($lebaksiliwangi['pindahdatang']['1']) ? $lebaksiliwangi['pindahdatang']['1']->total : 0 }}</td>
+                            <td colspan="1" class="summary-pindahdatang-lebaksiliwangi"></td>
 
                             <!-- Pindah Keluar -->
                             <td colspan="1" class="lebaksiliwangi-pindahkeluar-l">{{ !empty($lebaksiliwangi['pindahkeluar']['0']) ? $lebaksiliwangi['pindahkeluar']['0']->total : 0 }}</td>
                             <td colspan="1" class="lebaksiliwangi-pindahkeluar-p">{{ !empty($lebaksiliwangi['pindahkeluar']['1']) ? $lebaksiliwangi['pindahkeluar']['1']->total : 0 }}</td>
+                            <td colspan="1" class="summary-pindahkeluar-lebaksiliwangi"></td>
 
                             <!-- Legalisir -->
                             <td colspan="1" class="lebaksiliwangi-legalisir-l">{{ !empty($lebaksiliwangi['legalisir']['0']) ? $lebaksiliwangi['legalisir']['0']->total : 0 }}</td>
                             <td colspan="1" class="lebaksiliwangi-legalisir-p">{{ !empty($lebaksiliwangi['legalisir']['1']) ? $lebaksiliwangi['legalisir']['1']->total : 0 }}</td>
-
-                            <td class="lebaksiliwangi-summary"></td>
+                            <td colspan="1" class="summary-legalisir-lebaksiliwangi"></td>
                         </tr>
                         <tr>
                             <td class="text-left">Sadang Serang</td>
@@ -187,24 +216,27 @@
                             <!-- E-KTP -->
                             <td colspan="1" class="sadangserang-ktp-l">{{ !empty($sadangserang['ktp']['0']) ? $sadangserang['ktp']['0']->total : 0 }}</td>
                             <td colspan="1" class="sadangserang-ktp-p">{{ !empty($sadangserang['ktp']['1']) ? $sadangserang['ktp']['1']->total : 0 }}</td>
+                            <td colspan="1" class="summary-ktp-sadangserang"></td>
 
                             <!-- Kartu Keluarga -->
                             <td colspan="1" class="sadangserang-kk-l">{{ !empty($sadangserang['kk']['0']) ? $sadangserang['kk']['0']->total : 0 }}</td>
                             <td colspan="1" class="sadangserang-kk-p">{{ !empty($sadangserang['kk']['1']) ? $sadangserang['kk']['1']->total : 0 }}</td>
+                            <td colspan="1" class="summary-kk-sadangserang"></td>
 
                             <!-- Pindah Datang -->
                             <td colspan="1" class="sadangserang-pindahdatang-l">{{ !empty($sadangserang['pindahdatang']['0']) ? $sadangserang['pindahdatang']['0']->total : 0 }}</td>
                             <td colspan="1" class="sadangserang-pindahdatang-p">{{ !empty($sadangserang['pindahdatang']['1']) ? $sadangserang['pindahdatang']['1']->total : 0 }}</td>
+                            <td colspan="1" class="summary-pindahdatang-sadangserang"></td>
 
                             <!-- Pindah Keluar -->
                             <td colspan="1" class="sadangserang-pindahkeluar-l">{{ !empty($sadangserang['pindahkeluar']['0']) ? $sadangserang['pindahkeluar']['0']->total : 0 }}</td>
                             <td colspan="1" class="sadangserang-pindahkeluar-p">{{ !empty($sadangserang['pindahkeluar']['1']) ? $sadangserang['pindahkeluar']['1']->total : 0 }}</td>
+                            <td colspan="1" class="summary-pindahkeluar-sadangserang"></td>
 
                             <!-- Legalisir -->
                             <td colspan="1" class="sadangserang-legalisir-l">{{ !empty($sadangserang['legalisir']['0']) ? $sadangserang['legalisir']['0']->total : 0 }}</td>
                             <td colspan="1" class="sadangserang-legalisir-p">{{ !empty($sadangserang['legalisir']['1']) ? $sadangserang['legalisir']['1']->total : 0 }}</td>
-
-                            <td class="sadangserang-summary"></td>
+                            <td colspan="1" class="summary-legalisir-sadangserang"></td>
                         </tr>
                         <tr>
                             <td class="text-left">Sekeloa</td>
@@ -212,24 +244,27 @@
                             <!-- E-KTP -->
                             <td colspan="1" class="sekeloa-ktp-l">{{ !empty($sekeloa['ktp']['0']) ? $sekeloa['ktp']['0']->total : 0 }}</td>
                             <td colspan="1" class="sekeloa-ktp-p">{{ !empty($sekeloa['ktp']['1']) ? $sekeloa['ktp']['1']->total : 0 }}</td>
+                            <td colspan="1" class="summary-ktp-sekeloa"></td>
 
                             <!-- Kartu Keluarga -->
                             <td colspan="1" class="sekeloa-kk-l">{{ !empty($sekeloa['kk']['0']) ? $sekeloa['kk']['0']->total : 0 }}</td>
                             <td colspan="1" class="sekeloa-kk-p">{{ !empty($sekeloa['kk']['1']) ? $sekeloa['kk']['1']->total : 0 }}</td>
+                            <td colspan="1" class="summary-kk-sekeloa"></td>
 
                             <!-- Pindah Datang -->
                             <td colspan="1" class="sekeloa-pindahdatang-l">{{ !empty($sekeloa['pindahdatang']['0']) ? $sekeloa['pindahdatang']['0']->total : 0 }}</td>
                             <td colspan="1" class="sekeloa-pindahdatang-p">{{ !empty($sekeloa['pindahdatang']['1']) ? $sekeloa['pindahdatang']['1']->total : 0 }}</td>
+                            <td colspan="1" class="summary-pindahdatang-sekeloa"></td>
 
                             <!-- Pindah Keluar -->
                             <td colspan="1" class="sekeloa-pindahkeluar-l">{{ !empty($sekeloa['pindahkeluar']['0']) ? $sekeloa['pindahkeluar']['0']->total : 0 }}</td>
                             <td colspan="1" class="sekeloa-pindahkeluar-p">{{ !empty($sekeloa['pindahkeluar']['1']) ? $sekeloa['pindahkeluar']['1']->total : 0 }}</td>
+                            <td colspan="1"class="summary-pindahkeluar-sekeloa"></td>
 
                             <!-- Legalisir -->
                             <td colspan="1" class="sekeloa-legalisir-l">{{ !empty($sekeloa['legalisir']['0']) ? $sekeloa['legalisir']['0']->total : 0 }}</td>
                             <td colspan="1" class="sekeloa-legalisir-p">{{ !empty($sekeloa['legalisir']['1']) ? $sekeloa['legalisir']['1']->total : 0 }}</td>
-
-                            <td class="sekeloa-summary"></td>
+                            <td colspan="1" class="summary-legalisir-sekeloa"></td>
                         </tr>
                         <tr>
                             <td class="text-left"><strong>Jumlah</strong></td>
@@ -237,22 +272,27 @@
                             <!-- E-KTP -->
                             <td colspan="1" class="summary-ktp-l"></td>
                             <td colspan="1" class="summary-ktp-p"></td>
+                            <td colspan="1" class="summary-ktp"></td>
 
                             <!-- Kartu Keluarga -->
                             <td colspan="1" class="summary-kk-l"></td>
                             <td colspan="1" class="summary-kk-p"></td>
+                            <td colspan="1" class="summary-kk"></td>
 
                             <!-- Pindah Datang -->
                             <td colspan="1" class="summary-pindahdatang-l"></td>
                             <td colspan="1" class="summary-pindahdatang-p"></td>
+                            <td colspan="1" class="summary-pindahdatang"></td>
 
                             <!-- Pindah Keluar -->
                             <td colspan="1" class="summary-pindahkeluar-l"></td>
                             <td colspan="1" class="summary-pindahkeluar-p"></td>
+                            <td colspan="1" class="summary-pindahkeluar"></td>
 
                             <!-- Legalisir -->
                             <td colspan="1" class="summary-legalisir-l"></td>
                             <td colspan="1" class="summary-legalisir-p"></td>
+                            <td colspan="1" class="summary-legalisir"></td>
                         </tr>
                     </tbody>
                 </table>

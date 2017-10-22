@@ -132,10 +132,10 @@
           <div class="col-lg-12 col-md-8 col-sm-12 col-xs-12">
             <table id="kk-table" class="table table-hover display responsive nowrap" cellspacing="0" width="100%">
               <thead>
+                <th></th>
                 <th>No. KK</th>
                 <th>NIK</th>
                 <th>Nama</th>
-                <th>Alamat</th>
                 <th>Dibuat Tgl</th>
                 <th>Action</th>
               </thead>
@@ -183,14 +183,63 @@
         }
       },
       columns: [
+        {
+          "class": "details-control",
+          "orderable": false,
+          "data": null,
+          "defaultContent": ""
+        },
         { data: 'no_kk' },
         { data: 'nik' },
         { data: 'nama' },
-        { data: 'alamat' },
         { data: 'created_at' },
         { data: 'action', searchable: false, orderable: false }
       ]
      })
+
+    // Handle specified data to show
+    function format ( d ) {
+      return `<table class="table borderless">
+                <tr>
+                  <td>No. Registrasi : <strong>${d.id}</strong></td>
+                  <td>Jenis Kelamin : <strong>${d.jenis_kelamin}</strong></td>
+                </tr>
+                <tr>
+                  <td>Alamat : <strong>${d.alamat}</strong></td>
+                  <td>RT / RW : <strong>${d.rt} / ${d.rw}</strong></td>
+                </tr>
+                <tr>
+                  <td>Kelurahan : <strong>${d.kelurahan}</strong></td>
+                </tr>
+              </table>`
+    }
+
+    // Array to track the ids of the details displayed rows
+    let detailRows = [];
+  
+    // Assign event action to button
+    $('#kk-table tbody').on( 'click', 'tr td.details-control', function () {
+      let tr = $(this).closest('tr');
+      let row = kk_table.row( tr );
+      let idx = $.inArray( tr.attr('id'), detailRows );
+
+      if ( row.child.isShown() ) {
+          tr.removeClass( 'details' );
+          row.child.hide();
+
+          // Remove from the 'open' array
+          detailRows.splice( idx, 1 );
+      }
+      else {
+        tr.addClass( 'details' );
+        row.child( format( row.data() ) ).show();
+
+        // Add to the 'open' array
+        if ( idx === -1 ) {
+          detailRows.push( tr.attr('id') );
+        }
+      }
+    })
 
     // New Kartu Keluarga
     $('.btn-new').click(function() {
@@ -237,23 +286,28 @@
      // Core : draw datatables!
      $('#kk-table').on('draw.dt', function() {
 
-      // Show Kartu Keluarga
-      $('.kk-show').click(function(e) {
-        /* Get the value and store to temporary variable */
-        let no_kk = $(this).data('no_kk')
-        let nik = $(this).data('nik')
-        let nama = $(this).data('nama')
-        let jenis_kelamin = $(this).data('jenis_kelamin')
-        let alamat = $(this).data('alamat')
-        let rt = $(this).data('rt')
-        let rw = $(this).data('rw')
-        let kelurahan = $(this).data('kelurahan')
-        let jumlah_pengikut = $(this).data('jumlah_pengikut')
-        let status = $(this).data('status')
+      // Trigger click to details button
+      $.each( detailRows, function ( i, id ) {
+        $('#'+ id +' td.details-control').trigger( 'click' );
+      });
 
-        /* Act on the event */
-        fillShowForm(no_kk, nik, nama, jenis_kelamin, alamat, rt, rw, kelurahan, jumlah_pengikut)
-      })
+      // Show Kartu Keluarga
+      // $('.kk-show').click(function(e) {
+      //   /* Get the value and store to temporary variable */
+      //   let no_kk = $(this).data('no_kk')
+      //   let nik = $(this).data('nik')
+      //   let nama = $(this).data('nama')
+      //   let jenis_kelamin = $(this).data('jenis_kelamin')
+      //   let alamat = $(this).data('alamat')
+      //   let rt = $(this).data('rt')
+      //   let rw = $(this).data('rw')
+      //   let kelurahan = $(this).data('kelurahan')
+      //   let jumlah_pengikut = $(this).data('jumlah_pengikut')
+      //   let status = $(this).data('status')
+
+      //   /* Act on the event */
+      //   fillShowForm(no_kk, nik, nama, jenis_kelamin, alamat, rt, rw, kelurahan, jumlah_pengikut)
+      // })
 
       // Edit Kartu Keluarga
       $('.kk-edit').click(function(e) {

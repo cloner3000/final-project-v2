@@ -8,7 +8,6 @@ use DataTables;
 use Validator;
 use DB;
 use Auth;
-use PDF;
 
 class LegalisirController extends Controller
 {
@@ -213,22 +212,7 @@ class LegalisirController extends Controller
                             })
                             ->addColumn('action', function($legalisir)
                             {
-                                return '<button 
-                                        class="btn btn-info btn-xs legalisir-show"
-                                        data-toggle="modal"
-                                        data-target="#legalisir-show-modal"
-                                        data-id="'. $legalisir->id .'"
-                                        data-nik="'. $legalisir->nik .'"
-                                        data-nama="'. $legalisir->nama .'"
-                                        data-jenis_kelamin="'. $legalisir->jenis_kelamin .'"
-                                        data-jenis_berkas="'. $legalisir->jenis_berkas .'"
-                                        data-alamat="'. $legalisir->alamat .'"
-                                        data-rt="'. $legalisir->rt .'"
-                                        data-rw="'. $legalisir->rw .'"
-                                        data-kelurahan="'. $legalisir->kelurahan .'"
-                                        data-status="'. $legalisir->status .'"
-                                        data-user_id="'. $legalisir->user_id .'"
-                                        ><i class="md-eye"></i></button>
+                                return '
                                         <button 
                                         class="btn btn-warning btn-xs legalisir-edit"
                                         data-toggle="modal"

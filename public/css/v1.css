@@ -144,3 +144,7 @@
 #projects-status .table > tbody > tr > td {
   vertical-align: middle;
 }
+
+.borderless td, .borderless th {
+    border: none;
+}
