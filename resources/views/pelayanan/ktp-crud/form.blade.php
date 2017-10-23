@@ -28,6 +28,12 @@
               <div class="container">
                 <div class="row">
                   <div class="col-lg-6 col-md-8 col-sm-12 col-xs-12"><br>
+                    <!-- Nomor KK -->
+                    <div class="form-group form-material" data-plugin="formMaterial">
+                      <label class="form-control-label" for="no_kk">Nomor Kartu Keluarga</label>
+                      <input type="text" class="form-control" id="create-no-kk" name="no_kk" placeholder="Masukkan Nomor KK" maxlength="16" />
+                      <small class="create-ktp-error-no-kk text-danger"></small>
+                    </div>
                     <!-- NIK -->
                     <div class="form-group form-material" data-plugin="formMaterial">
                       <label class="form-control-label" for="nik">NIK</label>
@@ -461,6 +467,12 @@
                   <div class="col-lg-6 col-md-8 col-sm-12 col-xs-12"><br>
                     <!-- ID -->
                     <input type="hidden" name="id" id="ktp-edit-id">
+                    <!-- Nomor KK -->
+                    <div class="form-group form-material" data-plugin="formMaterial">
+                      <label class="form-control-label" for="no_kk">Nomor Kartu Keluarga</label>
+                      <input type="text" class="form-control" id="edit-no-kk" name="no_kk" placeholder="Masukkan Nomor KK" maxlength="16" />
+                      <small class="edit-ktp-error-no-kk text-danger"></small>
+                    </div>
                     <!-- NIK -->
                     <div class="form-group form-material" data-plugin="formMaterial">
                       <label class="form-control-label" for="nik">NIK</label>

@@ -19,6 +19,11 @@
               <div class="form-group">
                 <!-- NIK -->
                 <div class="form-group form-material">
+                  <input type="text" class="form-control" id="filter-ktp-no-kk" name="no_kk" placeholder="Filter by Nomor Kartu Keluarga"
+                  autocomplete="off" />
+                </div>
+                <!-- NIK -->
+                <div class="form-group form-material">
                   <input type="text" class="form-control" id="filter-ktp-nik" name="nik" placeholder="Filter by NIK"
                   autocomplete="off" />
                 </div>
@@ -117,6 +122,7 @@
               <form target="_blank" action="{{ url('/dashboard/reports/ktp/filter') }}" method="GET" style="position: relative; bottom: 32.5px; margin-left: 70px">
                 {{ csrf_field() }}
                 
+                <input type="hidden" id="report-filter-no-kk" name="no_kk">
                 <input type="hidden" id="report-filter-nik" name="nik">
                 <input type="hidden" id="report-filter-nama" name="nama">
                 <input type="hidden" id="report-filter-jenis-kelamin" name="jenis_kelamin">
@@ -173,6 +179,7 @@
             <table id="ktp-table" class="table table-hover nowrap" cellspacing="0" width="100%">
               <thead>
                 <th></th>
+                <th>No KK</th>
                 <th>NIK</th>
                 <th>Nama</th>
                 <th>Dibuat Tanggal</th>
@@ -208,6 +215,7 @@
       ajax: {
         url: '/api/ktp',
         data: function(d) {
+          d.no_kk = $('#filter-ktp-no-kk').val(),
           d.nik = $('#filter-ktp-nik').val(),
           d.nama = $('#filter-ktp-nama').val(),
           d.jenis_kelamin = $('#filter-ktp-jenis-kelamin').val(),
@@ -238,6 +246,7 @@
           "data": null,
           "defaultContent": ""
         },
+        { data: 'no_kk' },
         { data: 'nik' },
         { data: 'nama' },
         { data: 'created_at' },
@@ -311,6 +320,7 @@
     $('#filter-ktp-form').submit(function(e) {
       e.preventDefault()
 
+      $('#report-filter-no-kk').val($('#filter-ktp-no-kk').val())
       $('#report-filter-nik').val($('#filter-ktp-nik').val())
       $('#report-filter-nama').val($('#filter-ktp-nama').val())
       $('#report-filter-jenis-kelamin').val($('#filter-ktp-jenis-kelamin').val())
@@ -394,6 +404,7 @@
         $('#check-status').prop('checked', false)
         /* Get the value and store to temporary variable */
         let id = $(this).data('id')
+        let no_kk = $(this).data('no_kk')
         let nik = $(this).data('nik')
         let nama = $(this).data('nama')
         let jenis_kelamin = $(this).data('jenis_kelamin')
@@ -415,7 +426,7 @@
         let kelurahan = $(this).data('kelurahan')
 
         /* Act on the event */
-        fillEditForm(id, nik, nama, jenis_kelamin, tempat_lahir, tanggal_lahir, kewarganegaraan, gol_darah, agama, status_perkawinan, pendidikan, pekerjaan, nama_ayah, nama_ibu, alamat, rt, rw, kelurahan)
+        fillEditForm(id, no_kk, nik, nama, jenis_kelamin, tempat_lahir, tanggal_lahir, kewarganegaraan, gol_darah, agama, status_perkawinan, pendidikan, pekerjaan, nama_ayah, nama_ibu, alamat, rt, rw, kelurahan)
       })
 
       // Delete data

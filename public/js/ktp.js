@@ -46,6 +46,7 @@ function initKtp() {
 // Clear error field on create form
 function clearCreateField() 
 {
+    $('#create-no-kk').val('')
     $('#create-nik').val('')
     $('#create-nama').val('')
     $('#create-jenis-kelamin').val('')
@@ -70,6 +71,7 @@ function clearCreateField()
 // Clear error field on create form
 function clearErrorCreateField() 
 {
+    $('.create-ktp-error-no-kk').html('')
     $('.create-ktp-error-nik').html('')
     $('.create-ktp-error-nama').html('')
     $('.create-ktp-error-jenis-kelamin').html('')
@@ -94,6 +96,7 @@ function clearErrorCreateField()
 // Clear error field on edit form
 function clearErrorEditField() 
 {
+    $('.edit-ktp-error-no-kk').html('')
     $('.edit-ktp-error-nik').html('')
     $('.edit-ktp-error-nama').html('')
     $('.edit-ktp-error-jenis-kelamin').html('')
@@ -116,8 +119,9 @@ function clearErrorEditField()
 }
 
 // Fill error field on create field
-function fillErrorCreateField(nik, nama, jenis_kelamin, tempat_lahir, tanggal_lahir, kewarganegaraan, gol_darah, agama, status_perkawinan, pendidikan, pekerjaan, nama_ayah, nama_ibu, alamat, rt, rw, kelurahan) 
+function fillErrorCreateField(no_kk, nik, nama, jenis_kelamin, tempat_lahir, tanggal_lahir, kewarganegaraan, gol_darah, agama, status_perkawinan, pendidikan, pekerjaan, nama_ayah, nama_ibu, alamat, rt, rw, kelurahan) 
 {
+    $('.create-ktp-error-no-kk').html(no_kk)
     $('.create-ktp-error-nik').html(nik)
     $('.create-ktp-error-nama').html(nama)
     $('.create-ktp-error-jenis-kelamin').html(jenis_kelamin)
@@ -140,8 +144,9 @@ function fillErrorCreateField(nik, nama, jenis_kelamin, tempat_lahir, tanggal_la
 }
 
 // Fill error field on edit form
-function fillErrorEditField(nik, nama, jenis_kelamin, tempat_lahir, tanggal_lahir, kewarganegaraan, gol_darah, agama, status_perkawinan, pendidikan, pekerjaan, nama_ayah, nama_ibu, alamat, rt, rw, kelurahan) 
+function fillErrorEditField(no_kk, nik, nama, jenis_kelamin, tempat_lahir, tanggal_lahir, kewarganegaraan, gol_darah, agama, status_perkawinan, pendidikan, pekerjaan, nama_ayah, nama_ibu, alamat, rt, rw, kelurahan) 
 {
+    $('.edit-ktp-error-no-kk').html(no_kk)
     $('.edit-ktp-error-nik').html(nik)
     $('.edit-ktp-error-nama').html(nama)
     $('.edit-ktp-error-jenis-kelamin').html(jenis_kelamin)
@@ -188,9 +193,10 @@ function fillShowForm(nik, nama, jenis_kelamin, tempat_lahir, tanggal_lahir, kew
 }
 
 // Fill Edit Form
-function fillEditForm(id, nik, nama, jenis_kelamin, tempat_lahir, tanggal_lahir, kewarganegaraan, gol_darah, agama, status_perkawinan, pendidikan, pekerjaan, nama_ayah, nama_ibu, alamat, rt, rw, kelurahan) 
+function fillEditForm(id, no_kk, nik, nama, jenis_kelamin, tempat_lahir, tanggal_lahir, kewarganegaraan, gol_darah, agama, status_perkawinan, pendidikan, pekerjaan, nama_ayah, nama_ibu, alamat, rt, rw, kelurahan) 
 {
     $('#ktp-edit-id').val(id)
+    $('#edit-no-kk').val(no_kk)
     $('#edit-nik').val(nik)
     $('#edit-nama').val(nama)
     $('#edit-jenis-kelamin').val(jenis_kelamin)
@@ -232,6 +238,7 @@ function doAjaxCreate(url, type, param) {
             let message = JSON.parse(jqXHR.responseText)
 
             // If validating process fails, display the error messages
+            let no_kk = message.errors.no_kk
             let nik = message.errors.nik
             let nama = message.errors.nama
             let jenis_kelamin = message.errors.jenis_kelamin
@@ -254,7 +261,7 @@ function doAjaxCreate(url, type, param) {
             clearErrorCreateField()
             
             // Show validating error messages
-            fillErrorCreateField(nik, nama, jenis_kelamin, tempat_lahir, tanggal_lahir, kewarganegaraan, gol_darah, agama, status_perkawinan, pendidikan, pekerjaan, nama_ayah, nama_ibu, alamat, rt, rw, kelurahan)
+            fillErrorCreateField(no_kk, nik, nama, jenis_kelamin, tempat_lahir, tanggal_lahir, kewarganegaraan, gol_darah, agama, status_perkawinan, pendidikan, pekerjaan, nama_ayah, nama_ibu, alamat, rt, rw, kelurahan)
         }
     })
 }
@@ -278,6 +285,7 @@ function doAjaxUpdate(url, type, param) {
             let message = JSON.parse(jqXHR.responseText)
             
             // If validating process fails, display the error messages
+            let no_kk = message.errors.no_kk
             let nik = message.errors.nik
             let nama = message.errors.nama
             let jenis_kelamin = message.errors.jenis_kelamin
@@ -300,7 +308,7 @@ function doAjaxUpdate(url, type, param) {
             clearErrorEditField()
             
             // Show validating error messages
-            fillErrorEditField(nik, nama, jenis_kelamin, tempat_lahir, tanggal_lahir, kewarganegaraan, gol_darah, agama, status_perkawinan, pendidikan, pekerjaan, nama_ayah, nama_ibu, alamat, rt, rw, kelurahan)
+            fillErrorEditField(no_kk, nik, nama, jenis_kelamin, tempat_lahir, tanggal_lahir, kewarganegaraan, gol_darah, agama, status_perkawinan, pendidikan, pekerjaan, nama_ayah, nama_ibu, alamat, rt, rw, kelurahan)
         }
     })
 }

@@ -46,6 +46,7 @@ class KtpController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
+            'no_kk'    => 'required|numeric',
             'nik'    => 'required|numeric',
             'nama'   => 'required',
             'jenis_kelamin' => 'required',
@@ -69,6 +70,7 @@ class KtpController extends Controller
             return response()->json(['errors' => $validator->messages()], 400);
         } else {
             DB::table('ktp')->insertGetId([
+                'no_kk'    => $request->no_kk,
                 'nik' => $request->nik,
                 'nama' => $request->nama,
                 'jenis_kelamin' => $request->jenis_kelamin,
@@ -114,6 +116,7 @@ class KtpController extends Controller
     public function update(Request $request)
     {
         $validator = Validator::make($request->all(), [
+            'no_kk'    => 'required|numeric',
             'nik'    => 'required|numeric',
             'nama'   => 'required',
             'jenis_kelamin' => 'required',
@@ -139,6 +142,7 @@ class KtpController extends Controller
             DB::table('ktp')
                 ->where('id', '=', $request->id)
                 ->update([
+                    'no_kk' => $request->no_kk,
                     'nik' => $request->nik,
                     'nama' => $request->nama,
                     'jenis_kelamin' => $request->jenis_kelamin,
@@ -201,7 +205,7 @@ class KtpController extends Controller
     public function getKtpData(Request $request)
     {
         $ktps = DB::table('ktp')->select([
-            'id', 'nik', 'nama', 'jenis_kelamin', 'tempat_lahir',
+            'id', 'no_kk', 'nik', 'nama', 'jenis_kelamin', 'tempat_lahir',
             'tanggal_lahir', 'kewarganegaraan', 'gol_darah', 
             'agama', 'status_perkawinan', 'pendidikan', 'pekerjaan',
             'nama_ayah', 'nama_ibu', 'alamat', 'rt', 'rw', 
@@ -210,6 +214,9 @@ class KtpController extends Controller
 
         return DataTables::of($ktps)
                 ->filter( function ($query) use ($request) {
+                    if ($request->input('no_kk')) {
+                        $query->where('no_kk', 'like', "%{$request->no_kk}%");
+                    }
                     if ($request->input('nik')) {
                         $query->where('nik', 'like', "%{$request->nik}%");
                     }
@@ -269,6 +276,7 @@ class KtpController extends Controller
                     data-toggle="modal"
                     data-target="#ktp-edit-modal"
                     data-id="'. $ktp->id .'"
+                    data-no_kk="'. $ktp->no_kk .'"
                     data-nik="'. $ktp->nik .'"
                     data-nama="'. $ktp->nama .'"
                     data-jenis_kelamin="'. $ktp->jenis_kelamin .'"
@@ -319,8 +327,11 @@ class KtpController extends Controller
     */
     public function generateKtpReports(Request $request) {
         
-        $query = DB::table('ktp')->select(['nik', 'nama', 'jenis_kelamin', 'alamat', 'rt', 'rw', 'kelurahan']);
+        $query = DB::table('ktp')->select(['no_kk', 'nik', 'nama', 'jenis_kelamin', 'alamat', 'rt', 'rw', 'kelurahan']);
 
+        if ($request->input('no_kk')) {
+            $query->where('no_kk', 'like', "%{$request->no_kk}%");
+        }
         if ($request->input('nik')) {
             $query->where('nik', 'like', "%{$request->nik}%");
         }

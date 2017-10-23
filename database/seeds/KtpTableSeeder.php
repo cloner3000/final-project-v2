@@ -73,6 +73,7 @@ class KtpTableSeeder extends Seeder
         for ($i=1; $i <= 2000; $i++) {
         	$date = $faker->dateTimeBetween($startDate = '-1095 days', $endDate = 'now')->format('Y-m-d H:i:s');
         	$data[] = [
+                'no_kk'                => $faker->numberBetween($min = 3273020101010001, $max = 3273020101018000),
         		'nik'		 	 	 => $faker->unique()->numberBetween($min = 3273020101010001, $max = 3273020101019999),
         		'nama'		 	 	 => $faker->randomElement($array = $nama_depan) . ' ' . $faker->randomElement($array = $nama_belakang),
     		    'jenis_kelamin'		 => $faker->randomElement($array = ['L', 'P']),

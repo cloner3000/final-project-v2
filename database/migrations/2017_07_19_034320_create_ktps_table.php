@@ -15,6 +15,7 @@ class CreateKtpsTable extends Migration
     {
         Schema::create('ktp', function (Blueprint $table) {
             $table->increments('id');
+            $table->bigInteger('no_kk');
             $table->bigInteger('nik');
             $table->string('nama');
             $table->char('jenis_kelamin', 1);
