@@ -17,7 +17,7 @@
             <form id="filter-ktp-form" class="form-inline">
               <h5><strong>Kategori</strong></h5>
               <div class="form-group">
-                <!-- NIK -->
+                <!-- No KK -->
                 <div class="form-group form-material">
                   <input type="text" class="form-control" id="filter-ktp-no-kk" name="no_kk" placeholder="Filter by Nomor Kartu Keluarga"
                   autocomplete="off" />

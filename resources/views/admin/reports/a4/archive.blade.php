@@ -17,10 +17,11 @@
                         <thead>
                             <tr>
                                 <th rowspan="2" class="text-center">No</th>
-                                <th colspan="7" class="text-center">Identitas Diri</th>
+                                <th colspan="8" class="text-center">Identitas Diri</th>
                             </tr>
                             <tr>
                                 <!-- Identitas Diri -->
+                                <th class="text-center">No KK</th>
                                 <th class="text-center">NIK</th>
                                 <th class="text-center">Nama</th>
                                 <th class="text-center">Jenis Kelamin</th>
@@ -35,6 +36,7 @@
                                 <tr>
                                     <!-- Identitas Diri -->
                                     <td class="text-center">{{ $loop->iteration }}</td>
+                                    <td class="text-center">{{ $row->no_kk }}</td>
                                     <td class="text-center">{{ $row->nik }}</td>
                                     <td>{{ $row->nama }}</td>
                                     <td class="text-center">{{ $row->jenis_kelamin }}</td>

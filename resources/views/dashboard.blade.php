@@ -107,7 +107,7 @@
   Highcharts.chart('summary-charts', {
 
     title: {
-        text: 'Total Pemohon Berkas Per Bulan'
+        text: 'Total Pemohon Berkas & Perpindahan Penduduk Per Bulan'
     },
 
     subtitle: {
@@ -152,11 +152,11 @@
         data: [@foreach ($count['legalisir_summary'] as $data)  {{ $data->value . ', ' }}  @endforeach],
         visible: false
     }, {
-        name: 'Pemohon Pindah Datang',
+        name: 'Penduduk Pindah Datang',
         data: [@foreach ($count['pindahdatang_summary'] as $data)  {{ $data->value . ', ' }}  @endforeach],
         visible: false
     }, {
-        name: 'Pemohon Pindah Keluar',
+        name: 'Penduduk Pindah Keluar',
         data: [@foreach ($count['pindahkeluar_summary'] as $data)  {{ $data->value . ', ' }}  @endforeach],
         visible: false
     }],

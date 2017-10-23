@@ -51,6 +51,7 @@
                         <thead>
                             <tr>
                                 <th>No</th>
+                                <th>No KK</th>
                                 <th>NIK</th>
                                 <th>Nama</th>
                                 <th>Jenis Kelamin</th>
@@ -63,6 +64,7 @@
                         <tbody>
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
+                                <td>{{ $row->no_kk }}</td>
                                 <td>{{ $row->nik }}</td>
                                 <td>{{ $row->nama }}</td>
                                 <td>{{ $row->jenis_kelamin }}</td>

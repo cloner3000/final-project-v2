@@ -31,7 +31,8 @@
 
         <div class="row">
             <div class="col-lg-12" style="margin-top: 10px; margin-bottom: 60px; margin-left: 10px;">
-				<p>NIK                  : <strong>{{ $ktp->nik }}</strong></p>
+				<p>Nomor Kartu Keluarga : <strong>{{ $ktp->no_kk }}</strong></p>
+                <p>NIK                  : <strong>{{ $ktp->nik }}</strong></p>
 				<p>Nama                 : <strong>{{ $ktp->nama }}</strong></p>
 				<p>Tempat/Tanggal Lahir : <strong>{{ $ktp->tempat_lahir }}</strong> / <strong>{{ $ktp->tanggal_lahir }}</strong></p>
 				<p>Status               : <strong>{{ $ktp->status_perkawinan }}</strong></p>
