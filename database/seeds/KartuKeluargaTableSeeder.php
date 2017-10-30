@@ -82,7 +82,7 @@ class KartuKeluargaTableSeeder extends Seeder
         		'rw'		 	 	 => $faker->randomDigitNotNull,
         		'kelurahan'		 	 => $faker->randomElement($array = ['Cipaganti', 'Dago', 'Lebak Gede', 'Lebak Siliwangi', 'Sekeloa', 'Sadang Serang']),
                 'jumlah_pengikut'    => $faker->randomDigitNotNull,
-        		'status'		 	 => 0,      
+        		'status'		 	 => $faker->randomElement($array = [0, 1, 2]),      
         		'created_at' 		 => $date, 
         		'updated_at' 		 => $date,
         		'user_id'			 => $faker->randomElement($userId)

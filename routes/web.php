@@ -45,6 +45,6 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'is.logged.in'], function
 	Route::get('/resi/ktp', 'KtpController@cetakResiKtp');
 	Route::get('/resi/kk', 'KartuKeluargaController@cetakResiKartuKeluarga');
 
-	Route::get('/rekap', 'DashboardController@cetakRekap');
-	
+	Route::get('/rekap/jeniskelamin', 'DashboardController@cetakRekapJenisKelamin');
+	Route::get('/rekap/status', 'DashboardController@cetakRekapStatus');
 });

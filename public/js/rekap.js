@@ -1,4 +1,4 @@
-function summary() {
+function summaryJenisKelamin() {
 	// Cipaganti
 	let cipaganti_ktp_l = parseInt($('.cipaganti-ktp-l').html())
     let cipaganti_ktp_p = parseInt($('.cipaganti-ktp-p').html())
@@ -188,4 +188,228 @@ function summary() {
     $('.summary-pindahdatang').html(summary_pindahdatang_l + summary_pindahdatang_p)
     $('.summary-pindahkeluar').html(summary_pindahkeluar_l + summary_pindahkeluar_p)
     $('.summary-legalisir').html(summary_legalisir_l + summary_legalisir_p)
+}
+
+function summaryStatus() {
+    // Cipaganti
+    let cipaganti_ktp_0 = parseInt($('.cipaganti-ktp-0').html())
+    let cipaganti_ktp_1 = parseInt($('.cipaganti-ktp-1').html())
+    let cipaganti_ktp_2 = parseInt($('.cipaganti-ktp-2').html())
+
+    let cipaganti_kk_0 = parseInt($('.cipaganti-kk-0').html())
+    let cipaganti_kk_1 = parseInt($('.cipaganti-kk-1').html())
+    let cipaganti_kk_2 = parseInt($('.cipaganti-kk-2').html())
+
+    let cipaganti_pindahdatang_0 = parseInt($('.cipaganti-pindahdatang-0').html())
+    let cipaganti_pindahdatang_1 = parseInt($('.cipaganti-pindahdatang-1').html())
+    let cipaganti_pindahdatang_2 = parseInt($('.cipaganti-pindahdatang-2').html())
+
+    let cipaganti_pindahkeluar_0 = parseInt($('.cipaganti-pindahkeluar-0').html())
+    let cipaganti_pindahkeluar_1 = parseInt($('.cipaganti-pindahkeluar-1').html())
+    let cipaganti_pindahkeluar_2 = parseInt($('.cipaganti-pindahkeluar-2').html())
+
+    let cipaganti_legalisir_0 = parseInt($('.cipaganti-legalisir-0').html())
+    let cipaganti_legalisir_1 = parseInt($('.cipaganti-legalisir-1').html())
+    let cipaganti_legalisir_2 = parseInt($('.cipaganti-legalisir-2').html())
+
+    // Dago
+    let dago_ktp_0 = parseInt($('.dago-ktp-0').html())
+    let dago_ktp_1 = parseInt($('.dago-ktp-1').html())
+    let dago_ktp_2 = parseInt($('.dago-ktp-2').html())
+
+    let dago_kk_0 = parseInt($('.dago-kk-0').html())
+    let dago_kk_1 = parseInt($('.dago-kk-1').html())
+    let dago_kk_2 = parseInt($('.dago-kk-2').html())
+
+    let dago_pindahdatang_0 = parseInt($('.dago-pindahdatang-0').html())
+    let dago_pindahdatang_1 = parseInt($('.dago-pindahdatang-1').html())
+    let dago_pindahdatang_2 = parseInt($('.dago-pindahdatang-2').html())
+
+    let dago_pindahkeluar_0 = parseInt($('.dago-pindahkeluar-0').html())
+    let dago_pindahkeluar_1 = parseInt($('.dago-pindahkeluar-1').html())
+    let dago_pindahkeluar_2 = parseInt($('.dago-pindahkeluar-2').html())
+
+    let dago_legalisir_0 = parseInt($('.dago-legalisir-0').html())
+    let dago_legalisir_1 = parseInt($('.dago-legalisir-1').html())
+    let dago_legalisir_2 = parseInt($('.dago-legalisir-2').html())
+
+    // Lebak Gede
+    let lebakgede_ktp_0 = parseInt($('.lebakgede-ktp-0').html())
+    let lebakgede_ktp_1 = parseInt($('.lebakgede-ktp-1').html())
+    let lebakgede_ktp_2 = parseInt($('.lebakgede-ktp-2').html())
+
+    let lebakgede_kk_0 = parseInt($('.lebakgede-kk-0').html())
+    let lebakgede_kk_1 = parseInt($('.lebakgede-kk-1').html())
+    let lebakgede_kk_2 = parseInt($('.lebakgede-kk-2').html())
+
+    let lebakgede_pindahdatang_0 = parseInt($('.lebakgede-pindahdatang-0').html())
+    let lebakgede_pindahdatang_1 = parseInt($('.lebakgede-pindahdatang-1').html())
+    let lebakgede_pindahdatang_2 = parseInt($('.lebakgede-pindahdatang-2').html())
+
+    let lebakgede_pindahkeluar_0 = parseInt($('.lebakgede-pindahkeluar-0').html())
+    let lebakgede_pindahkeluar_1 = parseInt($('.lebakgede-pindahkeluar-1').html())
+    let lebakgede_pindahkeluar_2 = parseInt($('.lebakgede-pindahkeluar-2').html())
+
+    let lebakgede_legalisir_0 = parseInt($('.lebakgede-legalisir-0').html())
+    let lebakgede_legalisir_1 = parseInt($('.lebakgede-legalisir-1').html())
+    let lebakgede_legalisir_2 = parseInt($('.lebakgede-legalisir-2').html())
+
+    // Lebak Siliwangi
+    let lebaksiliwangi_ktp_0 = parseInt($('.lebaksiliwangi-ktp-0').html())
+    let lebaksiliwangi_ktp_1 = parseInt($('.lebaksiliwangi-ktp-1').html())
+    let lebaksiliwangi_ktp_2 = parseInt($('.lebaksiliwangi-ktp-2').html())
+
+    let lebaksiliwangi_kk_0 = parseInt($('.lebaksiliwangi-kk-0').html())
+    let lebaksiliwangi_kk_1 = parseInt($('.lebaksiliwangi-kk-1').html())
+    let lebaksiliwangi_kk_2 = parseInt($('.lebaksiliwangi-kk-2').html())
+
+    let lebaksiliwangi_pindahdatang_0 = parseInt($('.lebaksiliwangi-pindahdatang-0').html())
+    let lebaksiliwangi_pindahdatang_1 = parseInt($('.lebaksiliwangi-pindahdatang-1').html())
+    let lebaksiliwangi_pindahdatang_2 = parseInt($('.lebaksiliwangi-pindahdatang-2').html())
+
+    let lebaksiliwangi_pindahkeluar_0 = parseInt($('.lebaksiliwangi-pindahkeluar-0').html())
+    let lebaksiliwangi_pindahkeluar_1 = parseInt($('.lebaksiliwangi-pindahkeluar-1').html())
+    let lebaksiliwangi_pindahkeluar_2 = parseInt($('.lebaksiliwangi-pindahkeluar-2').html())
+
+    let lebaksiliwangi_legalisir_0 = parseInt($('.lebaksiliwangi-legalisir-0').html())
+    let lebaksiliwangi_legalisir_1 = parseInt($('.lebaksiliwangi-legalisir-1').html())
+    let lebaksiliwangi_legalisir_2 = parseInt($('.lebaksiliwangi-legalisir-2').html())
+
+    // Sadang Serang
+    let sadangserang_ktp_0 = parseInt($('.sadangserang-ktp-0').html())
+    let sadangserang_ktp_1 = parseInt($('.sadangserang-ktp-1').html())
+    let sadangserang_ktp_2 = parseInt($('.sadangserang-ktp-2').html())
+
+    let sadangserang_kk_0 = parseInt($('.sadangserang-kk-0').html())
+    let sadangserang_kk_1 = parseInt($('.sadangserang-kk-1').html())
+    let sadangserang_kk_2 = parseInt($('.sadangserang-kk-2').html())
+
+    let sadangserang_pindahdatang_0 = parseInt($('.sadangserang-pindahdatang-0').html())
+    let sadangserang_pindahdatang_1 = parseInt($('.sadangserang-pindahdatang-1').html())
+    let sadangserang_pindahdatang_2 = parseInt($('.sadangserang-pindahdatang-2').html())
+
+    let sadangserang_pindahkeluar_0 = parseInt($('.sadangserang-pindahkeluar-0').html())
+    let sadangserang_pindahkeluar_1 = parseInt($('.sadangserang-pindahkeluar-1').html())
+    let sadangserang_pindahkeluar_2 = parseInt($('.sadangserang-pindahkeluar-2').html())
+
+    let sadangserang_legalisir_0 = parseInt($('.sadangserang-legalisir-0').html())
+    let sadangserang_legalisir_1 = parseInt($('.sadangserang-legalisir-1').html())
+    let sadangserang_legalisir_2 = parseInt($('.sadangserang-legalisir-2').html())
+
+    // Sekeloa
+    let sekeloa_ktp_0 = parseInt($('.sekeloa-ktp-0').html())
+    let sekeloa_ktp_1 = parseInt($('.sekeloa-ktp-1').html())
+    let sekeloa_ktp_2 = parseInt($('.sekeloa-ktp-2').html())
+
+    let sekeloa_kk_0 = parseInt($('.sekeloa-kk-0').html())
+    let sekeloa_kk_1 = parseInt($('.sekeloa-kk-1').html())
+    let sekeloa_kk_2 = parseInt($('.sekeloa-kk-2').html())
+
+    let sekeloa_pindahdatang_0 = parseInt($('.sekeloa-pindahdatang-0').html())
+    let sekeloa_pindahdatang_1 = parseInt($('.sekeloa-pindahdatang-1').html())
+    let sekeloa_pindahdatang_2 = parseInt($('.sekeloa-pindahdatang-2').html())
+
+    let sekeloa_pindahkeluar_0 = parseInt($('.sekeloa-pindahkeluar-0').html())
+    let sekeloa_pindahkeluar_1 = parseInt($('.sekeloa-pindahkeluar-1').html())
+    let sekeloa_pindahkeluar_2 = parseInt($('.sekeloa-pindahkeluar-2').html())
+
+    let sekeloa_legalisir_0 = parseInt($('.sekeloa-legalisir-0').html())
+    let sekeloa_legalisir_1 = parseInt($('.sekeloa-legalisir-1').html())
+    let sekeloa_legalisir_2 = parseInt($('.sekeloa-legalisir-2').html())
+
+    $('.summary-ktp-cipaganti').html(cipaganti_ktp_0 + cipaganti_ktp_1 + cipaganti_ktp_2)
+    $('.summary-kk-cipaganti').html(cipaganti_kk_0 + cipaganti_kk_1 + cipaganti_kk_2)
+    $('.summary-pindahdatang-cipaganti').html(cipaganti_pindahdatang_0 + cipaganti_pindahdatang_1 + cipaganti_pindahdatang_2)
+    $('.summary-pindahkeluar-cipaganti').html(cipaganti_pindahkeluar_0 + cipaganti_pindahkeluar_1 + cipaganti_pindahkeluar_2)
+    $('.summary-legalisir-cipaganti').html(cipaganti_legalisir_0 + cipaganti_legalisir_1 + cipaganti_legalisir_2)
+
+    $('.summary-ktp-dago').html(dago_ktp_0 + dago_ktp_1 + dago_ktp_2)
+    $('.summary-kk-dago').html(dago_kk_0 + dago_kk_1 + dago_kk_2)
+    $('.summary-pindahdatang-dago').html(dago_pindahdatang_0 + dago_pindahdatang_1 + dago_pindahdatang_2)
+    $('.summary-pindahkeluar-dago').html(dago_pindahkeluar_0 + dago_pindahkeluar_1 + dago_pindahkeluar_2)
+    $('.summary-legalisir-dago').html(dago_legalisir_0 + dago_legalisir_1 + dago_legalisir_2)
+
+    $('.summary-ktp-lebakgede').html(lebakgede_ktp_0 + lebakgede_ktp_1 + lebakgede_ktp_2)
+    $('.summary-kk-lebakgede').html(lebakgede_kk_0 + lebakgede_kk_1 + lebakgede_kk_2)
+    $('.summary-pindahdatang-lebakgede').html(lebakgede_pindahdatang_0 + lebakgede_pindahdatang_1 + lebakgede_pindahdatang_2)
+    $('.summary-pindahkeluar-lebakgede').html(lebakgede_pindahkeluar_0 + lebakgede_pindahkeluar_1 + lebakgede_pindahkeluar_2)
+    $('.summary-legalisir-lebakgede').html(lebakgede_legalisir_0 + lebakgede_legalisir_1 + lebakgede_legalisir_2)
+
+    $('.summary-ktp-lebaksiliwangi').html(lebaksiliwangi_ktp_0 + lebaksiliwangi_ktp_1 + lebaksiliwangi_ktp_2)
+    $('.summary-kk-lebaksiliwangi').html(lebaksiliwangi_kk_0 + lebaksiliwangi_kk_1 + lebaksiliwangi_kk_2)
+    $('.summary-pindahdatang-lebaksiliwangi').html(lebaksiliwangi_pindahdatang_0 + lebaksiliwangi_pindahdatang_1 + lebaksiliwangi_pindahdatang_2)
+    $('.summary-pindahkeluar-lebaksiliwangi').html(lebaksiliwangi_pindahkeluar_0 + lebaksiliwangi_pindahkeluar_1 + lebaksiliwangi_pindahkeluar_2)
+    $('.summary-legalisir-lebaksiliwangi').html(lebaksiliwangi_legalisir_0 + lebaksiliwangi_legalisir_1 + lebaksiliwangi_legalisir_2)
+
+    $('.summary-ktp-sadangserang').html(sadangserang_ktp_0 + sadangserang_ktp_1 + sadangserang_ktp_2)
+    $('.summary-kk-sadangserang').html(sadangserang_kk_0 + sadangserang_kk_1 + sadangserang_kk_2)
+    $('.summary-pindahdatang-sadangserang').html(sadangserang_pindahdatang_0 + sadangserang_pindahdatang_1 + sadangserang_pindahdatang_2)
+    $('.summary-pindahkeluar-sadangserang').html(sadangserang_pindahkeluar_0 + sadangserang_pindahkeluar_1 + sadangserang_pindahkeluar_2)
+    $('.summary-legalisir-sadangserang').html(sadangserang_legalisir_0 + sadangserang_legalisir_1 + sadangserang_legalisir_2)
+
+    $('.summary-ktp-sekeloa').html(sekeloa_ktp_0 + sekeloa_ktp_1 + sekeloa_ktp_2)
+    $('.summary-kk-sekeloa').html(sekeloa_kk_0 + sekeloa_kk_1 + sekeloa_kk_2)
+    $('.summary-pindahdatang-sekeloa').html(sekeloa_pindahdatang_0 + sekeloa_pindahdatang_1 + sekeloa_pindahdatang_2)
+    $('.summary-pindahkeluar-sekeloa').html(sekeloa_pindahkeluar_0 + sekeloa_pindahkeluar_1 + sekeloa_pindahkeluar_2)
+    $('.summary-legalisir-sekeloa').html(sekeloa_legalisir_0 + sekeloa_legalisir_1 + sekeloa_legalisir_2)
+
+    let summary_ktp_cipaganti = parseInt($('.summary-ktp-cipaganti').html())
+    let summary_ktp_dago = parseInt($('.summary-ktp-dago').html())
+    let summary_ktp_lebakgede = parseInt($('.summary-ktp-lebakgede').html())
+    let summary_ktp_lebaksiliwangi = parseInt($('.summary-ktp-lebaksiliwangi').html())
+    let summary_ktp_sadangserang = parseInt($('.summary-ktp-sadangserang').html())
+    let summary_ktp_sekeloa = parseInt($('.summary-ktp-sekeloa').html())
+
+    let summary_kk_cipaganti = parseInt($('.summary-kk-cipaganti').html())
+    let summary_kk_dago = parseInt($('.summary-kk-dago').html())
+    let summary_kk_lebakgede = parseInt($('.summary-kk-lebakgede').html())
+    let summary_kk_lebaksiliwangi = parseInt($('.summary-kk-lebaksiliwangi').html())
+    let summary_kk_sadangserang = parseInt($('.summary-kk-sadangserang').html())
+    let summary_kk_sekeloa = parseInt($('.summary-kk-sekeloa').html())
+
+    let summary_pindahdatang_cipaganti = parseInt($('.summary-pindahdatang-cipaganti').html())
+    let summary_pindahdatang_dago = parseInt($('.summary-pindahdatang-dago').html())
+    let summary_pindahdatang_lebakgede = parseInt($('.summary-pindahdatang-lebakgede').html())
+    let summary_pindahdatang_lebaksiliwangi = parseInt($('.summary-pindahdatang-lebaksiliwangi').html())
+    let summary_pindahdatang_sadangserang = parseInt($('.summary-pindahdatang-sadangserang').html())
+    let summary_pindahdatang_sekeloa = parseInt($('.summary-pindahdatang-sekeloa').html())
+
+    let summary_pindahkeluar_cipaganti = parseInt($('.summary-pindahkeluar-cipaganti').html())
+    let summary_pindahkeluar_dago = parseInt($('.summary-pindahkeluar-dago').html())
+    let summary_pindahkeluar_lebakgede = parseInt($('.summary-pindahkeluar-lebakgede').html())
+    let summary_pindahkeluar_lebaksiliwangi = parseInt($('.summary-pindahkeluar-lebaksiliwangi').html())
+    let summary_pindahkeluar_sadangserang = parseInt($('.summary-pindahkeluar-sadangserang').html())
+    let summary_pindahkeluar_sekeloa = parseInt($('.summary-pindahkeluar-sekeloa').html())
+
+    let summary_legalisir_cipaganti = parseInt($('.summary-legalisir-cipaganti').html())
+    let summary_legalisir_dago = parseInt($('.summary-legalisir-dago').html())
+    let summary_legalisir_lebakgede = parseInt($('.summary-legalisir-lebakgede').html())
+    let summary_legalisir_lebaksiliwangi = parseInt($('.summary-legalisir-lebaksiliwangi').html())
+    let summary_legalisir_sadangserang = parseInt($('.summary-legalisir-sadangserang').html())
+    let summary_legalisir_sekeloa = parseInt($('.summary-legalisir-sekeloa').html())
+
+    $('.summary-ktp-0').html(cipaganti_ktp_0 + dago_ktp_0 + lebakgede_ktp_0 + lebaksiliwangi_ktp_0 + sadangserang_ktp_0 + sekeloa_ktp_0)
+    $('.summary-ktp-1').html(cipaganti_ktp_1 + dago_ktp_1 + lebakgede_ktp_1 + lebaksiliwangi_ktp_1 + sadangserang_ktp_1 + sekeloa_ktp_1)
+    $('.summary-ktp-2').html(cipaganti_ktp_2 + dago_ktp_2 + lebakgede_ktp_2 + lebaksiliwangi_ktp_2 + sadangserang_ktp_2 + sekeloa_ktp_2)
+    $('.summary-ktp').html(summary_ktp_cipaganti + summary_ktp_dago + summary_ktp_lebakgede + summary_ktp_lebaksiliwangi + summary_ktp_sadangserang + summary_ktp_sekeloa)
+
+    $('.summary-kk-0').html(cipaganti_kk_0 + dago_kk_0 + lebakgede_kk_0 + lebaksiliwangi_kk_0 + sadangserang_kk_0 + sekeloa_kk_0)
+    $('.summary-kk-1').html(cipaganti_kk_1 + dago_kk_1 + lebakgede_kk_1 + lebaksiliwangi_kk_1 + sadangserang_kk_1 + sekeloa_kk_1)
+    $('.summary-kk-2').html(cipaganti_kk_2 + dago_kk_2 + lebakgede_kk_2 + lebaksiliwangi_kk_2 + sadangserang_kk_2 + sekeloa_kk_2)
+    $('.summary-kk').html(summary_kk_cipaganti + summary_kk_dago + summary_kk_lebakgede + summary_kk_lebaksiliwangi + summary_kk_sadangserang + summary_kk_sekeloa)
+
+    $('.summary-pindahdatang-0').html(cipaganti_pindahdatang_0 + dago_pindahdatang_0 + lebakgede_pindahdatang_0 + lebaksiliwangi_pindahdatang_0 + sadangserang_pindahdatang_0 + sekeloa_pindahdatang_0)
+    $('.summary-pindahdatang-1').html(cipaganti_pindahdatang_1 + dago_pindahdatang_1 + lebakgede_pindahdatang_1 + lebaksiliwangi_pindahdatang_1 + sadangserang_pindahdatang_1 + sekeloa_pindahdatang_1)
+    $('.summary-pindahdatang-2').html(cipaganti_pindahdatang_2 + dago_pindahdatang_2 + lebakgede_pindahdatang_2 + lebaksiliwangi_pindahdatang_2 + sadangserang_pindahdatang_2 + sekeloa_pindahdatang_2)
+    $('.summary-pindahdatang').html(summary_pindahdatang_cipaganti + summary_pindahdatang_dago + summary_pindahdatang_lebakgede + summary_pindahdatang_lebaksiliwangi + summary_pindahdatang_sadangserang + summary_pindahdatang_sekeloa)
+
+    $('.summary-pindahkeluar-0').html(cipaganti_pindahkeluar_0 + dago_pindahkeluar_0 + lebakgede_pindahkeluar_0 + lebaksiliwangi_pindahkeluar_0 + sadangserang_pindahkeluar_0 + sekeloa_pindahkeluar_0)
+    $('.summary-pindahkeluar-1').html(cipaganti_pindahkeluar_1 + dago_pindahkeluar_1 + lebakgede_pindahkeluar_1 + lebaksiliwangi_pindahkeluar_1 + sadangserang_pindahkeluar_1 + sekeloa_pindahkeluar_1)
+    $('.summary-pindahkeluar-2').html(cipaganti_pindahkeluar_2 + dago_pindahkeluar_2 + lebakgede_pindahkeluar_2 + lebaksiliwangi_pindahkeluar_2 + sadangserang_pindahkeluar_2 + sekeloa_pindahkeluar_2)
+    $('.summary-pindahkeluar').html(summary_pindahkeluar_cipaganti + summary_pindahkeluar_dago + summary_pindahkeluar_lebakgede + summary_pindahkeluar_lebaksiliwangi + summary_pindahkeluar_sadangserang + summary_pindahkeluar_sekeloa)
+
+    $('.summary-legalisir-0').html(cipaganti_legalisir_0 + dago_legalisir_0 + lebakgede_legalisir_0 + lebaksiliwangi_legalisir_0 + sadangserang_legalisir_0 + sekeloa_legalisir_0)
+    $('.summary-legalisir-1').html(cipaganti_legalisir_1 + dago_legalisir_1 + lebakgede_legalisir_1 + lebaksiliwangi_legalisir_1 + sadangserang_legalisir_1 + sekeloa_legalisir_1)
+    $('.summary-legalisir-2').html(cipaganti_legalisir_2 + dago_legalisir_2 + lebakgede_legalisir_2 + lebaksiliwangi_legalisir_2 + sadangserang_legalisir_2 + sekeloa_legalisir_2)
+    $('.summary-legalisir').html(summary_legalisir_cipaganti + summary_legalisir_dago + summary_legalisir_lebakgede + summary_legalisir_lebaksiliwangi + summary_legalisir_sadangserang + summary_legalisir_sekeloa)
 }

@@ -326,6 +326,6 @@
 <script src="{{ asset('js/rekap.js') }}"></script>
 <script type="text/javascript">
     $(document).ready(function() {
-        summary()
+        summaryJenisKelamin()
     })
 </script>

@@ -315,12 +315,15 @@
                       </select>
                       <small class="edit-legalisir-error-kelurahan text-danger"></small><br>
                       <input type="hidden" id="status" name="status" value="0">
-                      @if (Auth::user()->isAdmin() != 0)
-                        <div class="checkbox-custom checkbox-primary">
-                          <input type="checkbox" id="check-status" name="status" value="1" />
-                          <label for="status">Sudah Dicek</label>
-                        </div>
-                      @endif
+                    </div>
+                    <!-- Status -->
+                    <div class="form-group form-material" data-plugin="formMaterial">
+                      <label class="form-control-label" for="status">Status</label>
+                      <select id="edit-status" name="status" class="form-control">
+                        <option value="0">Belum</option>
+                        <option value="1">On Progress</option>
+                        <option value="2">Selesai</option>
+                      </select>
                     </div>
                   </div>
                 </div>

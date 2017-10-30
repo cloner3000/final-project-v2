@@ -68,37 +68,62 @@
 	      <!-- Tab Rekapitulasi -->
 	      <ul class="nav nav-tabs nav-tabs-line">
 	        <li class="nav-item">
-	          <a class="nav-link active" data-toggle="tab" href="#tab-rekapitulasi">Rekapitulasi</a>
+	          <a class="nav-link active" data-toggle="tab" href="#tab-rekapitulasi-gender">Rekapitulasi Berdasarkan Jenis Kelamin</a>
 	        </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#tab-rekapitulasi-status">Rekapitulasi Berdasarkan Status</a>
+          </li>
 	      </ul>
 	      <!-- Tab Panel Rekapitulasi -->
 	      <div class="tab-content">
 
-	        <div class="tab-pane active" id="tab-rekapitulasi" role="tabpanel">
+	        <div class="tab-pane active" id="tab-rekapitulasi-gender" role="tabpanel">
 	          <div class="container">
 	            <div class="row">
 	              <div class="col-lg-6 col-md-8 col-sm-12 col-xs-12"><br>
-	              	<form target="_blank" action="{{ url('/dashboard/rekap') }}" method="GET">
-              		{{ csrf_field() }}
-              		<!-- Tanggal Dari -->
-	                <div class="form-group form-material">
-	                  <input type="text" class="form-control reports-dari" name="tanggal_dari" placeholder="Dari Tanggal" autocomplete="off" />
-	                </div>
-	                <!-- Tanggal Sampai -->
-	                <div class="form-group form-material">
-	                  <input type="text" class="form-control reports-sampai" name="tanggal_sampai" placeholder="Sampai Tanggal" autocomplete="off" />
-	                </div>
+	              	<form target="_blank" action="{{ url('/dashboard/rekap/jeniskelamin') }}" method="GET">
+                		{{ csrf_field() }}
+                		<!-- Tanggal Dari -->
+  	                <div class="form-group form-material">
+  	                  <input type="text" class="form-control reports-dari" name="tanggal_dari" placeholder="Dari Tanggal" autocomplete="off" />
+  	                </div>
+  	                <!-- Tanggal Sampai -->
+  	                <div class="form-group form-material">
+  	                  <input type="text" class="form-control reports-sampai" name="tanggal_sampai" placeholder="Sampai Tanggal" autocomplete="off" />
+  	                </div>
+                    <button type="submit" class="btn btn-success">Print Rekapitulasi</button>
+                  </form>
 	              </div>
 	            </div>
 	          </div>
 	        </div>
+
+          <div class="tab-pane" id="tab-rekapitulasi-status" role="tabpanel">
+            <div class="container">
+              <div class="row">
+                <div class="col-lg-6 col-md-8 col-sm-12 col-xs-12"><br>
+                  <form target="_blank" action="{{ url('/dashboard/rekap/status') }}" method="GET">
+                    {{ csrf_field() }}
+                    <!-- Tanggal Dari -->
+                    <div class="form-group form-material">
+                      <input type="text" class="form-control reports-dari" name="tanggal_dari" placeholder="Dari Tanggal" autocomplete="off" />
+                    </div>
+                    <!-- Tanggal Sampai -->
+                    <div class="form-group form-material">
+                      <input type="text" class="form-control reports-sampai" name="tanggal_sampai" placeholder="Sampai Tanggal" autocomplete="off" />
+                    </div>
+                    <button type="submit" class="btn btn-success">Print Rekapitulasi</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+
+          </div>
 	      </div>
 	    </div>
 	    <div class="modal-footer">
-	    	<button type="submit" class="btn btn-success">Print Rekapitulasi</button>
 			<button type="button" class="btn btn-default" data-dismiss="modal">Keluar</button>
 	    </div>
-        </form>
     </div>
   </div>
 </div>

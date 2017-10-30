@@ -60,8 +60,9 @@
                 <h5><strong>Status</strong></h5>
                 <div class="form-group form-material" data-plugin="formMaterial">
                   <select id="filter-kk-status" name="status" class="form-control">
-                    <option value="0">0 - Belum Dicek</option>
-                    <option value="1">1 - Sudah Dicek</option>
+                    <option value="0">Belum</option>
+                    <option value="1">On Progress</option>
+                    <option value="2">Selesai</option>
                   </select>
                 </div>
               </div><br>
@@ -312,7 +313,6 @@
       // Edit Kartu Keluarga
       $('.kk-edit').click(function(e) {
         
-        $('#check-status').prop('checked', false)
         /* Get the value and store to temporary variable */
         let id = $(this).data('id')
         let no_kk = $(this).data('no_kk')
