@@ -130,6 +130,7 @@
                 <th>Nama</th>
                 <th>Jenis Berkas</th>
                 <th>Dibuat Tgl</th>
+                <th>Status</th>
                 <th>Action</th>
               </thead>
               <!-- Inject by AJAX -->
@@ -185,6 +186,7 @@
         { data: 'nama' },
         { data: 'jenis_berkas' },
         { data: 'created_at' },
+        { data: 'status', searchable: false, orderable: false },
         { data: 'action', searchable: false, orderable: false }
       ]
      })

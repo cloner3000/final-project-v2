@@ -207,8 +207,16 @@ class KartuKeluargaController extends Controller
                                     $query->whereBetween('created_at', [$request->tanggal_dari, $request->tanggal_sampai]);
                                 }
                             })
-                            ->editColumn('created_at', function ($user) {
-                                return $user->created_at ? with(new Carbon($user->created_at))->format('Y/m/d') : '';
+                            ->editColumn('created_at', function ($query) {
+                                return $query->created_at ? with(new Carbon($query->created_at))->format('Y/m/d') : '';
+                            })
+                            ->editColumn('status', function ($query) {
+                                if ($query->status == 0)
+                                    return 'Belum Diproses';
+                                else if ($query->status == 1)
+                                    return 'On Progress';
+                                else
+                                    return 'Telah Diproses';
                             })
                             ->addColumn('action', function($kk) {
                                 return '

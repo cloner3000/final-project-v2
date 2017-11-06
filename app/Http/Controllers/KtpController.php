@@ -266,8 +266,16 @@ class KtpController extends Controller
                         $query->whereBetween('tanggal_lahir', [$request->tanggal_lahir_dari, $request->tanggal_lahir_sampai]);
                     }
                 })
-                ->editColumn('created_at', function ($user) {
-                    return $user->created_at ? with(new Carbon($user->created_at))->format('Y/m/d') : '';
+                ->editColumn('created_at', function ($query) {
+                    return $query->created_at ? with(new Carbon($query->created_at))->format('Y/m/d') : '';
+                })
+                ->editColumn('status', function ($query) {
+                    if ($query->status == 0)
+                        return 'Belum Diproses';
+                    else if ($query->status == 1)
+                        return 'On Progress';
+                    else
+                        return 'Telah Diproses';
                 })
                 ->addColumn('action', function($ktp) {
                     return '

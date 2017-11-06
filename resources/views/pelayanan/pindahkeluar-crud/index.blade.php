@@ -183,6 +183,7 @@
                 <th>NIK</th>
                 <th>Nama</th>
                 <th>Dibuat Tgl</th>
+                <th>Status</th>
                 <th>Action</th>
               </thead>
               <!-- Inject by AJAX -->
@@ -249,6 +250,7 @@
         { data: 'nik' },
         { data: 'nama' },
         { data: 'created_at' },
+        { data: 'status', searchable: false, orderable: false },
         { data: 'action', searchable: false, orderable: false }
       ]
      })
